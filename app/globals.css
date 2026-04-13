@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #1E2A38;
+  --color-gold: #C9A646;
+  --color-dark: #111827;
+  --font-heading: var(--font-heebo);
+  --font-body: var(--font-assistant);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-assistant), sans-serif;
+  color: #111111;
+  background: #ffffff;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heebo), sans-serif;
+}
