@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const navLinks = [
@@ -30,12 +31,16 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo — appears on right in RTL flex-row */}
-        <Link
-          href="/"
-          className="text-gold font-bold text-base leading-tight shrink-0"
-        >
-          מרכז הבוררות והגישור | אילת
+        {/* Logo */}
+        <Link href="/" className="shrink-0">
+          <Image
+            src="/Logo.jpeg"
+            alt="המרכז ליישוב סכסוכים"
+            width={120}
+            height={90}
+            className="h-12 w-auto object-contain"
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}
