@@ -16,6 +16,7 @@ interface EditModeContextType {
   registerValueUpdater: (key: string, setter: (v: string) => void) => void;
   unregisterValueUpdater: (key: string) => void;
   notifyValuesSaved: (updates: Record<string, string>) => void;
+  contentMap: Record<string, string>;
 }
 
 const EditModeContext = createContext<EditModeContextType>({
@@ -24,10 +25,18 @@ const EditModeContext = createContext<EditModeContextType>({
   registerValueUpdater: () => {},
   unregisterValueUpdater: () => {},
   notifyValuesSaved: () => {},
+  contentMap: {},
 });
 
-export function EditModeProvider({ children }: { children: ReactNode }) {
+export function EditModeProvider({
+  children,
+  initialContent,
+}: {
+  children: ReactNode;
+  initialContent: Record<string, string>;
+}) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const [contentMap, setContentMap] = useState<Record<string, string>>(initialContent);
   const valueUpdatersRef = useRef<Record<string, (v: string) => void>>({});
 
   const registerValueUpdater = useCallback(
@@ -42,6 +51,7 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const notifyValuesSaved = useCallback((updates: Record<string, string>) => {
+    setContentMap((prev) => ({ ...prev, ...updates }));
     Object.entries(updates).forEach(([key, value]) => {
       valueUpdatersRef.current[key]?.(value);
     });
@@ -76,6 +86,7 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
         registerValueUpdater,
         unregisterValueUpdater,
         notifyValuesSaved,
+        contentMap,
       }}
     >
       {children}

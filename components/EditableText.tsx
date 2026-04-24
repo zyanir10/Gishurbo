@@ -2,16 +2,19 @@
 
 import { useEditMode } from "./EditModeProvider";
 import { useState, useRef, useEffect } from "react";
-import contentData from "@/lib/content.json";
-
-const content = contentData as Record<string, string>;
 
 export default function EditableText({ contentKey }: { contentKey: string }) {
-  const { isEditMode, registerValueUpdater, unregisterValueUpdater } = useEditMode();
-  const [value, setValue] = useState(content[contentKey] ?? contentKey);
+  const { isEditMode, registerValueUpdater, unregisterValueUpdater, contentMap } = useEditMode();
+  const [value, setValue] = useState(() => contentMap[contentKey] ?? contentKey);
   const [isEditing, setIsEditing] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const spanRef = useRef<HTMLSpanElement>(null);
+
+  // Sync if contentMap changes (e.g. after KV load or save)
+  useEffect(() => {
+    const mapped = contentMap[contentKey];
+    if (mapped !== undefined) setValue(mapped);
+  }, [contentMap, contentKey]);
 
   // Register this component's setValue so saveAndExit can update it
   useEffect(() => {
