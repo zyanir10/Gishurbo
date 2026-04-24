@@ -27,46 +27,17 @@ const EditModeContext = createContext<EditModeContextType>({
   updateContentMap: () => {},
 });
 
-export function EditModeProvider({ children }: { children: ReactNode }) {
+export function EditModeProvider({
+  children,
+  initialContent,
+}: {
+  children: ReactNode;
+  initialContent?: Record<string, string>;
+}) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [contentMap, setContentMap] = useState<Record<string, string>>(defaults);
-
-  // Load content from Supabase on mount; seed from defaults if table is empty
-  useEffect(() => {
-    async function loadContent() {
-      const { data, error } = await supabase
-        .from("content")
-        .select("key, value");
-
-      if (error) {
-        console.error("[content] Supabase fetch failed:", error.message);
-        return;
-      }
-
-      if (data.length === 0) {
-        // Seed the table with bundled defaults
-        const rows = Object.entries(defaults).map(([key, value]) => ({
-          key,
-          value,
-        }));
-        const { error: seedError } = await supabase
-          .from("content")
-          .upsert(rows, { onConflict: "key" });
-        if (seedError) {
-          console.error("[content] Supabase seed failed:", seedError.message);
-        }
-        return; // defaults are already in state
-      }
-
-      const overrides: Record<string, string> = {};
-      data.forEach(({ key, value }: { key: string; value: string }) => {
-        overrides[key] = value;
-      });
-      setContentMap({ ...defaults, ...overrides });
-    }
-
-    loadContent();
-  }, []);
+  const [contentMap, setContentMap] = useState<Record<string, string>>(
+    initialContent ?? defaults
+  );
 
   const updateContentMap = useCallback((updates: Record<string, string>) => {
     // Update React state immediately for instant UI feedback

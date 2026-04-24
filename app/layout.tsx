@@ -5,6 +5,40 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { EditModeProvider } from "@/components/EditModeProvider";
 import EditModeToggle from "@/components/EditModeToggle";
+import { createClient } from "@supabase/supabase-js";
+import contentData from "@/lib/content.json";
+
+const defaults = contentData as Record<string, string>;
+
+async function fetchContentFromSupabase(): Promise<Record<string, string>> {
+  try {
+    const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/rest\/v1\/?$/, "");
+    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
+    if (!url || !key) {
+      console.log("[content] Supabase env vars missing, falling back to content.json");
+      return defaults;
+    }
+    const supabase = createClient(url, key);
+    const { data, error } = await supabase.from("content").select("key, value");
+    if (error) {
+      console.log("[content] Supabase fetch failed, falling back to content.json:", error.message);
+      return defaults;
+    }
+    if (!data || data.length === 0) {
+      console.log("[content] Supabase table empty, falling back to content.json");
+      return defaults;
+    }
+    const overrides: Record<string, string> = {};
+    data.forEach(({ key, value }: { key: string; value: string }) => {
+      overrides[key] = value;
+    });
+    console.log(`[content] Loaded ${data.length} keys from Supabase`);
+    return { ...defaults, ...overrides };
+  } catch (err) {
+    console.log("[content] Supabase error, falling back to content.json:", err);
+    return defaults;
+  }
+}
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -29,11 +63,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const initialContent = await fetchContentFromSupabase();
   return (
     <html
       lang="he"
@@ -41,7 +76,7 @@ export default function RootLayout({
       className={`${heebo.variable} ${assistant.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
-        <EditModeProvider>
+        <EditModeProvider initialContent={initialContent}>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
