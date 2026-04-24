@@ -15,56 +15,67 @@ const btnBase: React.CSSProperties = {
 };
 
 export default function EditModeToggle() {
-  const { isEditMode, toggleEditMode, notifyValuesSaved } = useEditMode();
+  const { isEditMode, toggleEditMode, contentMap, updateContentMap } =
+    useEditMode();
   const [saving, setSaving] = useState(false);
 
-  async function saveAndExit() {
+  function saveAndExit() {
     setSaving(true);
-
-    // Collect current innerText from every editable field in the DOM
     const elements = document.querySelectorAll("[data-content-key]");
     const updates: Record<string, string> = {};
     elements.forEach((el) => {
       const key = el.getAttribute("data-content-key")!;
       updates[key] = (el as HTMLElement).innerText;
     });
-
-    // Persist all values to content.json on disk
-    await Promise.all(
-      Object.entries(updates).map(([key, value]) =>
-        fetch("/api/content", {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ key, value }),
-        })
-      )
-    );
-
-    // Push new values into each EditableText's React state so they
-    // render the saved text after edit mode turns off
-    notifyValuesSaved(updates);
-
+    updateContentMap(updates);
     setSaving(false);
     toggleEditMode();
   }
 
+  function exportContent() {
+    const json = JSON.stringify(contentMap, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "content.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   if (!isEditMode) {
     return (
-      <button
-        onClick={toggleEditMode}
-        data-edit-ui="true"
+      <div
         style={{
-          ...btnBase,
           position: "fixed",
           bottom: "24px",
           right: "24px",
           zIndex: 200,
-          background: "#C9A646",
-          color: "#1E2A38",
+          display: "flex",
+          gap: "8px",
         }}
+        data-edit-ui="true"
       >
-        ✏️ עריכה
-      </button>
+        <button
+          onClick={exportContent}
+          data-edit-ui="true"
+          style={{
+            ...btnBase,
+            background: "#1E2A38",
+            color: "#C9A646",
+            border: "2px solid #C9A646",
+          }}
+        >
+          ייצוא תוכן
+        </button>
+        <button
+          onClick={toggleEditMode}
+          data-edit-ui="true"
+          style={{ ...btnBase, background: "#C9A646", color: "#1E2A38" }}
+        >
+          ✏️ עריכה
+        </button>
+      </div>
     );
   }
 

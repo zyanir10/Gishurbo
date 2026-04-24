@@ -5,7 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { EditModeProvider } from "@/components/EditModeProvider";
 import EditModeToggle from "@/components/EditModeToggle";
-import { getAllContent } from "@/lib/contentStore";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -30,12 +29,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialContent = await getAllContent();
   return (
     <html
       lang="he"
@@ -43,7 +41,7 @@ export default async function RootLayout({
       className={`${heebo.variable} ${assistant.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
-        <EditModeProvider initialContent={initialContent}>
+        <EditModeProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />

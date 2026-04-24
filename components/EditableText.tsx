@@ -4,41 +4,29 @@ import { useEditMode } from "./EditModeProvider";
 import { useState, useRef, useEffect } from "react";
 
 export default function EditableText({ contentKey }: { contentKey: string }) {
-  const { isEditMode, registerValueUpdater, unregisterValueUpdater, contentMap } = useEditMode();
-  const [value, setValue] = useState(() => contentMap[contentKey] ?? contentKey);
+  const { isEditMode, contentMap, updateContentMap } = useEditMode();
+  const contentValue = contentMap[contentKey];
+  const [value, setValue] = useState(() => contentValue ?? contentKey);
   const [isEditing, setIsEditing] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const spanRef = useRef<HTMLSpanElement>(null);
 
-  // Sync if contentMap changes (e.g. after KV load or save)
+  // Sync when this key's value changes in contentMap (e.g. on localStorage load)
   useEffect(() => {
-    const mapped = contentMap[contentKey];
-    if (mapped !== undefined) setValue(mapped);
-  }, [contentMap, contentKey]);
-
-  // Register this component's setValue so saveAndExit can update it
-  useEffect(() => {
-    registerValueUpdater(contentKey, setValue);
-    return () => unregisterValueUpdater(contentKey);
-  }, [contentKey, registerValueUpdater, unregisterValueUpdater]);
+    if (contentValue !== undefined) setValue(contentValue);
+  }, [contentValue]);
 
   if (!isEditMode) {
     return <>{value}</>;
   }
 
-  async function handleSave() {
+  function handleSave() {
     const newValue = spanRef.current?.innerText ?? value;
-    const res = await fetch("/api/content", {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ key: contentKey, value: newValue }),
-    });
-    if (res.ok) {
-      setValue(newValue);
-      setIsEditing(false);
-      setShowToast(true);
-      setTimeout(() => setShowToast(false), 2500);
-    }
+    setValue(newValue);
+    updateContentMap({ [contentKey]: newValue });
+    setIsEditing(false);
+    setShowToast(true);
+    setTimeout(() => setShowToast(false), 2500);
   }
 
   return (

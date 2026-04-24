@@ -5,58 +5,54 @@ import {
   useContext,
   useState,
   useEffect,
-  useRef,
   useCallback,
   ReactNode,
 } from "react";
+import contentData from "@/lib/content.json";
+
+const defaults = contentData as Record<string, string>;
+const STORAGE_KEY = "eilat-adr-content";
 
 interface EditModeContextType {
   isEditMode: boolean;
   toggleEditMode: () => void;
-  registerValueUpdater: (key: string, setter: (v: string) => void) => void;
-  unregisterValueUpdater: (key: string) => void;
-  notifyValuesSaved: (updates: Record<string, string>) => void;
   contentMap: Record<string, string>;
+  updateContentMap: (updates: Record<string, string>) => void;
 }
 
 const EditModeContext = createContext<EditModeContextType>({
   isEditMode: false,
   toggleEditMode: () => {},
-  registerValueUpdater: () => {},
-  unregisterValueUpdater: () => {},
-  notifyValuesSaved: () => {},
-  contentMap: {},
+  contentMap: defaults,
+  updateContentMap: () => {},
 });
 
-export function EditModeProvider({
-  children,
-  initialContent,
-}: {
-  children: ReactNode;
-  initialContent: Record<string, string>;
-}) {
+export function EditModeProvider({ children }: { children: ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [contentMap, setContentMap] = useState<Record<string, string>>(initialContent);
-  const valueUpdatersRef = useRef<Record<string, (v: string) => void>>({});
+  const [contentMap, setContentMap] = useState<Record<string, string>>(defaults);
 
-  const registerValueUpdater = useCallback(
-    (key: string, setter: (v: string) => void) => {
-      valueUpdatersRef.current[key] = setter;
-    },
-    []
-  );
-
-  const unregisterValueUpdater = useCallback((key: string) => {
-    delete valueUpdatersRef.current[key];
+  // Merge localStorage overrides after hydration
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        const overrides = JSON.parse(stored) as Record<string, string>;
+        setContentMap((prev) => ({ ...prev, ...overrides }));
+      }
+    } catch {}
   }, []);
 
-  const notifyValuesSaved = useCallback((updates: Record<string, string>) => {
-    setContentMap((prev) => ({ ...prev, ...updates }));
-    Object.entries(updates).forEach(([key, value]) => {
-      valueUpdatersRef.current[key]?.(value);
+  const updateContentMap = useCallback((updates: Record<string, string>) => {
+    setContentMap((prev) => {
+      const next = { ...prev, ...updates };
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+      } catch {}
+      return next;
     });
   }, []);
 
+  // Block clicks on links/buttons while in edit mode
   useEffect(() => {
     if (!isEditMode) return;
 
@@ -83,10 +79,8 @@ export function EditModeProvider({
       value={{
         isEditMode,
         toggleEditMode: () => setIsEditMode((v) => !v),
-        registerValueUpdater,
-        unregisterValueUpdater,
-        notifyValuesSaved,
         contentMap,
+        updateContentMap,
       }}
     >
       {children}
