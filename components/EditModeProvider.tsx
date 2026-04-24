@@ -9,9 +9,9 @@ import {
   ReactNode,
 } from "react";
 import contentData from "@/lib/content.json";
+import { supabase } from "@/lib/supabase";
 
 const defaults = contentData as Record<string, string>;
-const STORAGE_KEY = "eilat-adr-content";
 
 interface EditModeContextType {
   isEditMode: boolean;
@@ -31,25 +31,55 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
   const [contentMap, setContentMap] = useState<Record<string, string>>(defaults);
 
-  // Merge localStorage overrides after hydration
+  // Load content from Supabase on mount; seed from defaults if table is empty
   useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (stored) {
-        const overrides = JSON.parse(stored) as Record<string, string>;
-        setContentMap((prev) => ({ ...prev, ...overrides }));
+    async function loadContent() {
+      const { data, error } = await supabase
+        .from("content")
+        .select("key, value");
+
+      if (error) {
+        console.error("[content] Supabase fetch failed:", error.message);
+        return;
       }
-    } catch {}
+
+      if (data.length === 0) {
+        // Seed the table with bundled defaults
+        const rows = Object.entries(defaults).map(([key, value]) => ({
+          key,
+          value,
+        }));
+        const { error: seedError } = await supabase
+          .from("content")
+          .upsert(rows, { onConflict: "key" });
+        if (seedError) {
+          console.error("[content] Supabase seed failed:", seedError.message);
+        }
+        return; // defaults are already in state
+      }
+
+      const overrides: Record<string, string> = {};
+      data.forEach(({ key, value }: { key: string; value: string }) => {
+        overrides[key] = value;
+      });
+      setContentMap({ ...defaults, ...overrides });
+    }
+
+    loadContent();
   }, []);
 
   const updateContentMap = useCallback((updates: Record<string, string>) => {
-    setContentMap((prev) => {
-      const next = { ...prev, ...updates };
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-      } catch {}
-      return next;
-    });
+    // Update React state immediately for instant UI feedback
+    setContentMap((prev) => ({ ...prev, ...updates }));
+
+    // Persist to Supabase (fire and forget)
+    const rows = Object.entries(updates).map(([key, value]) => ({ key, value }));
+    supabase
+      .from("content")
+      .upsert(rows, { onConflict: "key" })
+      .then(({ error }) => {
+        if (error) console.error("[content] Supabase upsert failed:", error.message);
+      });
   }, []);
 
   // Block clicks on links/buttons while in edit mode
