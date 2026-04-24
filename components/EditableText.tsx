@@ -38,6 +38,8 @@ export default function EditableText({ contentKey }: { contentKey: string }) {
         ref={spanRef}
         contentEditable
         suppressContentEditableWarning
+        data-content-key={contentKey}
+        data-edit-ui="true"
         onFocus={() => setIsEditing(true)}
         onBlur={() => setTimeout(() => setIsEditing(false), 150)}
         style={{
@@ -59,6 +61,7 @@ export default function EditableText({ contentKey }: { contentKey: string }) {
             e.preventDefault();
             handleSave();
           }}
+          data-edit-ui="true"
           style={{
             position: "absolute",
             top: "calc(100% + 4px)",
