@@ -5,6 +5,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { EditModeProvider } from "@/components/EditModeProvider";
 import EditModeToggle from "@/components/EditModeToggle";
+import DebugContentSource from "@/components/DebugContentSource";
 import { createClient } from "@supabase/supabase-js";
 import contentData from "@/lib/content.json";
 
@@ -16,27 +17,27 @@ async function fetchContentFromSupabase(): Promise<Record<string, string>> {
     const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
     if (!url || !key) {
       console.log("[content] Supabase env vars missing, falling back to content.json");
-      return defaults;
+      return { ...defaults, __content_source: "content.json (no env vars)" };
     }
     const supabase = createClient(url, key);
     const { data, error } = await supabase.from("content").select("key, value");
     if (error) {
       console.log("[content] Supabase fetch failed, falling back to content.json:", error.message);
-      return defaults;
+      return { ...defaults, __content_source: `content.json (fetch error: ${error.message})` };
     }
     if (!data || data.length === 0) {
       console.log("[content] Supabase table empty, falling back to content.json");
-      return defaults;
+      return { ...defaults, __content_source: "content.json (table empty)" };
     }
     const overrides: Record<string, string> = {};
     data.forEach(({ key, value }: { key: string; value: string }) => {
       overrides[key] = value;
     });
     console.log(`[content] Loaded ${data.length} keys from Supabase`);
-    return { ...defaults, ...overrides };
+    return { ...defaults, ...overrides, __content_source: `supabase (${data.length} keys)` };
   } catch (err) {
     console.log("[content] Supabase error, falling back to content.json:", err);
-    return defaults;
+    return { ...defaults, __content_source: "content.json (error)" };
   }
 }
 
@@ -81,6 +82,7 @@ export default async function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <EditModeToggle />
+          <DebugContentSource />
 
           {/* WhatsApp floating button */}
           <a
