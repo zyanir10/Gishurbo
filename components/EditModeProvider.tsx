@@ -9,7 +9,6 @@ import {
   ReactNode,
 } from "react";
 import contentData from "@/lib/content.json";
-import { supabase } from "@/lib/supabase";
 
 const defaults = contentData as Record<string, string>;
 
@@ -27,30 +26,20 @@ const EditModeContext = createContext<EditModeContextType>({
   updateContentMap: () => {},
 });
 
-export function EditModeProvider({
-  children,
-  initialContent,
-}: {
-  children: ReactNode;
-  initialContent?: Record<string, string>;
-}) {
+export function EditModeProvider({ children }: { children: ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
-  const [contentMap, setContentMap] = useState<Record<string, string>>(
-    initialContent ?? defaults
-  );
+  const [contentMap, setContentMap] = useState<Record<string, string>>(defaults);
 
   const updateContentMap = useCallback((updates: Record<string, string>) => {
-    // Update React state immediately for instant UI feedback
     setContentMap((prev) => ({ ...prev, ...updates }));
 
-    // Persist to Supabase (fire and forget)
-    const rows = Object.entries(updates).map(([key, value]) => ({ key, value }));
-    supabase
-      .from("content")
-      .upsert(rows, { onConflict: "key" })
-      .then(({ error }) => {
-        if (error) console.error("[content] Supabase upsert failed:", error.message);
-      });
+    fetch("/api/content", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updates),
+    }).then((res) => {
+      if (!res.ok) res.json().then((e) => console.error("[content] Save failed:", e));
+    });
   }, []);
 
   // Block clicks on links/buttons while in edit mode

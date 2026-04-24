@@ -5,50 +5,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { EditModeProvider } from "@/components/EditModeProvider";
 import EditModeToggle from "@/components/EditModeToggle";
-import DebugContentSource from "@/components/DebugContentSource";
-import { createClient } from "@supabase/supabase-js";
-import contentData from "@/lib/content.json";
-
-const defaults = contentData as Record<string, string>;
-
-async function fetchContentFromSupabase(): Promise<Record<string, string>> {
-  try {
-    const url = (process.env.NEXT_PUBLIC_SUPABASE_URL ?? "").replace(/\/rest\/v1\/?$/, "");
-    const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
-    if (!url || !key) {
-      console.log("[content] Supabase env vars missing, falling back to content.json");
-      return { ...defaults, __content_source: "content.json (no env vars)" };
-    }
-    const supabase = createClient(url, key);
-    const { data, error } = await supabase.from("content").select("key, value");
-    if (error) {
-      console.log("[content] Supabase fetch failed, falling back to content.json:", error.message);
-      return { ...defaults, __content_source: `content.json (fetch error: ${error.message})` };
-    }
-    if (!data || data.length === 0) {
-      console.log("[content] Supabase table empty — seeding with defaults");
-      const rows = Object.entries(defaults).map(([key, value]) => ({ key, value }));
-      const { error: seedError } = await supabase
-        .from("content")
-        .upsert(rows, { onConflict: "key" });
-      if (seedError) {
-        console.log("[content] Seed failed (RLS?):", seedError.message);
-        return { ...defaults, __content_source: `content.json (seed failed: ${seedError.message})` };
-      }
-      console.log(`[content] Seeded ${rows.length} keys into Supabase`);
-      return { ...defaults, __content_source: `content.json (just seeded ${rows.length} keys — reload to confirm)` };
-    }
-    const overrides: Record<string, string> = {};
-    data.forEach(({ key, value }: { key: string; value: string }) => {
-      overrides[key] = value;
-    });
-    console.log(`[content] Loaded ${data.length} keys from Supabase`);
-    return { ...defaults, ...overrides, __content_source: `supabase (${data.length} keys)` };
-  } catch (err) {
-    console.log("[content] Supabase error, falling back to content.json:", err);
-    return { ...defaults, __content_source: "content.json (error)" };
-  }
-}
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -73,12 +29,11 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialContent = await fetchContentFromSupabase();
   return (
     <html
       lang="he"
@@ -86,12 +41,11 @@ export default async function RootLayout({
       className={`${heebo.variable} ${assistant.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
-        <EditModeProvider initialContent={initialContent}>
+        <EditModeProvider>
           <Navbar />
           <main className="flex-1">{children}</main>
           <Footer />
           <EditModeToggle />
-          <DebugContentSource />
 
           {/* WhatsApp floating button */}
           <a
