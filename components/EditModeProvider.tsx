@@ -68,33 +68,6 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
     loadContent();
   }, []);
 
-  // Subscribe to real-time changes so all open browsers stay in sync
-  useEffect(() => {
-    const channel = supabase
-      .channel("content-realtime")
-      .on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: "content" },
-        (payload) => {
-          if (
-            payload.eventType === "INSERT" ||
-            payload.eventType === "UPDATE"
-          ) {
-            const { key, value } = payload.new as {
-              key: string;
-              value: string;
-            };
-            setContentMap((prev) => ({ ...prev, [key]: value }));
-          }
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
-  }, []);
-
   const updateContentMap = useCallback((updates: Record<string, string>) => {
     // Update React state immediately for instant UI feedback
     setContentMap((prev) => ({ ...prev, ...updates }));
