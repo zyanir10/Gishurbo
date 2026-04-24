@@ -1,17 +1,23 @@
 "use client";
 
 import { useEditMode } from "./EditModeProvider";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import contentData from "@/lib/content.json";
 
 const content = contentData as Record<string, string>;
 
 export default function EditableText({ contentKey }: { contentKey: string }) {
-  const { isEditMode } = useEditMode();
+  const { isEditMode, registerValueUpdater, unregisterValueUpdater } = useEditMode();
   const [value, setValue] = useState(content[contentKey] ?? contentKey);
   const [isEditing, setIsEditing] = useState(false);
   const [showToast, setShowToast] = useState(false);
   const spanRef = useRef<HTMLSpanElement>(null);
+
+  // Register this component's setValue so saveAndExit can update it
+  useEffect(() => {
+    registerValueUpdater(contentKey, setValue);
+    return () => unregisterValueUpdater(contentKey);
+  }, [contentKey, registerValueUpdater, unregisterValueUpdater]);
 
   if (!isEditMode) {
     return <>{value}</>;
@@ -47,9 +53,7 @@ export default function EditableText({ contentKey }: { contentKey: string }) {
           borderRadius: "2px",
           paddingInline: "2px",
           cursor: "text",
-          boxShadow: isEditing
-            ? "0 0 0 2px #C9A646"
-            : undefined,
+          boxShadow: isEditing ? "0 0 0 2px #C9A646" : undefined,
         }}
         className="hover:ring-2 hover:ring-[#C9A646]/50 transition-shadow"
       >

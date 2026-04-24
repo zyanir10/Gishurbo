@@ -1,6 +1,6 @@
 {
   "home.hero.title": "פתרונות חכמים לסכסוכים",
-  "home.hero.subtitle": "מקצועיות, יעילות ודיסקרטיות – מחוץ לכותלי בית המשפט",
+  "home.hero.subtitle": "מקצועיות, kgreogkroיעילות ודיסקרטיות – מחוץ לכותלי בית המשפט",
   "home.hero.body": "במקום לנהל מלחמה – מנהלים פתרון. המרכז המוביל לבוררות וגישור בדרום ישראל.",
   "home.hero.cta1": "לקביעת פגישת ייעוץ",
   "home.hero.cta2": "למידע נוסף",
@@ -60,7 +60,6 @@
   "home.cta.title": "לא עוד סכסוך — פתרון.",
   "home.cta.subtitle": "צרו קשר עוד היום וקבלו ייעוץ ראשוני",
   "home.cta.button": "צרו קשר עכשיו",
-
   "about.header.title": "אודות המרכז",
   "about.header.subtitle": "מוסד מקצועי ועצמאי לייישוב סכסוכים",
   "about.center.title": "על המרכז",
@@ -87,7 +86,6 @@
   "about.founder.quote": "לא עוד עימות — אדריכלות קונפליקט חכמה ויעילה.",
   "about.cta.title": "רוצים להכיר אותנו טוב יותר?",
   "about.cta.button": "צרו קשר עכשיו",
-
   "services.header.title": "השירותים שלנו",
   "services.header.subtitle": "פתרונות מקצועיים לכל סוג של סכסוך",
   "services.mediation.title": "גישור",
@@ -120,7 +118,6 @@
   "services.cta.title": "מעוניינים לשמוע עוד?",
   "services.cta.subtitle": "צוות המרכז זמין לייעוץ ראשוני ללא התחייבות",
   "services.cta.button": "צרו קשר עכשיו",
-
   "process.header.title": "איך זה עובד?",
   "process.header.subtitle": "ארבעה שלבים פשוטים להגעה לפתרון",
   "process.0.title": "פנייה ראשונית",
@@ -150,7 +147,6 @@
   "process.cta.title": "מוכנים להתחיל?",
   "process.cta.subtitle": "דברו איתנו ונצא יחד לדרך",
   "process.cta.button": "צרו קשר עכשיו",
-
   "contact.header.title": "צרו קשר",
   "contact.header.subtitle": "נשמח לענות על כל שאלה ולסייע לכם",
   "contact.form.title": "שלחו לנו הודעה",
@@ -171,7 +167,6 @@
   "contact.hours.2.day": "שבת",
   "contact.hours.2.time": "סגור",
   "contact.whatsapp": "שלחו הודעה ב-WhatsApp",
-
   "lawyers.header.title": "לעורכי דין ומפנים",
   "lawyers.header.subtitle": "שלחו תיקים — הגדילו את הערך ללקוחותיכם",
   "lawyers.benefits.title": "למה לשתף פעולה איתנו?",
@@ -184,7 +179,6 @@
   "lawyers.benefits.2.desc": "ניהול תיקים, תיאום לוחות זמנים, ומסגרות דיסקרטיות לטיפול בסכסוכים מורכבים ורגישים.",
   "lawyers.form.title": "שלח פנייה",
   "lawyers.form.subtitle": "נחזור אליכם תוך 24 שעות",
-
   "join.header.title": "הצטרפו כמגשרים ובוררים",
   "join.header.subtitle": "גיוס מגשרים ובוררים — סטנדרט גבוה",
   "join.requirements.title": "תנאי קבלה ויתרונות",
@@ -211,7 +205,6 @@
   "join.req.3.3": "שותפות מוסדית",
   "join.form.title": "שלח בקשת הצטרפות",
   "join.form.subtitle": "נבחן את הפנייה ונחזור אליכם בהקדם האפשרי",
-
   "sectors.header.title": "למי מיועד המרכז?",
   "sectors.header.subtitle": "שירותי ADR מקצועיים לכל מגזר",
   "sectors.0.subtitle": "פתרונות אישיים ורגישים",
@@ -250,7 +243,6 @@
   "sectors.cta.title": "מצאתם את עצמכם כאן?",
   "sectors.cta.subtitle": "צרו קשר וקבלו ייעוץ ראשוני ללא התחייבות",
   "sectors.cta.button": "צרו קשר עכשיו",
-
   "footer.brand": "מרכז הבוררות והגישור | אילת",
   "footer.tagline": "דרך חכמה יותר לייישוב סכסוכים",
   "footer.nav.title": "ניווט מהיר",

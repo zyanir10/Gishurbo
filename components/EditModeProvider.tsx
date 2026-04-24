@@ -1,19 +1,51 @@
 "use client";
 
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  ReactNode,
+} from "react";
 
 interface EditModeContextType {
   isEditMode: boolean;
   toggleEditMode: () => void;
+  registerValueUpdater: (key: string, setter: (v: string) => void) => void;
+  unregisterValueUpdater: (key: string) => void;
+  notifyValuesSaved: (updates: Record<string, string>) => void;
 }
 
 const EditModeContext = createContext<EditModeContextType>({
   isEditMode: false,
   toggleEditMode: () => {},
+  registerValueUpdater: () => {},
+  unregisterValueUpdater: () => {},
+  notifyValuesSaved: () => {},
 });
 
 export function EditModeProvider({ children }: { children: ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
+  const valueUpdatersRef = useRef<Record<string, (v: string) => void>>({});
+
+  const registerValueUpdater = useCallback(
+    (key: string, setter: (v: string) => void) => {
+      valueUpdatersRef.current[key] = setter;
+    },
+    []
+  );
+
+  const unregisterValueUpdater = useCallback((key: string) => {
+    delete valueUpdatersRef.current[key];
+  }, []);
+
+  const notifyValuesSaved = useCallback((updates: Record<string, string>) => {
+    Object.entries(updates).forEach(([key, value]) => {
+      valueUpdatersRef.current[key]?.(value);
+    });
+  }, []);
 
   useEffect(() => {
     if (!isEditMode) return;
@@ -38,7 +70,13 @@ export function EditModeProvider({ children }: { children: ReactNode }) {
 
   return (
     <EditModeContext.Provider
-      value={{ isEditMode, toggleEditMode: () => setIsEditMode((v) => !v) }}
+      value={{
+        isEditMode,
+        toggleEditMode: () => setIsEditMode((v) => !v),
+        registerValueUpdater,
+        unregisterValueUpdater,
+        notifyValuesSaved,
+      }}
     >
       {children}
     </EditModeContext.Provider>

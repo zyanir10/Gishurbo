@@ -15,22 +15,35 @@ const btnBase: React.CSSProperties = {
 };
 
 export default function EditModeToggle() {
-  const { isEditMode, toggleEditMode } = useEditMode();
+  const { isEditMode, toggleEditMode, notifyValuesSaved } = useEditMode();
   const [saving, setSaving] = useState(false);
 
   async function saveAndExit() {
     setSaving(true);
+
+    // Collect current innerText from every editable field in the DOM
     const elements = document.querySelectorAll("[data-content-key]");
-    const saves = Array.from(elements).map((el) => {
+    const updates: Record<string, string> = {};
+    elements.forEach((el) => {
       const key = el.getAttribute("data-content-key")!;
-      const value = (el as HTMLElement).innerText;
-      return fetch("/api/content", {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ key, value }),
-      });
+      updates[key] = (el as HTMLElement).innerText;
     });
-    await Promise.all(saves);
+
+    // Persist all values to content.json on disk
+    await Promise.all(
+      Object.entries(updates).map(([key, value]) =>
+        fetch("/api/content", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ key, value }),
+        })
+      )
+    );
+
+    // Push new values into each EditableText's React state so they
+    // render the saved text after edit mode turns off
+    notifyValuesSaved(updates);
+
     setSaving(false);
     toggleEditMode();
   }
