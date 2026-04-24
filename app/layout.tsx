@@ -26,8 +26,17 @@ async function fetchContentFromSupabase(): Promise<Record<string, string>> {
       return { ...defaults, __content_source: `content.json (fetch error: ${error.message})` };
     }
     if (!data || data.length === 0) {
-      console.log("[content] Supabase table empty, falling back to content.json");
-      return { ...defaults, __content_source: "content.json (table empty)" };
+      console.log("[content] Supabase table empty — seeding with defaults");
+      const rows = Object.entries(defaults).map(([key, value]) => ({ key, value }));
+      const { error: seedError } = await supabase
+        .from("content")
+        .upsert(rows, { onConflict: "key" });
+      if (seedError) {
+        console.log("[content] Seed failed (RLS?):", seedError.message);
+        return { ...defaults, __content_source: `content.json (seed failed: ${seedError.message})` };
+      }
+      console.log(`[content] Seeded ${rows.length} keys into Supabase`);
+      return { ...defaults, __content_source: `content.json (just seeded ${rows.length} keys — reload to confirm)` };
     }
     const overrides: Record<string, string> = {};
     data.forEach(({ key, value }: { key: string; value: string }) => {
