@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import Button from "@/components/Button";
+import EditableText from "@/components/EditableText";
 
 export const metadata: Metadata = {
   title: "תהליך | מרכז הבוררות והגישור באילת",
@@ -8,52 +9,7 @@ export const metadata: Metadata = {
     "ארבעה שלבים פשוטים מהפנייה הראשונה ועד להסכם הסופי. כך עובד תהליך הגישור והבוררות במרכז.",
 };
 
-const steps = [
-  {
-    num: "01",
-    title: "פנייה ראשונית",
-    desc: "יצירת קשר עם המרכז, תיאור הסכסוך, וקביעת פגישת ייעוץ ראשונית עם מומחה מתאים.",
-    details: [
-      "מילוי טופס פנייה מקוון",
-      "שיחת טלפון ראשונית",
-      "קביעת פגישת ייעוץ",
-      "הצגת המקרה בקצרה",
-    ],
-  },
-  {
-    num: "02",
-    title: "התאמת מומחה",
-    desc: "בחירת מגשר או בורר המתאים לסוג הסכסוך, תחום המומחיות, ולצרכי שני הצדדים.",
-    details: [
-      "בחינת מאפייני הסכסוך",
-      "התאמת מומחה מהמאגר",
-      "הצגת המומחה לצדדים",
-      "אישור ההסכמה להמשיך",
-    ],
-  },
-  {
-    num: "03",
-    title: "ניהול ההליך",
-    desc: "תהליך מובנה, מקצועי ודיסקרטי — ניהול הדיונים, ליווי הצדדים, ובניית הסכמות.",
-    details: [
-      "פגישות גישור / דיוני בוררות",
-      "ליווי מקצועי לאורך כל ההליך",
-      "שמירה על חיסיון מוחלט",
-      "גמישות בלוח הזמנים",
-    ],
-  },
-  {
-    num: "04",
-    title: "הסכם ופתרון",
-    desc: "הגעה להסכמה מחייבת, חיסכון בזמן ובעלויות, וסיום ההליך בהצלחה לשני הצדדים.",
-    details: [
-      "גיבוש הסכם מפורט",
-      "חתימה על ההסכם",
-      "פסק בורר (בבוררות)",
-      "סגירת התיק",
-    ],
-  },
-];
+const stepNums = ["01", "02", "03", "04"];
 
 export default function ProcessPage() {
   return (
@@ -64,10 +20,10 @@ export default function ProcessPage() {
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-6" />
             <h1 className="text-5xl font-bold text-white mb-4">
-              איך זה עובד?
+              <EditableText contentKey="process.header.title" />
             </h1>
             <p className="text-white/55 text-xl">
-              ארבעה שלבים פשוטים להגעה לפתרון
+              <EditableText contentKey="process.header.subtitle" />
             </p>
           </FadeIn>
         </div>
@@ -77,29 +33,29 @@ export default function ProcessPage() {
       <section className="bg-white py-24">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="space-y-20">
-            {steps.map((step, i) => (
-              <FadeIn key={step.num} delay={i * 80}>
+            {stepNums.map((num, i) => (
+              <FadeIn key={num} delay={i * 80}>
                 <div className="grid md:grid-cols-[180px_1fr] gap-10 items-start">
                   {/* Step number */}
                   <div className="text-center md:text-right">
                     <div className="text-8xl font-bold text-gold/20 leading-none select-none">
-                      {step.num}
+                      {num}
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="border-r-4 border-gold pr-8">
                     <h2 className="text-2xl font-bold text-navy mb-4">
-                      {step.title}
+                      <EditableText contentKey={`process.${i}.title`} />
                     </h2>
                     <p className="text-gray-600 text-lg leading-relaxed mb-7">
-                      {step.desc}
+                      <EditableText contentKey={`process.${i}.desc`} />
                     </p>
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      {step.details.map((d, j) => (
+                      {[0, 1, 2, 3].map((j) => (
                         <li key={j} className="flex items-center gap-3 text-sm text-gray-500">
                           <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
-                          {d}
+                          <EditableText contentKey={`process.${i}.detail.${j}`} />
                         </li>
                       ))}
                     </ul>
@@ -107,7 +63,7 @@ export default function ProcessPage() {
                 </div>
 
                 {/* Connector */}
-                {i < steps.length - 1 && (
+                {i < stepNums.length - 1 && (
                   <div
                     className="hidden md:block w-px h-12 bg-gold/20 mt-6"
                     style={{ marginRight: "calc(180px / 2)" }}
@@ -126,11 +82,13 @@ export default function ProcessPage() {
           <FadeIn>
             <div className="w-16 h-px bg-navy/30 mx-auto mb-8" />
             <h2 className="text-3xl font-bold text-navy mb-4">
-              מוכנים להתחיל?
+              <EditableText contentKey="process.cta.title" />
             </h2>
-            <p className="text-navy/60 mb-8">דברו איתנו ונצא יחד לדרך</p>
+            <p className="text-navy/60 mb-8">
+              <EditableText contentKey="process.cta.subtitle" />
+            </p>
             <Button href="/contact" variant="dark">
-              צרו קשר עכשיו
+              <EditableText contentKey="process.cta.button" />
             </Button>
           </FadeIn>
         </div>

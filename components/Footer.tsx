@@ -1,4 +1,5 @@
 import Link from "next/link";
+import EditableText from "./EditableText";
 
 const quickLinks = [
   { href: "/about", label: "אודות" },
@@ -17,17 +18,17 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="text-gold font-bold text-xl mb-3">
-              מרכז הבוררות והגישור | אילת
+              <EditableText contentKey="footer.brand" />
             </div>
             <p className="text-white/50 text-sm leading-relaxed">
-              דרך חכמה יותר לייישוב סכסוכים
+              <EditableText contentKey="footer.tagline" />
             </p>
           </div>
 
           {/* Quick links */}
           <div>
             <h3 className="text-gold font-semibold mb-5 text-xs uppercase tracking-widest">
-              ניווט מהיר
+              <EditableText contentKey="footer.nav.title" />
             </h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -46,19 +47,19 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-gold font-semibold mb-5 text-xs uppercase tracking-widest">
-              פרטי קשר
+              <EditableText contentKey="footer.contact.title" />
             </h3>
             <ul className="space-y-3 text-white/50 text-sm">
-              <li>📍 אילת, ישראל</li>
-              <li>📞 טלפון: יתעדכן בקרוב</li>
-              <li>✉️ מייל: יתעדכן בקרוב</li>
-              <li>💬 WhatsApp: זמין</li>
+              <li><EditableText contentKey="footer.contact.address" /></li>
+              <li><EditableText contentKey="footer.contact.phone" /></li>
+              <li><EditableText contentKey="footer.contact.email" /></li>
+              <li><EditableText contentKey="footer.contact.whatsapp" /></li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/10 text-center text-white/30 text-sm">
-          © 2026 מרכז הבוררות והגישור באילת. כל הזכויות שמורות.
+          <EditableText contentKey="footer.copyright" />
         </div>
       </div>
     </footer>

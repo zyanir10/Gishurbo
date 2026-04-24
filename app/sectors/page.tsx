@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
-import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
+import EditableText from "@/components/EditableText";
 
 export const metadata: Metadata = {
   title: "קהלי יעד | מרכז הבוררות והגישור באילת",
@@ -9,64 +9,8 @@ export const metadata: Metadata = {
     "המרכז מציע פתרונות ADR לאנשים פרטיים, עסקים, עורכי דין וגופים ציבוריים.",
 };
 
-const sectors = [
-  {
-    icon: "👨‍👩‍👧",
-    title: "משפחות ופרטים",
-    subtitle: "פתרונות אישיים ורגישים",
-    desc: "עימותים במשפחה הם מהסכסוכים הרגישים ביותר. המרכז מציע גישה אנושית, מכבדת ומקצועית לכל סוגי הסכסוכים הפרטיים.",
-    services: [
-      "גירושין וסדרי ראייה",
-      "סכסוכי ירושה וצוואה",
-      'מחלוקות נדל"ן ודיירים',
-      "תביעות אזרחיות בין-אישיות",
-      "סכסוכי שכנים",
-    ],
-    bg: "bg-white",
-  },
-  {
-    icon: "🏢",
-    title: "עסקים וחברות",
-    subtitle: "פתרונות עסקיים מהירים",
-    desc: "סכסוכים עסקיים עלולים לפגוע בעסק, במוניטין ובמערכות יחסים עסקיות. אנו מציעים פתרונות מהירים ודיסקרטיים.",
-    services: [
-      "סכסוכי חוזים ועסקאות",
-      "מחלוקות בין שותפים",
-      "תביעות ביטוח",
-      "סכסוכי ספקים ולקוחות",
-      "מחלוקות כספיות",
-    ],
-    bg: "bg-gray-50",
-  },
-  {
-    icon: "⚖️",
-    title: "עורכי דין ומשרדי דין",
-    subtitle: "שיתוף פעולה מקצועי",
-    desc: "עורכי דין ומשרדי עורכי דין יכולים להפנות תיקים לטיפול במסגרת ADR, ולהגדיל את הערך שהם מעניקים ללקוחותיהם.",
-    services: [
-      "הפניית תיקים מתאימים",
-      "שיתוף פעולה בגישור משותף",
-      "ייצוג לקוחות בהליכי ADR",
-      "ייעוץ מקצועי לקולגות",
-      "הסכמי שיתוף פעולה",
-    ],
-    bg: "bg-white",
-  },
-  {
-    icon: "🏛️",
-    title: "גופים ציבוריים ורשויות",
-    subtitle: "שירות לקהל ולמוסדות",
-    desc: "גופים ציבוריים, עיריות ומוסדות חינוך ורווחה נתקלים בסכסוכים רבים. המרכז מציע מסגרת מוסדית מובנית ומקצועית.",
-    services: [
-      "עיריית אילת ורשויות מקומיות",
-      "שירותי רווחה ורשויות סוציאליות",
-      "מוסדות חינוך וגני ילדים",
-      "גופי בריאות וסיעוד",
-      "מוסדות ציבוריים ועמותות",
-    ],
-    bg: "bg-gray-50",
-  },
-];
+const sectorIcons = ["👨‍👩‍👧", "🏢", "⚖️", "🏛️"];
+const sectorBgs = ["bg-white", "bg-gray-50", "bg-white", "bg-gray-50"];
 
 export default function SectorsPage() {
   return (
@@ -77,18 +21,18 @@ export default function SectorsPage() {
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-6" />
             <h1 className="text-5xl font-bold text-white mb-4">
-              למי מיועד המרכז?
+              <EditableText contentKey="sectors.header.title" />
             </h1>
             <p className="text-white/55 text-xl">
-              שירותי ADR מקצועיים לכל מגזר
+              <EditableText contentKey="sectors.header.subtitle" />
             </p>
           </FadeIn>
         </div>
       </section>
 
       {/* Sectors */}
-      {sectors.map((sector, i) => (
-        <section key={sector.title} className={`${sector.bg} py-24`}>
+      {sectorIcons.map((icon, i) => (
+        <section key={i} className={`${sectorBgs[i]} py-24`}>
           <div className="max-w-[1200px] mx-auto px-6">
             <FadeIn delay={i % 2 === 0 ? 0 : 80}>
               <div
@@ -98,17 +42,17 @@ export default function SectorsPage() {
               >
                 <div className={i % 2 === 1 ? "md:[direction:rtl]" : ""}>
                   <div className="text-5xl mb-6" aria-hidden="true">
-                    {sector.icon}
+                    {icon}
                   </div>
                   <div className="w-12 h-px bg-gold mb-4" />
                   <p className="text-gold text-sm font-semibold uppercase tracking-wider mb-2">
-                    {sector.subtitle}
+                    <EditableText contentKey={`sectors.${i}.subtitle`} />
                   </p>
                   <h2 className="text-3xl font-bold text-navy mb-5">
-                    {sector.title}
+                    <EditableText contentKey={`sectors.${i}.title`} />
                   </h2>
                   <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                    {sector.desc}
+                    <EditableText contentKey={`sectors.${i}.desc`} />
                   </p>
                   <Button href="/contact" variant="primary">
                     לפרטים נוספים
@@ -117,13 +61,13 @@ export default function SectorsPage() {
                 <div className={i % 2 === 1 ? "md:[direction:rtl]" : ""}>
                   <div className="bg-navy rounded-2xl p-8">
                     <h3 className="text-gold font-semibold mb-5 text-sm uppercase tracking-wider">
-                      תחומי טיפול
+                      <EditableText contentKey="sectors.services.label" />
                     </h3>
                     <ul className="space-y-4">
-                      {sector.services.map((s, j) => (
+                      {[0, 1, 2, 3, 4].map((j) => (
                         <li key={j} className="flex items-center gap-3 text-white/70 text-sm">
                           <span className="w-1.5 h-1.5 rounded-full bg-gold shrink-0" />
-                          {s}
+                          <EditableText contentKey={`sectors.${i}.services.${j}`} />
                         </li>
                       ))}
                     </ul>
@@ -140,13 +84,13 @@ export default function SectorsPage() {
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <FadeIn>
             <h2 className="text-3xl font-bold text-navy mb-4">
-              מצאתם את עצמכם כאן?
+              <EditableText contentKey="sectors.cta.title" />
             </h2>
             <p className="text-navy/60 mb-8">
-              צרו קשר וקבלו ייעוץ ראשוני ללא התחייבות
+              <EditableText contentKey="sectors.cta.subtitle" />
             </p>
             <Button href="/contact" variant="dark">
-              צרו קשר עכשיו
+              <EditableText contentKey="sectors.cta.button" />
             </Button>
           </FadeIn>
         </div>

@@ -30,15 +30,15 @@ export default function Navbar() {
         scrolled ? "shadow-lg shadow-black/30" : ""
       }`}
     >
-      <div className="max-w-[1200px] mx-auto px-6 h-16 flex items-center justify-between">
+      <div className="max-w-[1200px] mx-auto px-6 h-24 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
-            src="/Logo.jpeg"
+            src="/Logo.png"
             alt="המרכז ליישוב סכסוכים"
             width={120}
             height={90}
-            className="h-12 w-auto object-contain"
+            className="h-20 w-auto object-contain"
             priority
           />
         </Link>

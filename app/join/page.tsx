@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import JoinForm from "./JoinForm";
+import EditableText from "@/components/EditableText";
 
 export const metadata: Metadata = {
   title: "הצטרפות | מרכז הבוררות והגישור באילת",
@@ -9,48 +10,7 @@ export const metadata: Metadata = {
     "הצטרפו כמגשרים ובוררים למרכז הבוררות והגישור באילת. סטנדרט גבוה, הכשרה מתמשכת ותמריצים.",
 };
 
-const requirements = [
-  {
-    icon: "🎓",
-    title: "קריטריוני קבלה",
-    items: [
-      "הסמכה מוכרת בגישור / בוררות",
-      "ניסיון מינימלי של 5 שנים",
-      "המלצות מקצועיות",
-      "עמידה בקוד אתי",
-    ],
-  },
-  {
-    icon: "🌐",
-    title: "מאגר רב-תחומי",
-    items: [
-      "עורכי דין",
-      "פסיכולוגים ועובדים סוציאליים",
-      'אנשי עסקים ורו"ח',
-      "מומחי נדל\"ן ועבודה",
-    ],
-  },
-  {
-    icon: "📚",
-    title: "הכשרה מתמשכת",
-    items: [
-      "תוכנית הכשרה פנימית",
-      "עדכון מקצועי שנתי",
-      "פיקוח מקצועי",
-      "כנסים והשתלמויות",
-    ],
-  },
-  {
-    icon: "💼",
-    title: "תמריצים",
-    items: [
-      "עמלות תחרותיות",
-      "חשיפה ללקוחות מגוונים",
-      "תמיכה שיווקית",
-      "שותפות מוסדית",
-    ],
-  },
-];
+const reqIcons = ["🎓", "🌐", "📚", "💼"];
 
 export default function JoinPage() {
   return (
@@ -61,10 +21,10 @@ export default function JoinPage() {
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-6" />
             <h1 className="text-5xl font-bold text-white mb-4">
-              הצטרפו כמגשרים ובוררים
+              <EditableText contentKey="join.header.title" />
             </h1>
             <p className="text-white/55 text-xl">
-              גיוס מגשרים ובוררים — סטנדרט גבוה
+              <EditableText contentKey="join.header.subtitle" />
             </p>
           </FadeIn>
         </div>
@@ -76,27 +36,28 @@ export default function JoinPage() {
           <div className="text-center mb-14">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-navy mb-4">
-              תנאי קבלה ויתרונות
+              <EditableText contentKey="join.requirements.title" />
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              אנו מחפשים מקצוענים בעלי ניסיון ומחויבות לסטנדרטים גבוהים
-              של מקצועיות ואתיקה.
+              <EditableText contentKey="join.requirements.subtitle" />
             </p>
           </div>
         </FadeIn>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {requirements.map(({ icon, title, items }, i) => (
-            <FadeIn key={title} delay={i * 80}>
+          {reqIcons.map((icon, i) => (
+            <FadeIn key={i} delay={i * 80}>
               <div className="border border-gray-100 rounded-xl p-7 hover:border-gold hover:shadow-md transition-all duration-300 h-full border-t-4 border-t-gold">
                 <div className="text-3xl mb-4" aria-hidden="true">
                   {icon}
                 </div>
-                <h3 className="font-bold text-navy text-lg mb-4">{title}</h3>
+                <h3 className="font-bold text-navy text-lg mb-4">
+                  <EditableText contentKey={`join.req.${i}.title`} />
+                </h3>
                 <ul className="space-y-2">
-                  {items.map((item, j) => (
+                  {[0, 1, 2, 3].map((j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-gray-500">
                       <span className="text-gold mt-0.5 shrink-0 text-xs">◆</span>
-                      {item}
+                      <EditableText contentKey={`join.req.${i}.${j}`} />
                     </li>
                   ))}
                 </ul>
@@ -113,10 +74,10 @@ export default function JoinPage() {
             <div className="text-center mb-10">
               <div className="w-16 h-px bg-gold mx-auto mb-6" />
               <h2 className="text-3xl font-bold text-navy mb-3">
-                שלח בקשת הצטרפות
+                <EditableText contentKey="join.form.title" />
               </h2>
               <p className="text-gray-500">
-                נבחן את הפנייה ונחזור אליכם בהקדם האפשרי
+                <EditableText contentKey="join.form.subtitle" />
               </p>
             </div>
           </FadeIn>
