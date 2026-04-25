@@ -61,7 +61,7 @@ export default function EditModeToggle() {
           data-edit-ui="true"
           style={{
             ...btnBase,
-            background: "#1E2A38",
+            background: "#223558",
             color: "#C9A646",
             border: "2px solid #C9A646",
           }}
@@ -71,7 +71,7 @@ export default function EditModeToggle() {
         <button
           onClick={toggleEditMode}
           data-edit-ui="true"
-          style={{ ...btnBase, background: "#C9A646", color: "#1E2A38" }}
+          style={{ ...btnBase, background: "#C9A646", color: "#223558" }}
         >
           ✏️ עריכה
         </button>

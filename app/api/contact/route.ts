@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
 
     // Build a clean Hebrew email body
     const lines: string[] = [
-      `<h2 style="color:#2C3E50;font-family:Arial,sans-serif;">פנייה חדשה — מרכז הבוררות והגישור באילת</h2>`,
+      `<h2 style="color:#223558;font-family:Arial,sans-serif;">פנייה חדשה — מרכז הבוררות והגישור באילת</h2>`,
       `<table dir="rtl" style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:14px;">`,
     ];
 
@@ -20,7 +20,7 @@ export async function POST(req: NextRequest) {
       if (!value) return;
       lines.push(
         `<tr>
-          <td style="padding:8px 12px;background:#f9fafb;font-weight:bold;color:#2C3E50;border:1px solid #e5e7eb;width:160px;">${label}</td>
+          <td style="padding:8px 12px;background:#f9fafb;font-weight:bold;color:#223558;border:1px solid #e5e7eb;width:160px;">${label}</td>
           <td style="padding:8px 12px;border:1px solid #e5e7eb;color:#374151;">${value}</td>
         </tr>`
       );
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
 
     if (message) {
       lines.push(
-        `<h3 style="color:#2C3E50;font-family:Arial,sans-serif;margin-top:20px;">הודעה:</h3>`,
+        `<h3 style="color:#223558;font-family:Arial,sans-serif;margin-top:20px;">הודעה:</h3>`,
         `<div dir="rtl" style="background:#f9fafb;padding:16px;border-right:4px solid #C9A646;font-family:Arial,sans-serif;font-size:14px;color:#374151;line-height:1.6;">${message.replace(/\n/g, "<br/>")}</div>`
       );
     }
