@@ -5,7 +5,7 @@ const quickLinks = [
   { href: "/about", label: "אודות" },
   { href: "/services", label: "שירותים" },
   { href: "/process", label: "תהליך" },
-  { href: "/for-lawyers", label: "לעורכי דין" },
+  { href: "/for-lawyers", label: "להפניות" },
   { href: "/join", label: "הצטרפות" },
   { href: "/contact", label: "צור קשר" },
 ];

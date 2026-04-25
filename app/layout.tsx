@@ -49,7 +49,7 @@ export default function RootLayout({
 
           {/* WhatsApp floating button */}
           <a
-            href="https://wa.me/972000000000"
+            href="https://wa.me/972509430767"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="WhatsApp"
