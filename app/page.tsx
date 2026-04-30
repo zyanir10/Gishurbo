@@ -5,7 +5,7 @@ import Button from "@/components/Button";
 import EditableText from "@/components/EditableText";
 import FaqAccordion from "@/components/FaqAccordion";
 import HomeContactForm from "@/components/HomeContactForm";
-import HeroSection from "@/components/HeroSection";
+import PuzzleAnimation from "@/components/PuzzleAnimation";
 
 const trustIcons = ["⚖️", "🔒", "⚡", "🏛️"];
 const painIcons = ["⏰", "💸", "💔", "❓"];
@@ -18,8 +18,46 @@ const audienceIcons = ["👨‍👩‍👧", "🏢", "⚖️", "🏛️", "🤝"
 export default function HomePage() {
   return (
     <>
-      {/* ─── Hero + Puzzle Animation ─── */}
-      <HeroSection />
+      {/* ─── Hero ─── */}
+      <section className="min-h-screen bg-navy flex items-center relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute top-0 right-1/4 w-px h-full bg-gold/10" />
+          <div className="absolute top-0 right-3/4 w-px h-full bg-gold/5" />
+          <div className="absolute top-1/3 left-0 right-0 h-px bg-gold/5" />
+        </div>
+        <div className="max-w-[1200px] mx-auto px-6 pt-36 pb-20 w-full">
+          <FadeIn>
+            <div className="max-w-2xl">
+              <div className="w-16 h-px bg-gold mb-8" />
+              <h1 className="text-5xl md:text-7xl font-bold text-gold leading-tight mb-6">
+                <EditableText contentKey="home.hero.title" />
+              </h1>
+              <p className="text-xl text-white/80 mb-4">
+                <EditableText contentKey="home.hero.subtitle" />
+              </p>
+              <p className="text-white/55 text-lg mb-10 leading-relaxed max-w-xl">
+                <EditableText contentKey="home.hero.body" />
+              </p>
+              <div className="flex flex-wrap gap-4">
+                <Button href="/contact" variant="primary">
+                  <EditableText contentKey="home.hero.cta1" />
+                </Button>
+                <Button href="/about" variant="outline">
+                  <EditableText contentKey="home.hero.cta2" />
+                </Button>
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+        <div
+          className="absolute bottom-0 left-0 right-0 h-px"
+          style={{ background: "linear-gradient(to left, transparent, #C9A646, transparent)" }}
+          aria-hidden="true"
+        />
+      </section>
+
+      {/* ─── Puzzle Animation ─── */}
+      <PuzzleAnimation />
 
       {/* ─── Trust Bar ─── */}
       <div className="bg-white border-b border-gray-100 py-10">
