@@ -5,7 +5,6 @@ import Button from "@/components/Button";
 import EditableText from "@/components/EditableText";
 import FaqAccordion from "@/components/FaqAccordion";
 import HomeContactForm from "@/components/HomeContactForm";
-import PuzzleAnimation from "@/components/PuzzleAnimation";
 
 const trustIcons = ["⚖️", "🔒", "⚡", "🏛️"];
 const painIcons = ["⏰", "💸", "💔", "❓"];
@@ -57,9 +56,6 @@ export default function HomePage() {
           aria-hidden="true"
         />
       </section>
-
-      {/* ─── Puzzle Animation ─── */}
-      <PuzzleAnimation />
 
       {/* ─── Trust Bar ─── */}
       <div className="bg-white border-b border-gray-100 py-10">
