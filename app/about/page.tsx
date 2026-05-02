@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
@@ -119,12 +120,15 @@ export default function AboutPage() {
               </blockquote>
             </div>
 
-            {/* Photo placeholder */}
-            <div className="bg-gray-100 rounded-2xl aspect-[4/5] flex flex-col items-center justify-center border border-gray-200">
-              <div className="text-7xl mb-4" aria-hidden="true">
-                👤
-              </div>
-              <p className="text-gray-400 text-sm">תמונה בקרוב</p>
+            {/* Founder photo */}
+            <div className="rounded-2xl overflow-hidden aspect-[4/5] relative shadow-lg">
+              <Image
+                src="/michal.png"
+                alt="עו״ד מיכל זמרן — מייסדת המרכז"
+                fill
+                className="object-cover object-top"
+                priority
+              />
             </div>
           </div>
         </FadeIn>
