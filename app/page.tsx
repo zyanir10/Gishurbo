@@ -50,7 +50,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl hidden md:block">
-                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[440px] object-cover" quality={100} priority />
+                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[440px] object-cover" unoptimized priority />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
               </div>
             </div>
