@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 interface ButtonProps {
   href?: string;
   variant?: "primary" | "outline" | "dark";
+  size?: "md" | "lg";
   children: ReactNode;
   className?: string;
   type?: "button" | "submit" | "reset";
@@ -14,14 +15,19 @@ interface ButtonProps {
 export default function Button({
   href,
   variant = "primary",
+  size = "md",
   children,
   className = "",
   type = "button",
   onClick,
   disabled,
 }: ButtonProps) {
-  const base =
-    "inline-flex items-center justify-center px-6 py-3 font-semibold text-sm transition-all duration-200 rounded";
+  const base = "inline-flex items-center justify-center font-semibold transition-all duration-200 rounded";
+
+  const sizes = {
+    md: "px-6 py-3 text-sm",
+    lg: "px-8 py-5 text-lg rounded-xl",
+  };
 
   const variants = {
     primary: "bg-gold text-navy hover:bg-gold/90",
@@ -30,7 +36,7 @@ export default function Button({
     dark: "bg-navy text-white hover:bg-navy/90",
   };
 
-  const classes = `${base} ${variants[variant]} ${className}`;
+  const classes = `${base} ${sizes[size]} ${variants[variant]} ${className}`;
 
   if (href) {
     return (
