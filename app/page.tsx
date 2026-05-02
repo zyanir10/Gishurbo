@@ -163,25 +163,37 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {serviceIcons.map((icon, i) => (
             <FadeIn key={i} delay={i * 100}>
-              <div className="bg-white rounded-xl p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative flex flex-col border-t-4 border-t-gold border border-gray-100">
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative flex flex-col border-t-4 border-t-gold border border-gray-100 overflow-hidden">
                 {i === 3 && (
-                  <span className="absolute top-4 left-4 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
+                  <span className="absolute top-4 left-4 z-10 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
                     <EditableText contentKey="home.services.3.badge" />
                   </span>
                 )}
-                <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
-                <h3 className="text-xl font-bold text-navy mb-3">
-                  <EditableText contentKey={`home.services.${i}.title`} />
-                </h3>
-                <p className="text-gray-500 text-sm leading-relaxed flex-1">
-                  <EditableText contentKey={`home.services.${i}.description`} />
-                </p>
-                <Link
-                  href="/contact"
-                  className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
-                >
-                  <EditableText contentKey={`home.services.${i}.cta`} />
-                </Link>
+                {i === 0 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/bridge-mediation.jpeg" alt="גישור" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                {i === 1 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/scales-arbitration.jpeg" alt="בוררות" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                <div className="p-8 flex flex-col flex-1">
+                  <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
+                  <h3 className="text-xl font-bold text-navy mb-3">
+                    <EditableText contentKey={`home.services.${i}.title`} />
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed flex-1">
+                    <EditableText contentKey={`home.services.${i}.description`} />
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
+                  >
+                    <EditableText contentKey={`home.services.${i}.cta`} />
+                  </Link>
+                </div>
               </div>
             </FadeIn>
           ))}
@@ -193,7 +205,7 @@ export default function HomePage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-2 md:grid-cols-4">
             {[0, 1, 2, 3].map((i) => (
-              <div key={i} className="text-center py-8">
+              <div key={i} className={`text-center py-8 px-4 ${i < 3 ? "border-l border-white/10" : ""}`}>
                 <div className="text-5xl font-bold text-gold mb-3">
                   <EditableText contentKey={`home.stats.${i}.number`} />
                 </div>
@@ -256,14 +268,19 @@ export default function HomePage() {
       <section className="bg-gray-50 py-24">
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn>
-            <div className="text-center mb-14">
-              <div className="w-16 h-px bg-gold mx-auto mb-6" />
-              <h2 className="text-4xl font-bold text-navy mb-3">
-                <EditableText contentKey="home.process.title" />
-              </h2>
-              <p className="text-gray-500">
-                <EditableText contentKey="home.process.subtitle" />
-              </p>
+            <div className="grid md:grid-cols-2 gap-16 items-center mb-14">
+              <div>
+                <div className="w-16 h-px bg-gold mb-6" />
+                <h2 className="text-4xl font-bold text-navy mb-3">
+                  <EditableText contentKey="home.process.title" />
+                </h2>
+                <p className="text-gray-500">
+                  <EditableText contentKey="home.process.subtitle" />
+                </p>
+              </div>
+              <div className="rounded-2xl overflow-hidden shadow-lg hidden md:block">
+                <Image src="/table-painting.png" alt="תהליך הגישור" width={600} height={260} className="w-full h-[260px] object-cover" />
+              </div>
             </div>
           </FadeIn>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
