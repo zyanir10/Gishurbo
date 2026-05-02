@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import LawyerContactForm from "./LawyerContactForm";
@@ -19,13 +20,20 @@ export default function ForLawyersPage() {
       <section className="bg-navy pt-32 pb-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn>
-            <div className="w-16 h-px bg-gold mb-6" />
-            <h1 className="text-5xl font-bold text-white mb-4">
-              <EditableText contentKey="lawyers.header.title" />
-            </h1>
-            <p className="text-white/55 text-xl">
-              <EditableText contentKey="lawyers.header.subtitle" />
-            </p>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="w-16 h-px bg-gold mb-6" />
+                <h1 className="text-5xl font-bold text-white mb-4">
+                  <EditableText contentKey="lawyers.header.title" />
+                </h1>
+                <p className="text-white/55 text-xl">
+                  <EditableText contentKey="lawyers.header.subtitle" />
+                </p>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-xl hidden md:block">
+                <Image src="/handshake-painting.png" alt="שיתוף פעולה מקצועי" width={600} height={260} className="w-full h-[260px] object-cover object-[50%_40%]" />
+              </div>
+            </div>
           </FadeIn>
         </div>
       </section>
