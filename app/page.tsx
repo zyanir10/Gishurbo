@@ -50,7 +50,7 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="relative rounded-2xl overflow-hidden shadow-2xl hidden md:block">
-                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[440px] object-cover" priority />
+                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[440px] object-cover" quality={100} priority />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
               </div>
             </div>
@@ -383,8 +383,8 @@ export default function HomePage() {
               <p className="text-navy/70 text-lg">
                 <EditableText contentKey="home.finalCta.cta" />
               </p>
-              <div className="rounded-xl overflow-hidden shadow-lg mt-6">
-                <Image src="/handshake-painting.png" alt="לחיצת ידיים — סיום מוצלח" width={600} height={220} className="w-full h-[220px] object-cover object-top" />
+              <div className="rounded-xl overflow-hidden shadow-lg mt-6 aspect-square">
+                <Image src="/handshake-painting.png" alt="לחיצת ידיים — סיום מוצלח" width={600} height={600} className="w-full h-full object-contain" />
               </div>
             </FadeIn>
             <FadeIn delay={150}>
