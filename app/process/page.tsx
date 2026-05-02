@@ -29,8 +29,8 @@ export default function ProcessPage() {
                   <EditableText contentKey="process.header.subtitle" />
                 </p>
               </div>
-              <div className="rounded-xl overflow-hidden shadow-xl hidden md:block">
-                <Image src="/table-painting.png" alt="תהליך הגישור" width={600} height={260} className="w-full h-[260px] object-cover object-[50%_65%]" />
+              <div className="rounded-xl overflow-hidden shadow-xl mt-8 md:mt-0">
+                <Image src="/table-painting.png" alt="תהליך הגישור" width={600} height={260} className="w-full h-[200px] md:h-[260px] object-cover object-[50%_65%]" />
               </div>
             </div>
           </FadeIn>

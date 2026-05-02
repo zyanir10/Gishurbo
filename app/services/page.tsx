@@ -42,8 +42,8 @@ export default function ServicesPage() {
                 <EditableText contentKey="services.mediation.subtitle" />
               </p>
             </div>
-            <div className="rounded-xl overflow-hidden shadow-md hidden md:block">
-              <Image src="/bridge-mediation.jpeg" alt="גישור — גשר בין הצדדים" width={600} height={240} className="w-full h-[240px] object-cover" />
+            <div className="rounded-xl overflow-hidden shadow-md mt-6 md:mt-0">
+              <Image src="/bridge-mediation.jpeg" alt="גישור — גשר בין הצדדים" width={600} height={240} className="w-full h-[200px] md:h-[240px] object-cover" />
             </div>
           </div>
         </FadeIn>
@@ -77,8 +77,8 @@ export default function ServicesPage() {
                   <EditableText contentKey="services.arbitration.subtitle" />
                 </p>
               </div>
-              <div className="rounded-xl overflow-hidden shadow-md hidden md:block">
-                <Image src="/scales-arbitration.jpeg" alt="בוררות — מאזניים" width={600} height={240} className="w-full h-[240px] object-cover" />
+              <div className="rounded-xl overflow-hidden shadow-md mt-6 md:mt-0">
+                <Image src="/scales-arbitration.jpeg" alt="בוררות — מאזניים" width={600} height={240} className="w-full h-[200px] md:h-[240px] object-cover" />
               </div>
             </div>
           </FadeIn>
@@ -130,8 +130,8 @@ export default function ServicesPage() {
                   ))}
                 </div>
               </div>
-              <div className="rounded-xl overflow-hidden shadow-md hidden md:block">
-                <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={400} className="w-full h-[400px] object-cover" />
+              <div className="rounded-xl overflow-hidden shadow-md mt-8 md:mt-0">
+                <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={400} className="w-full h-[240px] md:h-[400px] object-cover" />
               </div>
             </div>
           </div>

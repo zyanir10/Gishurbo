@@ -30,8 +30,8 @@ export default function ForLawyersPage() {
                   <EditableText contentKey="lawyers.header.subtitle" />
                 </p>
               </div>
-              <div className="rounded-xl overflow-hidden shadow-xl hidden md:block">
-                <Image src="/handshake-painting.png" alt="שיתוף פעולה מקצועי" width={600} height={260} className="w-full h-[260px] object-cover object-[50%_40%]" />
+              <div className="rounded-xl overflow-hidden shadow-xl mt-8 md:mt-0">
+                <Image src="/handshake-painting.png" alt="שיתוף פעולה מקצועי" width={600} height={260} className="w-full h-[200px] md:h-[260px] object-cover object-[50%_40%]" />
               </div>
             </div>
           </FadeIn>

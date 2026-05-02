@@ -49,8 +49,8 @@ export default function HomePage() {
                   </Button>
                 </div>
               </div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl hidden md:block">
-                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[440px] object-cover" unoptimized priority />
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl mt-8 md:mt-0">
+                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[280px] md:h-[440px] object-cover" unoptimized priority />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
               </div>
             </div>
@@ -288,8 +288,8 @@ export default function HomePage() {
                   <EditableText contentKey="home.process.subtitle" />
                 </p>
               </div>
-              <div className="rounded-2xl overflow-hidden shadow-lg hidden md:block">
-                <Image src="/table-painting.png" alt="תהליך הגישור" width={600} height={260} className="w-full h-[260px] object-cover" />
+              <div className="rounded-2xl overflow-hidden shadow-lg mt-8 md:mt-0">
+                <Image src="/table-painting.png" alt="תהליך הגישור" width={600} height={260} className="w-full h-[200px] md:h-[260px] object-cover" />
               </div>
             </div>
           </FadeIn>
