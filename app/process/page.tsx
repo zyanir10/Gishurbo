@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import Button from "@/components/Button";
 import EditableText from "@/components/EditableText";
@@ -18,13 +19,20 @@ export default function ProcessPage() {
       <section className="bg-navy pt-32 pb-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn>
-            <div className="w-16 h-px bg-gold mb-6" />
-            <h1 className="text-5xl font-bold text-white mb-4">
-              <EditableText contentKey="process.header.title" />
-            </h1>
-            <p className="text-white/55 text-xl">
-              <EditableText contentKey="process.header.subtitle" />
-            </p>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="w-16 h-px bg-gold mb-6" />
+                <h1 className="text-5xl font-bold text-white mb-4">
+                  <EditableText contentKey="process.header.title" />
+                </h1>
+                <p className="text-white/55 text-xl">
+                  <EditableText contentKey="process.header.subtitle" />
+                </p>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-xl hidden md:block">
+                <Image src="/table-painting.png" alt="תהליך הגישור" width={600} height={260} className="w-full h-[260px] object-cover" />
+              </div>
+            </div>
           </FadeIn>
         </div>
       </section>

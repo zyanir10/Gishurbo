@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
@@ -31,14 +32,19 @@ export default function ServicesPage() {
       {/* Mediation */}
       <SectionWrapper className="bg-white">
         <FadeIn>
-          <div className="mb-12">
-            <div className="w-12 h-px bg-gold mb-4" />
-            <h2 className="text-3xl font-bold text-navy mb-2">
-              <EditableText contentKey="services.mediation.title" />
-            </h2>
-            <p className="text-gray-500 text-lg">
-              <EditableText contentKey="services.mediation.subtitle" />
-            </p>
+          <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
+            <div className="rounded-xl overflow-hidden shadow-md">
+              <Image src="/bridge-mediation.jpeg" alt="גישור — גשר בין הצדדים" width={600} height={240} className="w-full h-[240px] object-cover" />
+            </div>
+            <div>
+              <div className="w-12 h-px bg-gold mb-4" />
+              <h2 className="text-3xl font-bold text-navy mb-2">
+                <EditableText contentKey="services.mediation.title" />
+              </h2>
+              <p className="text-gray-500 text-lg">
+                <EditableText contentKey="services.mediation.subtitle" />
+              </p>
+            </div>
           </div>
         </FadeIn>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -61,14 +67,19 @@ export default function ServicesPage() {
       <section className="bg-gray-50 py-24">
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn>
-            <div className="mb-12">
-              <div className="w-12 h-px bg-gold mb-4" />
-              <h2 className="text-3xl font-bold text-navy mb-2">
-                <EditableText contentKey="services.arbitration.title" />
-              </h2>
-              <p className="text-gray-500 text-lg">
-                <EditableText contentKey="services.arbitration.subtitle" />
-              </p>
+            <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
+              <div className="rounded-xl overflow-hidden shadow-md">
+                <Image src="/scales-arbitration.jpeg" alt="בוררות — מאזניים" width={600} height={240} className="w-full h-[240px] object-cover" />
+              </div>
+              <div>
+                <div className="w-12 h-px bg-gold mb-4" />
+                <h2 className="text-3xl font-bold text-navy mb-2">
+                  <EditableText contentKey="services.arbitration.title" />
+                </h2>
+                <p className="text-gray-500 text-lg">
+                  <EditableText contentKey="services.arbitration.subtitle" />
+                </p>
+              </div>
             </div>
           </FadeIn>
           <div className="grid md:grid-cols-2 gap-6">

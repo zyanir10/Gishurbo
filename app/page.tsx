@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
@@ -27,24 +28,30 @@ export default function HomePage() {
 
         <div className="max-w-[1200px] mx-auto px-6 pt-36 pb-20 w-full">
           <FadeIn>
-            <div className="max-w-2xl">
-              <div className="w-16 h-px bg-gold mb-8" />
-              <h1 className="text-5xl md:text-7xl font-bold text-gold leading-tight mb-6">
-                <EditableText contentKey="home.hero.title" />
-              </h1>
-              <p className="text-xl text-white/80 mb-4">
-                <EditableText contentKey="home.hero.subtitle" />
-              </p>
-              <p className="text-white/55 text-lg mb-10 leading-relaxed max-w-xl">
-                <EditableText contentKey="home.hero.body" />
-              </p>
-              <div className="flex flex-wrap gap-4">
-                <Button href="/contact" variant="primary">
-                  <EditableText contentKey="home.hero.cta1" />
-                </Button>
-                <Button href="/about" variant="outline">
-                  <EditableText contentKey="home.hero.cta2" />
-                </Button>
+            <div className="grid md:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="w-16 h-px bg-gold mb-8" />
+                <h1 className="text-5xl md:text-7xl font-bold text-gold leading-tight mb-6">
+                  <EditableText contentKey="home.hero.title" />
+                </h1>
+                <p className="text-xl text-white/80 mb-4">
+                  <EditableText contentKey="home.hero.subtitle" />
+                </p>
+                <p className="text-white/55 text-lg mb-10 leading-relaxed max-w-xl">
+                  <EditableText contentKey="home.hero.body" />
+                </p>
+                <div className="flex flex-wrap gap-4">
+                  <Button href="/contact" variant="primary">
+                    <EditableText contentKey="home.hero.cta1" />
+                  </Button>
+                  <Button href="/about" variant="outline">
+                    <EditableText contentKey="home.hero.cta2" />
+                  </Button>
+                </div>
+              </div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl hidden md:block">
+                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[440px] object-cover" priority />
+                <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
               </div>
             </div>
           </FadeIn>
@@ -359,6 +366,9 @@ export default function HomePage() {
               <p className="text-navy/70 text-lg">
                 <EditableText contentKey="home.finalCta.cta" />
               </p>
+              <div className="rounded-xl overflow-hidden shadow-lg mt-6">
+                <Image src="/handshake-painting.png" alt="לחיצת ידיים — סיום מוצלח" width={600} height={220} className="w-full h-[220px] object-cover object-top" />
+              </div>
             </FadeIn>
             <FadeIn delay={150}>
               <HomeContactForm />
