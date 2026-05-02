@@ -164,11 +164,6 @@ export default function HomePage() {
           {serviceIcons.map((icon, i) => (
             <FadeIn key={i} delay={i * 100}>
               <div className="bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative flex flex-col border-t-4 border-t-gold border border-gray-100 overflow-hidden">
-                {i === 3 && (
-                  <span className="absolute top-4 left-4 z-10 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
-                    <EditableText contentKey="home.services.3.badge" />
-                  </span>
-                )}
                 {i === 0 && (
                   <div className="h-44 overflow-hidden shrink-0">
                     <Image src="/bridge-mediation.jpeg" alt="גישור" width={600} height={176} className="w-full h-full object-cover" />
@@ -179,7 +174,22 @@ export default function HomePage() {
                     <Image src="/scales-arbitration.jpeg" alt="בוררות" width={600} height={176} className="w-full h-full object-cover" />
                   </div>
                 )}
+                {i === 2 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/net-characters.jpeg" alt="גישור מקוון" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                {i === 3 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={176} className="w-full h-full object-cover object-top" />
+                  </div>
+                )}
                 <div className="p-8 flex flex-col flex-1">
+                  {i === 3 && (
+                    <span className="self-start mb-3 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
+                      <EditableText contentKey="home.services.3.badge" />
+                    </span>
+                  )}
                   <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
                   <h3 className="text-xl font-bold text-navy mb-3">
                     <EditableText contentKey={`home.services.${i}.title`} />

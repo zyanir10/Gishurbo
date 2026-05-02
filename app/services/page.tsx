@@ -33,9 +33,6 @@ export default function ServicesPage() {
       <SectionWrapper className="bg-white">
         <FadeIn>
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
-            <div className="rounded-xl overflow-hidden shadow-md">
-              <Image src="/bridge-mediation.jpeg" alt="גישור — גשר בין הצדדים" width={600} height={240} className="w-full h-[240px] object-cover" />
-            </div>
             <div>
               <div className="w-12 h-px bg-gold mb-4" />
               <h2 className="text-3xl font-bold text-navy mb-2">
@@ -45,10 +42,13 @@ export default function ServicesPage() {
                 <EditableText contentKey="services.mediation.subtitle" />
               </p>
             </div>
+            <div className="rounded-xl overflow-hidden shadow-md hidden md:block">
+              <Image src="/bridge-mediation.jpeg" alt="גישור — גשר בין הצדדים" width={600} height={240} className="w-full h-[240px] object-cover" />
+            </div>
           </div>
         </FadeIn>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {[0, 1, 2, 3, 4].map((i) => (
+          {[0, 1, 2, 3, 4, 5].map((i) => (
             <FadeIn key={i} delay={i * 70}>
               <div className="border border-gray-100 rounded-xl p-7 hover:border-gold hover:shadow-md transition-all duration-300 border-t-4 border-t-gold h-full">
                 <h3 className="font-bold text-navy text-lg mb-3">
@@ -68,9 +68,6 @@ export default function ServicesPage() {
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn>
             <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
-              <div className="rounded-xl overflow-hidden shadow-md">
-                <Image src="/scales-arbitration.jpeg" alt="בוררות — מאזניים" width={600} height={240} className="w-full h-[240px] object-cover" />
-              </div>
               <div>
                 <div className="w-12 h-px bg-gold mb-4" />
                 <h2 className="text-3xl font-bold text-navy mb-2">
@@ -79,6 +76,9 @@ export default function ServicesPage() {
                 <p className="text-gray-500 text-lg">
                   <EditableText contentKey="services.arbitration.subtitle" />
                 </p>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md hidden md:block">
+                <Image src="/scales-arbitration.jpeg" alt="בוררות — מאזניים" width={600} height={240} className="w-full h-[240px] object-cover" />
               </div>
             </div>
           </FadeIn>
@@ -107,25 +107,32 @@ export default function ServicesPage() {
               className="absolute top-0 left-0 right-0 h-1 bg-gold"
               aria-hidden="true"
             />
-            <span className="inline-block bg-gold text-navy text-xs font-bold px-3 py-1 rounded-full mb-6">
-              בקרוב
-            </span>
-            <div className="w-12 h-px bg-gold mb-6" />
-            <h2 className="text-3xl font-bold text-navy mb-4">
-              <EditableText contentKey="services.parental.title" />
-            </h2>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-2xl mb-10">
-              <EditableText contentKey="services.parental.body" />
-            </p>
-            <div className="flex flex-col md:flex-row gap-5">
-              {[0, 1, 2].map((i) => (
-                <div key={i} className="flex items-start gap-3 flex-1">
-                  <span className="text-gold mt-0.5 shrink-0">◆</span>
-                  <span className="text-gray-600 text-sm leading-relaxed">
-                    <EditableText contentKey={`services.parental.${i}`} />
-                  </span>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <span className="inline-block bg-gold text-navy text-xs font-bold px-3 py-1 rounded-full mb-6">
+                  בקרוב
+                </span>
+                <div className="w-12 h-px bg-gold mb-6" />
+                <h2 className="text-3xl font-bold text-navy mb-4">
+                  <EditableText contentKey="services.parental.title" />
+                </h2>
+                <p className="text-gray-600 text-lg leading-relaxed mb-10">
+                  <EditableText contentKey="services.parental.body" />
+                </p>
+                <div className="flex flex-col gap-4">
+                  {[0, 1, 2].map((i) => (
+                    <div key={i} className="flex items-start gap-3">
+                      <span className="text-gold mt-0.5 shrink-0">◆</span>
+                      <span className="text-gray-600 text-sm leading-relaxed">
+                        <EditableText contentKey={`services.parental.${i}`} />
+                      </span>
+                    </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md hidden md:block">
+                <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={400} className="w-full h-[400px] object-cover" />
+              </div>
             </div>
           </div>
         </FadeIn>
