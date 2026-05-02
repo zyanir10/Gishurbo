@@ -393,12 +393,12 @@ export default function HomePage() {
               <p className="text-navy/70 text-lg">
                 <EditableText contentKey="home.finalCta.cta" />
               </p>
-              <div className="rounded-xl overflow-hidden shadow-lg mt-6 aspect-square">
-                <Image src="/handshake-painting.png" alt="לחיצת ידיים — סיום מוצלח" width={600} height={600} className="w-full h-full object-cover object-[50%_30%]" unoptimized />
-              </div>
+              <HomeContactForm />
             </FadeIn>
             <FadeIn delay={150}>
-              <HomeContactForm />
+              <div className="rounded-xl overflow-hidden shadow-lg aspect-square">
+                <Image src="/handshake-painting.png" alt="לחיצת ידיים — סיום מוצלח" width={600} height={600} className="w-full h-full object-cover object-[50%_30%]" unoptimized />
+              </div>
             </FadeIn>
           </div>
         </div>
