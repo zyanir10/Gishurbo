@@ -39,7 +39,7 @@ export default function HomePage() {
                   <Button href="/contact" variant="primary" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta1" />
                   </Button>
-                  <Button href="/contact" variant="outline" size="lg" className="w-full">
+                  <Button href="/about" variant="outline" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta2" />
                   </Button>
                 </div>
@@ -208,8 +208,40 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
-      {/* ─── Why Us ─── */}
+      {/* ─── Audience (5 items) ─── */}
       <SectionWrapper className="bg-gray-50">
+        <FadeIn>
+          <div className="text-center mb-14">
+            <div className="w-16 h-px bg-gold mx-auto mb-6" />
+            <h2 className="text-4xl font-bold text-navy mb-3">
+              <EditableText contentKey="home.audience.title" />
+            </h2>
+          </div>
+        </FadeIn>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
+          {audienceIcons.map((icon, i) => (
+            <FadeIn key={i} delay={i * 70}>
+              <div className="border border-gray-100 rounded-xl p-6 hover:border-gold hover:shadow-md transition-all duration-300 text-center bg-white">
+                <div className="text-4xl mb-4" aria-hidden="true">{icon}</div>
+                <h3 className="font-bold text-navy text-base mb-2">
+                  <EditableText contentKey={`home.audience.${i}.title`} />
+                </h3>
+                <p className="text-gray-500 text-sm leading-relaxed">
+                  <EditableText contentKey={`home.audience.${i}.desc`} />
+                </p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+        <div className="text-center mt-10">
+          <Button href="/contact" variant="outline">
+            <EditableText contentKey="home.audience.cta" />
+          </Button>
+        </div>
+      </SectionWrapper>
+
+      {/* ─── Why Us ─── */}
+      <SectionWrapper className="bg-white">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-8" />
@@ -310,38 +342,6 @@ export default function HomePage() {
         </FadeIn>
         <div className="max-w-3xl mx-auto">
           <FaqAccordion />
-        </div>
-      </SectionWrapper>
-
-      {/* ─── Audience (5 items) ─── */}
-      <SectionWrapper className="bg-gray-50">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <div className="w-16 h-px bg-gold mx-auto mb-6" />
-            <h2 className="text-4xl font-bold text-navy mb-3">
-              <EditableText contentKey="home.audience.title" />
-            </h2>
-          </div>
-        </FadeIn>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-5">
-          {audienceIcons.map((icon, i) => (
-            <FadeIn key={i} delay={i * 70}>
-              <div className="border border-gray-100 rounded-xl p-6 hover:border-gold hover:shadow-md transition-all duration-300 text-center bg-white">
-                <div className="text-4xl mb-4" aria-hidden="true">{icon}</div>
-                <h3 className="font-bold text-navy text-base mb-2">
-                  <EditableText contentKey={`home.audience.${i}.title`} />
-                </h3>
-                <p className="text-gray-500 text-sm leading-relaxed">
-                  <EditableText contentKey={`home.audience.${i}.desc`} />
-                </p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-        <div className="text-center mt-10">
-          <Button href="/contact" variant="outline">
-            <EditableText contentKey="home.audience.cta" />
-          </Button>
         </div>
       </SectionWrapper>
 
