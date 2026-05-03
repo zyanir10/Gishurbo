@@ -39,7 +39,7 @@ export default function HomePage() {
                   <Button href="/contact" variant="primary" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta1" />
                   </Button>
-                  <Button href="/about" variant="outline" size="lg" className="w-full">
+                  <Button href="/contact" variant="outline" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta2" />
                   </Button>
                 </div>
@@ -77,6 +77,69 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
+      {/* ─── Services (4 cards) ─── */}
+      <SectionWrapper className="bg-gray-50">
+        <FadeIn>
+          <div className="text-center mb-14">
+            <div className="w-16 h-px bg-gold mx-auto mb-6" />
+            <h2 className="text-4xl font-bold text-navy mb-3">
+              <EditableText contentKey="home.services.title" />
+            </h2>
+            <p className="text-gray-500 text-lg">
+              <EditableText contentKey="home.services.subtitle" />
+            </p>
+          </div>
+        </FadeIn>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {serviceIcons.map((icon, i) => (
+            <FadeIn key={i} delay={i * 100}>
+              <div className="bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative flex flex-col border-t-4 border-t-gold border border-gray-100 overflow-hidden">
+                {i === 0 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/bridge-mediation.jpeg" alt="גישור" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                {i === 1 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/scales-arbitration.jpeg" alt="בוררות" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                {i === 2 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/net-characters.jpeg" alt="גישור מקוון" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
+                {i === 3 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={176} className="w-full h-full object-cover object-top" />
+                  </div>
+                )}
+                <div className="p-8 flex flex-col flex-1">
+                  {i === 3 && (
+                    <span className="self-start mb-3 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
+                      <EditableText contentKey="home.services.3.badge" />
+                    </span>
+                  )}
+                  <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
+                  <h3 className="text-xl font-bold text-navy mb-3">
+                    <EditableText contentKey={`home.services.${i}.title`} />
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed flex-1">
+                    <EditableText contentKey={`home.services.${i}.description`} />
+                  </p>
+                  <Link
+                    href="/contact"
+                    className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
+                  >
+                    <EditableText contentKey={`home.services.${i}.cta`} />
+                  </Link>
+                </div>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </SectionWrapper>
 
       {/* ─── Pain ─── */}
       <section className="bg-navy py-24">
@@ -145,89 +208,8 @@ export default function HomePage() {
         </div>
       </SectionWrapper>
 
-      {/* ─── Services (4 cards) ─── */}
-      <SectionWrapper className="bg-gray-50">
-        <FadeIn>
-          <div className="text-center mb-14">
-            <div className="w-16 h-px bg-gold mx-auto mb-6" />
-            <h2 className="text-4xl font-bold text-navy mb-3">
-              <EditableText contentKey="home.services.title" />
-            </h2>
-            <p className="text-gray-500 text-lg">
-              <EditableText contentKey="home.services.subtitle" />
-            </p>
-          </div>
-        </FadeIn>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {serviceIcons.map((icon, i) => (
-            <FadeIn key={i} delay={i * 100}>
-              <div className="bg-white rounded-xl shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 relative flex flex-col border-t-4 border-t-gold border border-gray-100 overflow-hidden">
-                {i === 0 && (
-                  <div className="h-44 overflow-hidden shrink-0">
-                    <Image src="/bridge-mediation.jpeg" alt="גישור" width={600} height={176} className="w-full h-full object-cover" />
-                  </div>
-                )}
-                {i === 1 && (
-                  <div className="h-44 overflow-hidden shrink-0">
-                    <Image src="/scales-arbitration.jpeg" alt="בוררות" width={600} height={176} className="w-full h-full object-cover" />
-                  </div>
-                )}
-                {i === 2 && (
-                  <div className="h-44 overflow-hidden shrink-0">
-                    <Image src="/net-characters.jpeg" alt="גישור מקוון" width={600} height={176} className="w-full h-full object-cover" />
-                  </div>
-                )}
-                {i === 3 && (
-                  <div className="h-44 overflow-hidden shrink-0">
-                    <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={176} className="w-full h-full object-cover object-top" />
-                  </div>
-                )}
-                <div className="p-8 flex flex-col flex-1">
-                  {i === 3 && (
-                    <span className="self-start mb-3 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
-                      <EditableText contentKey="home.services.3.badge" />
-                    </span>
-                  )}
-                  <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
-                  <h3 className="text-xl font-bold text-navy mb-3">
-                    <EditableText contentKey={`home.services.${i}.title`} />
-                  </h3>
-                  <p className="text-gray-500 text-sm leading-relaxed flex-1">
-                    <EditableText contentKey={`home.services.${i}.description`} />
-                  </p>
-                  <Link
-                    href="/contact"
-                    className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
-                  >
-                    <EditableText contentKey={`home.services.${i}.cta`} />
-                  </Link>
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
-      </SectionWrapper>
-
-      {/* ─── Stats ─── */}
-      <section className="bg-navy py-20">
-        <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-2 md:grid-cols-4">
-            {[0, 1, 2, 3].map((i) => (
-              <div key={i} className={`text-center py-8 px-4 ${i < 3 ? "border-l border-white/10" : ""}`}>
-                <div className="text-5xl font-bold text-gold mb-3">
-                  <EditableText contentKey={`home.stats.${i}.number`} />
-                </div>
-                <div className="text-white/60 text-sm">
-                  <EditableText contentKey={`home.stats.${i}.label`} />
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ─── Why Us ─── */}
-      <SectionWrapper className="bg-white">
+      <SectionWrapper className="bg-gray-50">
         <div className="grid md:grid-cols-2 gap-16 items-center">
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-8" />
@@ -273,16 +255,16 @@ export default function HomePage() {
       </SectionWrapper>
 
       {/* ─── Process Teaser ─── */}
-      <section className="bg-gray-50 py-24">
+      <section className="bg-navy py-24">
         <div className="max-w-[1200px] mx-auto px-6">
           <FadeIn>
             <div className="grid md:grid-cols-2 gap-16 items-center mb-14">
               <div>
                 <div className="w-16 h-px bg-gold mb-6" />
-                <h2 className="text-4xl font-bold text-navy mb-3">
+                <h2 className="text-4xl font-bold text-white mb-3">
                   <EditableText contentKey="home.process.title" />
                 </h2>
-                <p className="text-gray-500">
+                <p className="text-white/60">
                   <EditableText contentKey="home.process.subtitle" />
                 </p>
               </div>
@@ -298,10 +280,10 @@ export default function HomePage() {
                   <div className="text-6xl font-bold text-gold/25 group-hover:text-gold transition-colors duration-400 mb-3 leading-none">
                     {num}
                   </div>
-                  <h3 className="font-bold text-navy text-lg mb-2">
+                  <h3 className="font-bold text-white text-lg mb-2">
                     <EditableText contentKey={`home.process.${i}.title`} />
                   </h3>
-                  <p className="text-gray-500 text-sm">
+                  <p className="text-white/60 text-sm">
                     <EditableText contentKey={`home.process.${i}.desc`} />
                   </p>
                 </div>

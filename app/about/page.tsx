@@ -11,13 +11,6 @@ export const metadata: Metadata = {
     "היכרות עם מרכז הבוררות והגישור באילת ועם המייסדת עו\"ד מיכל זמרן — מגשרת ובוררת מוסמכת.",
 };
 
-const aboutStats = [
-  { numKey: "about.stats.0.num", labelKey: "about.stats.0.label" },
-  { numKey: "about.stats.1.num", labelKey: "about.stats.1.label" },
-  { numKey: "about.stats.2.num", labelKey: "about.stats.2.label" },
-  { numKey: "about.stats.3.num", labelKey: "about.stats.3.label" },
-];
-
 export default function AboutPage() {
   return (
     <>
@@ -38,8 +31,8 @@ export default function AboutPage() {
 
       {/* About the center */}
       <SectionWrapper className="bg-white">
-        <div className="grid md:grid-cols-2 gap-16 items-start">
-          <FadeIn>
+        <FadeIn>
+          <div className="max-w-3xl">
             <div className="w-16 h-px bg-gold mb-8" />
             <h2 className="text-3xl font-bold text-navy mb-6">
               <EditableText contentKey="about.center.title" />
@@ -50,25 +43,8 @@ export default function AboutPage() {
             <p className="text-gray-500 leading-relaxed">
               <EditableText contentKey="about.center.p2" />
             </p>
-          </FadeIn>
-          <FadeIn delay={120}>
-            <div className="grid grid-cols-2 gap-6">
-              {aboutStats.map(({ numKey, labelKey }) => (
-                <div
-                  key={numKey}
-                  className="bg-gray-50 rounded-xl p-6 text-center border border-gray-100 hover:border-gold transition-colors duration-300"
-                >
-                  <div className="text-3xl font-bold text-gold mb-2">
-                    <EditableText contentKey={numKey} />
-                  </div>
-                  <div className="text-navy text-sm font-medium">
-                    <EditableText contentKey={labelKey} />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </FadeIn>
-        </div>
+          </div>
+        </FadeIn>
       </SectionWrapper>
 
       {/* Vision */}
