@@ -8,17 +8,12 @@ export const contentType = "image/png";
 
 async function loadHeebo(weight: 400 | 700): Promise<ArrayBuffer | null> {
   try {
+    // No User-Agent → Google Fonts returns TTF, which satori supports
     const css = await fetch(
-      `https://fonts.googleapis.com/css2?family=Heebo:wght@${weight}&subset=hebrew`,
-      {
-        headers: {
-          "User-Agent":
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
-        },
-      }
+      `https://fonts.googleapis.com/css2?family=Heebo:wght@${weight}&subset=hebrew`
     ).then((r) => r.text());
 
-    const url = css.match(/src: url\((.+?)\) format\('woff2'\)/)?.[1];
+    const url = css.match(/src: url\((.+?)\)/)?.[1];
     if (!url) return null;
     return await fetch(url).then((r) => r.arrayBuffer());
   } catch {
