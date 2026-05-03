@@ -34,7 +34,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/" className="shrink-0">
           <Image
-            src="/Logo.png"
+            src="/Logo for website.png"
             alt="המרכז ליישוב סכסוכים באילת"
             width={180}
             height={56}

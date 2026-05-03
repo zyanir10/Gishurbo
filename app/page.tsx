@@ -32,7 +32,7 @@ export default function HomePage() {
               {/* Text column */}
               <div className="flex flex-col">
                 <div className="w-16 h-px bg-gold mb-8" />
-                <h1 className="text-5xl md:text-7xl font-bold text-gold leading-tight mb-6">
+                <h1 className="text-5xl md:text-[3.25rem] font-bold text-gold leading-tight mb-6">
                   <EditableText contentKey="home.hero.title" />
                 </h1>
                 <p className="text-xl text-white/80 mb-4">
@@ -41,9 +41,8 @@ export default function HomePage() {
                 <p className="text-white/55 text-lg leading-relaxed max-w-xl">
                   <EditableText contentKey="home.hero.body" />
                 </p>
-                <div className="hidden md:block h-12 shrink-0" />
-                {/* Mobile: both buttons stacked */}
-                <div className="flex flex-col gap-4 mt-10 md:hidden">
+                {/* Both buttons stacked, pushed to bottom on desktop */}
+                <div className="flex flex-col gap-4 mt-10 md:mt-auto">
                   <Button href="/contact" variant="primary" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta1" />
                   </Button>
@@ -51,10 +50,6 @@ export default function HomePage() {
                     <EditableText contentKey="home.hero.cta2" />
                   </Button>
                 </div>
-                {/* Desktop: cta1 only, pushed to bottom of column */}
-                <Button href="/contact" variant="primary" size="lg" className="hidden md:inline-flex mt-auto w-full">
-                  <EditableText contentKey="home.hero.cta1" />
-                </Button>
               </div>
               {/* Image column */}
               <div className="flex flex-col mt-8 md:mt-0">
@@ -62,10 +57,6 @@ export default function HomePage() {
                   <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" fill className="object-cover" unoptimized priority />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
                 </div>
-                {/* Desktop: cta2 below image, hidden on mobile */}
-                <Button href="/about" variant="outline" size="lg" className="hidden md:inline-flex mt-4 w-full">
-                  <EditableText contentKey="home.hero.cta2" />
-                </Button>
               </div>
             </div>
           </FadeIn>

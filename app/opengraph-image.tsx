@@ -22,7 +22,7 @@ async function loadHeebo(weight: 400 | 700): Promise<ArrayBuffer | null> {
 }
 
 export default async function Image() {
-  const logoData = readFileSync(path.join(process.cwd(), "public/Logo.png"));
+  const logoData = readFileSync(path.join(process.cwd(), "public/Logo for website.png"));
   const logoSrc = `data:image/png;base64,${logoData.toString("base64")}`;
 
   const [boldFont, regularFont] = await Promise.all([

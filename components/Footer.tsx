@@ -20,7 +20,7 @@ export default function Footer() {
           <div>
             <div className="mb-4">
               <Image
-                src="/Logo.png"
+                src="/Logo for website.png"
                 alt="המרכז ליישוב סכסוכים באילת"
                 width={160}
                 height={48}
