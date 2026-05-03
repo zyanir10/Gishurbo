@@ -60,7 +60,7 @@ export default function RootLayout({
             <a
               href="/contact"
               aria-label="צור קשר במייל"
-              className="w-14 h-14 bg-navy border-2 border-gold rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
+              className="w-14 h-14 bg-[#223558] border-2 border-[#C9A646] rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-200"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="#C9A646" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-6 h-6" aria-hidden="true">
                 <rect x="2" y="4" width="20" height="16" rx="2" />
