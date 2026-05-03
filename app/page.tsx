@@ -28,8 +28,9 @@ export default function HomePage() {
 
         <div className="max-w-[1200px] mx-auto px-6 pt-36 pb-20 w-full">
           <FadeIn>
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div>
+            <div className="grid md:grid-cols-2 gap-12">
+              {/* Text column */}
+              <div className="flex flex-col">
                 <div className="w-16 h-px bg-gold mb-8" />
                 <h1 className="text-5xl md:text-7xl font-bold text-gold leading-tight mb-6">
                   <EditableText contentKey="home.hero.title" />
@@ -37,21 +38,33 @@ export default function HomePage() {
                 <p className="text-xl text-white/80 mb-4">
                   <EditableText contentKey="home.hero.subtitle" />
                 </p>
-                <p className="text-white/55 text-lg mb-10 leading-relaxed max-w-xl">
+                <p className="text-white/55 text-lg leading-relaxed max-w-xl">
                   <EditableText contentKey="home.hero.body" />
                 </p>
-                <div className="flex flex-col md:flex-row gap-4">
-                  <Button href="/contact" variant="primary" size="lg" className="w-full md:flex-1">
+                {/* Mobile: both buttons stacked */}
+                <div className="flex flex-col gap-4 mt-10 md:hidden">
+                  <Button href="/contact" variant="primary" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta1" />
                   </Button>
-                  <Button href="/about" variant="outline" size="lg" className="w-full md:flex-1">
+                  <Button href="/about" variant="outline" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta2" />
                   </Button>
                 </div>
+                {/* Desktop: cta1 only, pushed to bottom of column */}
+                <Button href="/contact" variant="primary" size="lg" className="hidden md:inline-flex mt-auto w-full">
+                  <EditableText contentKey="home.hero.cta1" />
+                </Button>
               </div>
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl mt-8 md:mt-0">
-                <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" width={600} height={440} className="w-full h-[280px] md:h-[440px] object-cover" unoptimized priority />
-                <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
+              {/* Image column */}
+              <div className="flex flex-col mt-8 md:mt-0">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl flex-1 min-h-[280px]">
+                  <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" fill className="object-cover" unoptimized priority />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
+                </div>
+                {/* Desktop: cta2 below image, hidden on mobile */}
+                <Button href="/about" variant="outline" size="lg" className="hidden md:inline-flex mt-4 w-full">
+                  <EditableText contentKey="home.hero.cta2" />
+                </Button>
               </div>
             </div>
           </FadeIn>
