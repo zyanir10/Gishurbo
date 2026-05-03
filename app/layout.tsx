@@ -17,7 +17,7 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://eilat-adr.vercel.app"),
+  metadataBase: new URL("https://gishurbo.vercel.app"),
   title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
   description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
   openGraph: {
@@ -25,13 +25,14 @@ export const metadata: Metadata = {
     description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
     type: "website",
     locale: "he_IL",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+    url: "https://gishurbo.vercel.app",
+    images: [{ url: "https://gishurbo.vercel.app/og-image.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
     description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
-    images: ["/opengraph-image"],
+    images: ["https://gishurbo.vercel.app/og-image.png"],
   },
 };
 
