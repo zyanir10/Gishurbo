@@ -38,7 +38,7 @@ export default async function Image() {
   const fonts: {
     name: string;
     data: ArrayBuffer;
-    weight: number;
+    weight: 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
     style: "normal";
   }[] = [];
   if (boldFont) fonts.push({ name: "Heebo", data: boldFont, weight: 700, style: "normal" });
