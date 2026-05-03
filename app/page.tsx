@@ -20,13 +20,7 @@ export default function HomePage() {
     <>
       {/* ─── Hero ─── */}
       <section className="bg-navy relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-0 right-1/4 w-px h-full bg-gold/10" />
-          <div className="absolute top-0 right-3/4 w-px h-full bg-gold/5" />
-          <div className="absolute top-1/3 left-0 right-0 h-px bg-gold/5" />
-        </div>
-
-        <div className="max-w-[1200px] mx-auto px-6 pt-32 pb-14 w-full">
+<div className="max-w-[1200px] mx-auto px-6 pt-32 pb-14 w-full">
           <FadeIn>
             <div className="grid md:grid-cols-2 gap-12 items-start">
               {/* Text column */}
