@@ -41,6 +41,7 @@ export default function HomePage() {
                 <p className="text-white/55 text-lg leading-relaxed max-w-xl">
                   <EditableText contentKey="home.hero.body" />
                 </p>
+                <div className="hidden md:block h-12 shrink-0" />
                 {/* Mobile: both buttons stacked */}
                 <div className="flex flex-col gap-4 mt-10 md:hidden">
                   <Button href="/contact" variant="primary" size="lg" className="w-full">
@@ -406,7 +407,9 @@ export default function HomePage() {
               <p className="text-navy/70 text-lg">
                 <EditableText contentKey="home.finalCta.cta" />
               </p>
-              <HomeContactForm />
+              <div className="mt-10">
+                <HomeContactForm />
+              </div>
             </FadeIn>
             <FadeIn delay={150}>
               <div className="rounded-xl overflow-hidden shadow-lg aspect-square">
