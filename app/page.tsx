@@ -19,18 +19,18 @@ export default function HomePage() {
   return (
     <>
       {/* ─── Hero ─── */}
-      <section className="min-h-screen bg-navy flex items-center relative overflow-hidden">
+      <section className="bg-navy relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 right-1/4 w-px h-full bg-gold/10" />
           <div className="absolute top-0 right-3/4 w-px h-full bg-gold/5" />
           <div className="absolute top-1/3 left-0 right-0 h-px bg-gold/5" />
         </div>
 
-        <div className="max-w-[1200px] mx-auto px-6 pt-36 pb-20 w-full">
+        <div className="max-w-[1200px] mx-auto px-6 pt-32 pb-14 w-full">
           <FadeIn>
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-2 gap-12 items-start">
               {/* Text column */}
-              <div className="flex flex-col">
+              <div>
                 <div className="w-16 h-px bg-gold mb-8" />
                 <h1 className="text-5xl md:text-[3.25rem] font-bold text-gold leading-tight mb-6">
                   <EditableText contentKey="home.hero.title" />
@@ -38,11 +38,10 @@ export default function HomePage() {
                 <p className="text-xl text-white/80 mb-4">
                   <EditableText contentKey="home.hero.subtitle" />
                 </p>
-                <p className="text-white/55 text-lg leading-relaxed max-w-xl">
+                <p className="text-white/55 text-lg leading-relaxed max-w-xl mb-10">
                   <EditableText contentKey="home.hero.body" />
                 </p>
-                {/* Both buttons stacked, pushed to bottom on desktop */}
-                <div className="flex flex-col gap-4 mt-10 md:mt-auto">
+                <div className="flex flex-col gap-4">
                   <Button href="/contact" variant="primary" size="lg" className="w-full">
                     <EditableText contentKey="home.hero.cta1" />
                   </Button>
@@ -52,8 +51,8 @@ export default function HomePage() {
                 </div>
               </div>
               {/* Image column */}
-              <div className="flex flex-col mt-8 md:mt-0">
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl flex-1 min-h-[280px]">
+              <div className="mt-8 md:mt-0">
+                <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[300px] md:h-[440px]">
                   <Image src="/handshake-photo.jpeg" alt="גישור מקצועי" fill className="object-cover" unoptimized priority />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/50 to-transparent" />
                 </div>
