@@ -26,13 +26,13 @@ export const metadata: Metadata = {
     type: "website",
     locale: "he_IL",
     url: "https://gishurbo.vercel.app",
-    images: [{ url: "https://gishurbo.vercel.app/og-image.png", width: 1200, height: 630 }],
+    images: [{ url: "https://gishurbo.vercel.app/Logo.png" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
     description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
-    images: ["https://gishurbo.vercel.app/og-image.png"],
+    images: ["https://gishurbo.vercel.app/Logo.png"],
   },
 };
 
