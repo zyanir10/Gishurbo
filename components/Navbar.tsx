@@ -35,10 +35,10 @@ export default function Navbar() {
         <Link href="/" className="shrink-0">
           <Image
             src="/Logo.png"
-            alt="המרכז ליישוב סכסוכים"
-            width={120}
-            height={90}
-            className="h-20 w-auto object-contain"
+            alt="המרכז ליישוב סכסוכים באילת"
+            width={180}
+            height={56}
+            style={{ objectFit: "contain" }}
             priority
           />
         </Link>

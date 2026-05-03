@@ -17,15 +17,20 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
-  title: "מרכז הבוררות והגישור באילת | פתרונות חכמים לסכסוכים",
-  description:
-    "המרכז המוביל לבוררות וגישור בדרום ישראל. שירותי ADR מקצועיים לאנשים פרטיים, עסקים ומוסדות.",
+  title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
+  description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
   openGraph: {
-    title: "מרכז הבוררות והגישור באילת",
-    description:
-      "המרכז המוביל לבוררות וגישור בדרום ישראל. שירותי ADR מקצועיים לאנשים פרטיים, עסקים ומוסדות.",
-    locale: "he_IL",
+    title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
+    description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
     type: "website",
+    locale: "he_IL",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
+    description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
+    images: ["/opengraph-image"],
   },
 };
 

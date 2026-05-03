@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import EditableText from "./EditableText";
 
 const quickLinks = [
@@ -17,8 +18,14 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <div className="text-gold font-bold text-xl mb-3">
-              <EditableText contentKey="footer.brand" />
+            <div className="mb-4">
+              <Image
+                src="/Logo.png"
+                alt="המרכז ליישוב סכסוכים באילת"
+                width={160}
+                height={48}
+                style={{ objectFit: "contain" }}
+              />
             </div>
             <p className="text-white/50 text-sm leading-relaxed">
               <EditableText contentKey="footer.tagline" />
