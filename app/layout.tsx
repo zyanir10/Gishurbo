@@ -17,6 +17,7 @@ const assistant = Assistant({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://eilat-adr.vercel.app"),
   title: "המרכז ליישוב סכסוכים: בוררות וגישור באילת",
   description: "שירותי ADR לאנשים פרטיים, עסקים ומוסדות.",
   openGraph: {
