@@ -144,20 +144,20 @@ export default function AboutPage() {
             </h2>
           </div>
         </FadeIn>
-        <div className="grid md:grid-cols-2 gap-8">
+        <div className="grid md:grid-cols-2 gap-8 items-stretch">
           {teamMembers.map((member, idx) => (
-            <FadeIn key={idx} delay={idx * 120}>
-              <div
-                className="bg-white rounded-2xl p-8 border border-gold/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center"
-              >
-                <div className="mb-6 shrink-0">
+            <FadeIn key={idx} delay={idx * 120} className="h-full">
+              <div className="h-full bg-white rounded-2xl p-8 border border-gold/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center">
+                <div
+                  className="mb-6 shrink-0 rounded-full overflow-hidden"
+                  style={{ width: 210, height: 210, border: "3px solid #C9A646" }}
+                >
                   <Image
                     src={member.image}
                     alt={member.name}
                     width={210}
                     height={210}
-                    className="rounded-full object-cover"
-                    style={{ width: 210, height: 210, border: "3px solid #C9A646" }}
+                    className="w-full h-full object-cover object-top"
                   />
                 </div>
                 <h3 className="text-2xl font-bold text-navy mb-1">{member.name}</h3>
@@ -166,7 +166,7 @@ export default function AboutPage() {
                   {member.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-2 text-right">
                       <span className="shrink-0 mt-1" style={{ color: "#C9A646" }}>◆</span>
-                      <span className="text-gray-600 text-sm leading-relaxed">{point}</span>
+                      <span className="text-gray-600 text-base leading-relaxed">{point}</span>
                     </li>
                   ))}
                 </ul>
