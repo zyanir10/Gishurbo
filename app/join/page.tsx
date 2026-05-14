@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import JoinForm from "./JoinForm";
-import EditableText from "@/components/EditableText";
+import { c } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "הצטרפות | מרכז הבוררות והגישור באילת",
@@ -21,10 +21,10 @@ export default function JoinPage() {
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-6" />
             <h1 className="text-5xl font-bold text-white mb-4">
-              <EditableText contentKey="join.header.title" />
+              {c["join.header.title"]}
             </h1>
             <p className="text-white/55 text-xl">
-              <EditableText contentKey="join.header.subtitle" />
+              {c["join.header.subtitle"]}
             </p>
           </FadeIn>
         </div>
@@ -36,10 +36,10 @@ export default function JoinPage() {
           <div className="text-center mb-14">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-navy mb-4">
-              <EditableText contentKey="join.requirements.title" />
+              {c["join.requirements.title"]}
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              <EditableText contentKey="join.requirements.subtitle" />
+              {c["join.requirements.subtitle"]}
             </p>
           </div>
         </FadeIn>
@@ -47,17 +47,15 @@ export default function JoinPage() {
           {reqIcons.map((icon, i) => (
             <FadeIn key={i} delay={i * 80}>
               <div className="border border-gray-100 rounded-xl p-7 hover:border-gold hover:shadow-md transition-all duration-300 h-full border-t-4 border-t-gold">
-                <div className="text-3xl mb-4" aria-hidden="true">
-                  {icon}
-                </div>
+                <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
                 <h3 className="font-bold text-navy text-lg mb-4">
-                  <EditableText contentKey={`join.req.${i}.title`} />
+                  {c[`join.req.${i}.title`]}
                 </h3>
                 <ul className="space-y-2">
                   {[0, 1, 2, 3].map((j) => (
                     <li key={j} className="flex items-start gap-2 text-sm text-gray-500">
                       <span className="text-gold mt-0.5 shrink-0 text-xs">◆</span>
-                      <EditableText contentKey={`join.req.${i}.${j}`} />
+                      {c[`join.req.${i}.${j}`]}
                     </li>
                   ))}
                 </ul>
@@ -74,10 +72,10 @@ export default function JoinPage() {
             <div className="text-center mb-10">
               <div className="w-16 h-px bg-gold mx-auto mb-6" />
               <h2 className="text-3xl font-bold text-navy mb-3">
-                <EditableText contentKey="join.form.title" />
+                {c["join.form.title"]}
               </h2>
               <p className="text-gray-500">
-                <EditableText contentKey="join.form.subtitle" />
+                {c["join.form.subtitle"]}
               </p>
             </div>
           </FadeIn>

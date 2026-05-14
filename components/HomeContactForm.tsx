@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useEditMode } from "./EditModeProvider";
+import { c } from "@/lib/content";
 
 const inputClass =
   "w-full border border-gray-200 rounded-lg px-4 py-3 text-sm text-navy placeholder-gray-400 focus:outline-none focus:border-gold transition-colors bg-white";
 
 export default function HomeContactForm() {
-  const { contentMap } = useEditMode();
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [desc, setDesc] = useState("");
@@ -44,12 +43,12 @@ export default function HomeContactForm() {
   return (
     <form onSubmit={handleSubmit} className="bg-white rounded-2xl p-8 shadow-lg space-y-4">
       <h3 className="font-bold text-navy text-xl mb-2">
-        {contentMap["home.form.title"] ?? "טופס יצירת קשר"}
+        {c["home.form.title"]}
       </h3>
       <input
         required
         type="text"
-        placeholder={contentMap["home.form.name"] ?? "שם מלא"}
+        placeholder={c["home.form.name"]}
         value={name}
         onChange={(e) => setName(e.target.value)}
         className={inputClass}
@@ -57,14 +56,14 @@ export default function HomeContactForm() {
       <input
         required
         type="tel"
-        placeholder={contentMap["home.form.phone"] ?? "טלפון"}
+        placeholder={c["home.form.phone"]}
         value={phone}
         onChange={(e) => setPhone(e.target.value)}
         className={inputClass}
       />
       <textarea
         rows={3}
-        placeholder={contentMap["home.form.desc"] ?? "תיאור קצר (אופציונלי)"}
+        placeholder={c["home.form.desc"]}
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
         className={`${inputClass} resize-none`}
@@ -79,9 +78,7 @@ export default function HomeContactForm() {
         disabled={status === "sending"}
         className="w-full bg-navy text-gold font-bold py-4 rounded-xl hover:bg-navy/90 transition-colors disabled:opacity-60 text-sm"
       >
-        {status === "sending"
-          ? "שולח..."
-          : (contentMap["home.form.submit"] ?? "שלח")}
+        {status === "sending" ? "שולח..." : c["home.form.submit"]}
       </button>
     </form>
   );

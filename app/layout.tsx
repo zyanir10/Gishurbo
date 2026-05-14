@@ -3,8 +3,6 @@ import { Heebo, Assistant } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { EditModeProvider } from "@/components/EditModeProvider";
-import EditModeToggle from "@/components/EditModeToggle";
 
 const heebo = Heebo({
   subsets: ["hebrew", "latin"],
@@ -48,13 +46,11 @@ export default function RootLayout({
       className={`${heebo.variable} ${assistant.variable}`}
     >
       <body className="min-h-screen flex flex-col antialiased">
-        <EditModeProvider>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <EditModeToggle />
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        <Footer />
 
-          {/* Floating buttons */}
+        {/* Floating buttons */}
           <div className="fixed bottom-6 left-6 z-50 flex flex-col gap-3">
             {/* Email floating button */}
             <a
@@ -80,7 +76,6 @@ export default function RootLayout({
               </svg>
             </a>
           </div>
-        </EditModeProvider>
       </body>
     </html>
   );

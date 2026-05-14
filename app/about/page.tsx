@@ -3,7 +3,7 @@ import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
-import EditableText from "@/components/EditableText";
+import { c } from "@/lib/content";
 
 export const metadata: Metadata = {
   title: "אודות | מרכז הבוררות והגישור באילת",
@@ -44,10 +44,10 @@ export default function AboutPage() {
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-6" />
             <h1 className="text-5xl font-bold text-white mb-4">
-              <EditableText contentKey="about.header.title" />
+              {c["about.header.title"]}
             </h1>
             <p className="text-white/55 text-xl">
-              <EditableText contentKey="about.header.subtitle" />
+              {c["about.header.subtitle"]}
             </p>
           </FadeIn>
         </div>
@@ -59,13 +59,13 @@ export default function AboutPage() {
           <div className="max-w-3xl">
             <div className="w-16 h-px bg-gold mb-8" />
             <h2 className="text-3xl font-bold text-navy mb-6">
-              <EditableText contentKey="about.center.title" />
+              {c["about.center.title"]}
             </h2>
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              <EditableText contentKey="about.center.p1" />
+              {c["about.center.p1"]}
             </p>
             <p className="text-gray-500 leading-relaxed">
-              <EditableText contentKey="about.center.p2" />
+              {c["about.center.p2"]}
             </p>
           </div>
         </FadeIn>
@@ -78,10 +78,10 @@ export default function AboutPage() {
             <div className="max-w-3xl mx-auto text-center">
               <div className="w-16 h-px bg-gold mx-auto mb-8" />
               <h2 className="text-3xl font-bold text-white mb-8">
-                <EditableText contentKey="about.vision.title" />
+                {c["about.vision.title"]}
               </h2>
               <p className="text-white/70 text-xl leading-relaxed">
-                <EditableText contentKey="about.vision.body" />
+                {c["about.vision.body"]}
               </p>
             </div>
           </FadeIn>
@@ -95,27 +95,27 @@ export default function AboutPage() {
             <div>
               <div className="w-16 h-px bg-gold mb-6" />
               <p className="text-gold font-semibold text-lg uppercase tracking-wider mb-2">
-                <EditableText contentKey="about.founder.label" />
+                {c["about.founder.label"]}
               </p>
               <h2 className="text-4xl font-bold text-navy mb-2">
-                <EditableText contentKey="about.founder.name" />
+                {c["about.founder.name"]}
               </h2>
               <p className="text-lg text-gray-500 mb-8">
-                <EditableText contentKey="about.founder.role" />
+                {c["about.founder.role"]}
               </p>
               <ul className="space-y-4 mb-10">
                 {[0, 1, 2, 3, 4].map((i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="text-gold mt-1 shrink-0">◆</span>
                     <span className="text-gray-600 text-xl leading-relaxed">
-                      <EditableText contentKey={`about.founder.${i}`} />
+                      {c[`about.founder.${i}`]}
                     </span>
                   </li>
                 ))}
               </ul>
               <blockquote className="border-r-4 border-gold pr-6 py-2">
                 <p className="text-gold text-xl font-semibold">
-                  &quot;<EditableText contentKey="about.founder.quote" />&quot;
+                  &quot;{c["about.founder.quote"]}&quot;
                 </p>
               </blockquote>
             </div>
@@ -140,7 +140,7 @@ export default function AboutPage() {
           <div className="text-center mb-12">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-navy mb-2">
-              <EditableText contentKey="about.team.title" />
+              {c["about.team.title"]}
             </h2>
           </div>
         </FadeIn>
@@ -181,10 +181,10 @@ export default function AboutPage() {
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <FadeIn>
             <h2 className="text-3xl font-bold text-navy mb-6">
-              <EditableText contentKey="about.cta.title" />
+              {c["about.cta.title"]}
             </h2>
             <Button href="/contact" variant="dark">
-              <EditableText contentKey="about.cta.button" />
+              {c["about.cta.button"]}
             </Button>
           </FadeIn>
         </div>

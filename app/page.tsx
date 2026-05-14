@@ -3,7 +3,7 @@ import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
-import EditableText from "@/components/EditableText";
+import { c } from "@/lib/content";
 import FaqAccordion from "@/components/FaqAccordion";
 import HomeContactForm from "@/components/HomeContactForm";
 
@@ -20,27 +20,27 @@ export default function HomePage() {
     <>
       {/* ─── Hero ─── */}
       <section className="bg-navy relative overflow-hidden">
-<div className="max-w-[1200px] mx-auto px-6 pt-32 pb-14 w-full">
+        <div className="max-w-[1200px] mx-auto px-6 pt-32 pb-14 w-full">
           <FadeIn>
             <div className="grid md:grid-cols-2 gap-12 items-start">
               {/* Text column */}
               <div>
                 <div className="w-16 h-px bg-gold mb-8" />
                 <h1 className="text-5xl md:text-[3.25rem] font-bold text-gold leading-tight mb-6">
-                  <EditableText contentKey="home.hero.title" />
+                  {c["home.hero.title"]}
                 </h1>
                 <p className="text-xl text-white/80 mb-4">
-                  <EditableText contentKey="home.hero.subtitle" />
+                  {c["home.hero.subtitle"]}
                 </p>
                 <p className="text-white/55 text-lg leading-relaxed max-w-xl mb-10">
-                  <EditableText contentKey="home.hero.body" />
+                  {c["home.hero.body"]}
                 </p>
                 <div className="flex flex-col gap-4">
                   <Button href="/contact" variant="primary" size="lg" className="w-full">
-                    <EditableText contentKey="home.hero.cta1" />
+                    {c["home.hero.cta1"]}
                   </Button>
                   <Button href="/about" variant="outline" size="lg" className="w-full">
-                    <EditableText contentKey="home.hero.cta2" />
+                    {c["home.hero.cta2"]}
                   </Button>
                 </div>
               </div>
@@ -70,7 +70,7 @@ export default function HomePage() {
               <div key={i} className="flex items-center gap-3">
                 <span className="text-2xl" aria-hidden="true">{icon}</span>
                 <span className="text-navy font-semibold text-sm">
-                  <EditableText contentKey={`home.trust.${i}`} />
+                  {c[`home.trust.${i}`]}
                 </span>
               </div>
             ))}
@@ -84,10 +84,10 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-4xl font-bold text-navy mb-3">
-              <EditableText contentKey="home.services.title" />
+              {c["home.services.title"]}
             </h2>
             <p className="text-gray-500 text-lg">
-              <EditableText contentKey="home.services.subtitle" />
+              {c["home.services.subtitle"]}
             </p>
           </div>
         </FadeIn>
@@ -118,21 +118,21 @@ export default function HomePage() {
                 <div className="p-8 flex flex-col flex-1">
                   {i === 3 && (
                     <span className="self-start mb-3 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
-                      <EditableText contentKey="home.services.3.badge" />
+                      {c["home.services.3.badge"]}
                     </span>
                   )}
                   <div className="text-3xl mb-4" aria-hidden="true">{icon}</div>
                   <h3 className="text-xl font-bold text-navy mb-3">
-                    <EditableText contentKey={`home.services.${i}.title`} />
+                    {c[`home.services.${i}.title`]}
                   </h3>
                   <p className="text-gray-500 text-sm leading-relaxed flex-1">
-                    <EditableText contentKey={`home.services.${i}.description`} />
+                    {c[`home.services.${i}.description`]}
                   </p>
                   <Link
                     href="/contact"
                     className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
                   >
-                    <EditableText contentKey={`home.services.${i}.cta`} />
+                    {c[`home.services.${i}.cta`]}
                   </Link>
                 </div>
               </div>
@@ -148,7 +148,7 @@ export default function HomePage() {
             <div className="text-center mb-12">
               <div className="w-16 h-px bg-gold/40 mx-auto mb-6" />
               <h2 className="text-4xl font-bold text-white">
-                <EditableText contentKey="home.pain.title" />
+                {c["home.pain.title"]}
               </h2>
             </div>
             <div className="max-w-2xl mx-auto space-y-4 mb-12">
@@ -159,17 +159,17 @@ export default function HomePage() {
                 >
                   <span className="text-2xl shrink-0" aria-hidden="true">{icon}</span>
                   <p className="text-white/80 text-lg">
-                    <EditableText contentKey={`home.pain.${i}`} />
+                    {c[`home.pain.${i}`]}
                   </p>
                 </div>
               ))}
             </div>
             <div className="text-center space-y-6">
               <p className="text-gold text-3xl font-bold">
-                <EditableText contentKey="home.pain.ending" />
+                {c["home.pain.ending"]}
               </p>
               <Button href="/contact" variant="outline">
-                <EditableText contentKey="home.pain.cta" />
+                {c["home.pain.cta"]}
               </Button>
             </div>
           </FadeIn>
@@ -182,10 +182,10 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-4xl font-bold text-navy mb-4">
-              <EditableText contentKey="home.solution.title" />
+              {c["home.solution.title"]}
             </h2>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              <EditableText contentKey="home.solution.body" />
+              {c["home.solution.body"]}
             </p>
           </div>
         </FadeIn>
@@ -195,7 +195,7 @@ export default function HomePage() {
               <div className="text-center p-6 rounded-xl bg-navy/5 border border-navy/10 hover:bg-navy hover:text-white transition-all duration-300 group cursor-default">
                 <div className="text-4xl mb-4" aria-hidden="true">{icon}</div>
                 <p className="font-semibold text-navy group-hover:text-white text-sm transition-colors">
-                  <EditableText contentKey={`home.solution.${i}`} />
+                  {c[`home.solution.${i}`]}
                 </p>
               </div>
             </FadeIn>
@@ -203,7 +203,7 @@ export default function HomePage() {
         </div>
         <div className="text-center">
           <Button href="/contact" variant="primary">
-            <EditableText contentKey="home.solution.cta" />
+            {c["home.solution.cta"]}
           </Button>
         </div>
       </SectionWrapper>
@@ -214,7 +214,7 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-4xl font-bold text-navy mb-3">
-              <EditableText contentKey="home.audience.title" />
+              {c["home.audience.title"]}
             </h2>
           </div>
         </FadeIn>
@@ -224,10 +224,10 @@ export default function HomePage() {
               <div className="border border-gray-100 rounded-xl p-6 hover:border-gold hover:shadow-md transition-all duration-300 text-center bg-white">
                 <div className="text-4xl mb-4" aria-hidden="true">{icon}</div>
                 <h3 className="font-bold text-navy text-base mb-2">
-                  <EditableText contentKey={`home.audience.${i}.title`} />
+                  {c[`home.audience.${i}.title`]}
                 </h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
-                  <EditableText contentKey={`home.audience.${i}.desc`} />
+                  {c[`home.audience.${i}.desc`]}
                 </p>
               </div>
             </FadeIn>
@@ -235,7 +235,7 @@ export default function HomePage() {
         </div>
         <div className="text-center mt-10">
           <Button href="/contact" variant="outline">
-            <EditableText contentKey="home.audience.cta" />
+            {c["home.audience.cta"]}
           </Button>
         </div>
       </SectionWrapper>
@@ -246,10 +246,10 @@ export default function HomePage() {
           <FadeIn>
             <div className="w-16 h-px bg-gold mb-8" />
             <h2 className="text-4xl font-bold text-navy mb-3">
-              <EditableText contentKey="home.whyUs.title" />
+              {c["home.whyUs.title"]}
             </h2>
             <p className="text-gray-500 mb-10">
-              <EditableText contentKey="home.whyUs.body" />
+              {c["home.whyUs.body"]}
             </p>
             <div className="space-y-7">
               {whyUsIcons.map((icon, i) => (
@@ -257,10 +257,10 @@ export default function HomePage() {
                   <span className="text-2xl shrink-0 mt-0.5" aria-hidden="true">{icon}</span>
                   <div>
                     <h3 className="font-bold text-navy mb-1">
-                      <EditableText contentKey={`home.whyUs.${i}.title`} />
+                      {c[`home.whyUs.${i}.title`]}
                     </h3>
                     <p className="text-gray-500 text-sm leading-relaxed">
-                      <EditableText contentKey={`home.whyUs.${i}.desc`} />
+                      {c[`home.whyUs.${i}.desc`]}
                     </p>
                   </div>
                 </div>
@@ -273,13 +273,13 @@ export default function HomePage() {
               <div className="absolute top-0 left-0 right-0 h-1 bg-gold" aria-hidden="true" />
               <div className="text-gold/30 text-8xl font-bold leading-none mb-4 select-none">"</div>
               <blockquote className="text-xl leading-relaxed text-white/90 mb-8">
-                <EditableText contentKey="home.whyUs.quote" />
+                {c["home.whyUs.quote"]}
               </blockquote>
               <div className="text-gold font-bold">
-                <EditableText contentKey="home.whyUs.quoteName" />
+                {c["home.whyUs.quoteName"]}
               </div>
               <div className="text-white/40 text-sm mt-1">
-                <EditableText contentKey="home.whyUs.quoteRole" />
+                {c["home.whyUs.quoteRole"]}
               </div>
             </div>
           </FadeIn>
@@ -294,10 +294,10 @@ export default function HomePage() {
               <div>
                 <div className="w-16 h-px bg-gold mb-6" />
                 <h2 className="text-4xl font-bold text-white mb-3">
-                  <EditableText contentKey="home.process.title" />
+                  {c["home.process.title"]}
                 </h2>
                 <p className="text-white/60">
-                  <EditableText contentKey="home.process.subtitle" />
+                  {c["home.process.subtitle"]}
                 </p>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-lg mt-8 md:mt-0">
@@ -313,10 +313,10 @@ export default function HomePage() {
                     {num}
                   </div>
                   <h3 className="font-bold text-white text-lg mb-2">
-                    <EditableText contentKey={`home.process.${i}.title`} />
+                    {c[`home.process.${i}.title`]}
                   </h3>
                   <p className="text-white/60 text-sm">
-                    <EditableText contentKey={`home.process.${i}.desc`} />
+                    {c[`home.process.${i}.desc`]}
                   </p>
                 </div>
               </FadeIn>
@@ -336,7 +336,7 @@ export default function HomePage() {
           <div className="text-center mb-14">
             <div className="w-16 h-px bg-gold mx-auto mb-6" />
             <h2 className="text-4xl font-bold text-navy mb-3">
-              <EditableText contentKey="home.faq.title" />
+              {c["home.faq.title"]}
             </h2>
           </div>
         </FadeIn>
@@ -351,10 +351,10 @@ export default function HomePage() {
           <FadeIn>
             <div className="max-w-2xl mx-auto">
               <p className="text-4xl md:text-5xl font-bold text-white mb-10 leading-tight">
-                <EditableText contentKey="home.urgency.title" />
+                {c["home.urgency.title"]}
               </p>
               <Button href="/contact" variant="primary">
-                <EditableText contentKey="home.urgency.cta" />
+                {c["home.urgency.cta"]}
               </Button>
             </div>
           </FadeIn>
@@ -368,10 +368,10 @@ export default function HomePage() {
             <FadeIn>
               <div className="w-16 h-px bg-navy/30 mb-8" />
               <h2 className="text-4xl md:text-5xl font-bold text-navy mb-6 leading-tight">
-                <EditableText contentKey="home.finalCta.title" />
+                {c["home.finalCta.title"]}
               </h2>
               <p className="text-navy/70 text-lg">
-                <EditableText contentKey="home.finalCta.cta" />
+                {c["home.finalCta.cta"]}
               </p>
               <div className="mt-10">
                 <HomeContactForm />

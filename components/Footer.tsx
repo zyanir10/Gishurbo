@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import EditableText from "./EditableText";
+import { c } from "@/lib/content";
 
 const quickLinks = [
   { href: "/about", label: "אודות" },
@@ -28,14 +28,14 @@ export default function Footer() {
               />
             </div>
             <p className="text-white/50 text-sm leading-relaxed">
-              <EditableText contentKey="footer.tagline" />
+              {c["footer.tagline"]}
             </p>
           </div>
 
           {/* Quick links */}
           <div>
             <h3 className="text-gold font-semibold mb-5 text-xs uppercase tracking-widest">
-              <EditableText contentKey="footer.nav.title" />
+              {c["footer.nav.title"]}
             </h3>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
@@ -54,19 +54,19 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="text-gold font-semibold mb-5 text-xs uppercase tracking-widest">
-              <EditableText contentKey="footer.contact.title" />
+              {c["footer.contact.title"]}
             </h3>
             <ul className="space-y-3 text-white/50 text-sm">
-              <li><EditableText contentKey="footer.contact.address" /></li>
-              <li><EditableText contentKey="footer.contact.phone" /></li>
-              <li><EditableText contentKey="footer.contact.email" /></li>
-              <li><EditableText contentKey="footer.contact.whatsapp" /></li>
+              <li>{c["footer.contact.address"]}</li>
+              <li>{c["footer.contact.phone"]}</li>
+              <li>{c["footer.contact.email"]}</li>
+              <li>{c["footer.contact.whatsapp"]}</li>
             </ul>
           </div>
         </div>
 
         <div className="mt-12 pt-8 border-t border-white/10 text-center text-white/30 text-sm">
-          <EditableText contentKey="footer.copyright" />
+          {c["footer.copyright"]}
         </div>
       </div>
     </footer>

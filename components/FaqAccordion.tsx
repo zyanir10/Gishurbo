@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import EditableText from "./EditableText";
+import { c } from "@/lib/content";
 
 const FAQ_COUNT = 8;
 
@@ -22,7 +22,7 @@ export default function FaqAccordion() {
                 open === i ? "text-gold" : "text-navy"
               }`}
             >
-              <EditableText contentKey={`home.faq.${i}.q`} />
+              {c[`home.faq.${i}.q`]}
             </span>
             <span
               className={`text-gold text-2xl font-light shrink-0 transition-transform duration-300 ${
@@ -35,7 +35,7 @@ export default function FaqAccordion() {
           </button>
           {open === i && (
             <div className="px-6 pb-6 text-gray-600 leading-relaxed">
-              <EditableText contentKey={`home.faq.${i}.a`} />
+              {c[`home.faq.${i}.a`]}
             </div>
           )}
         </div>
