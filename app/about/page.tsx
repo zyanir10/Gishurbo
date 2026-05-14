@@ -100,7 +100,7 @@ export default function AboutPage() {
               <h2 className="text-4xl font-bold text-navy mb-2">
                 <EditableText contentKey="about.founder.name" />
               </h2>
-              <p className="text-base text-gray-500 mb-8">
+              <p className="text-lg text-gray-500 mb-8">
                 <EditableText contentKey="about.founder.role" />
               </p>
               <ul className="space-y-4 mb-10">
