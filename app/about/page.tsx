@@ -97,17 +97,17 @@ export default function AboutPage() {
               <p className="text-gold font-semibold text-sm uppercase tracking-wider mb-2">
                 <EditableText contentKey="about.founder.label" />
               </p>
-              <h2 className="text-4xl font-bold text-navy mb-2">
+              <h2 className="text-5xl font-bold text-navy mb-2">
                 <EditableText contentKey="about.founder.name" />
               </h2>
-              <p className="text-xl text-gray-500 mb-8">
+              <p className="text-2xl text-gray-500 mb-8">
                 <EditableText contentKey="about.founder.role" />
               </p>
               <ul className="space-y-4 mb-10">
                 {[0, 1, 2, 3, 4].map((i) => (
                   <li key={i} className="flex items-start gap-3">
                     <span className="text-gold mt-1 shrink-0">◆</span>
-                    <span className="text-gray-600 text-xl leading-relaxed">
+                    <span className="text-gray-600 text-2xl leading-relaxed">
                       <EditableText contentKey={`about.founder.${i}`} />
                     </span>
                   </li>
