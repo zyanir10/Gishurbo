@@ -11,6 +11,30 @@ export const metadata: Metadata = {
     "היכרות עם מרכז הבוררות והגישור באילת ועם המייסדת עו\"ד מיכל זמרן — מגשרת ובוררת מוסמכת.",
 };
 
+const teamMembers = [
+  {
+    name: "אסנת אדלר",
+    role: "עורכת דין ומגשרת",
+    image: "/osnat.jpeg",
+    points: [
+      "מגשרת מקצועית עם ניסיון של למעלה מ-10 שנים ביישוב סכסוכים מורכבים בדרך יצירתית ויעילה",
+      "מרצה באוניברסיטת בן גוריון ומנחה קורסי גישור מטעם קבוצת \"גומא-גבים\"",
+      "לשעבר עוזרת משפטית לשופט בבית משפט השלום",
+      "בעלת משרד עצמאי המתמחה בדיני משפחה ועבודה",
+    ],
+  },
+  {
+    name: "אייל שמריהו",
+    role: "מגשר ועורך דין",
+    image: "/eyal.jpeg",
+    points: [
+      "בעל ניסיון של 14 שנה במגזר הפרטי בתחום הגישור וייישוב סכסוכים",
+      "ניסיון מצטבר של כ-18 שנה בתחום הגישור וייישוב סכסוכים",
+      "ניסיון כעורך דין ביחידת הסיוע של בתי המשפט",
+    ],
+  },
+];
+
 export default function AboutPage() {
   return (
     <>
@@ -108,6 +132,48 @@ export default function AboutPage() {
             </div>
           </div>
         </FadeIn>
+      </SectionWrapper>
+
+      {/* Team */}
+      <SectionWrapper className="bg-gray-50">
+        <FadeIn>
+          <div className="text-center mb-12">
+            <div className="w-16 h-px bg-gold mx-auto mb-6" />
+            <h2 className="text-3xl font-bold text-navy mb-2">
+              <EditableText contentKey="about.team.title" />
+            </h2>
+          </div>
+        </FadeIn>
+        <div className="grid md:grid-cols-2 gap-8">
+          {teamMembers.map((member, idx) => (
+            <FadeIn key={idx} delay={idx * 120}>
+              <div
+                className="bg-white rounded-2xl p-8 border border-gold/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center"
+              >
+                <div className="mb-5 shrink-0">
+                  <Image
+                    src={member.image}
+                    alt={member.name}
+                    width={160}
+                    height={160}
+                    className="rounded-full object-cover"
+                    style={{ width: 160, height: 160, border: "3px solid #C9A646" }}
+                  />
+                </div>
+                <h3 className="text-xl font-bold text-navy mb-1">{member.name}</h3>
+                <p className="text-sm font-semibold mb-5" style={{ color: "#C9A646" }}>{member.role}</p>
+                <ul className="space-y-2 text-right w-full">
+                  {member.points.map((point, i) => (
+                    <li key={i} className="flex items-start gap-2 text-right">
+                      <span className="shrink-0 mt-1" style={{ color: "#C9A646" }}>◆</span>
+                      <span className="text-gray-600 text-[13px] leading-relaxed">{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
       </SectionWrapper>
 
       {/* CTA */}
