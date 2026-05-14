@@ -30,7 +30,7 @@ const teamMembers = [
     points: [
       "בעל ניסיון של 14 שנה במגזר הפרטי בתחום הגישור וייישוב סכסוכים",
       "ניסיון מצטבר של כ-18 שנה בתחום הגישור וייישוב סכסוכים",
-      "ניסיון כעורך דין ביחידת הסיוע של בתי המשפט",
+      "לשעבר עורך דין ביחידת הסיוע של בתי המשפט",
     ],
   },
 ];
@@ -150,23 +150,23 @@ export default function AboutPage() {
               <div
                 className="bg-white rounded-2xl p-8 border border-gold/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center"
               >
-                <div className="mb-5 shrink-0">
+                <div className="mb-6 shrink-0">
                   <Image
                     src={member.image}
                     alt={member.name}
-                    width={160}
-                    height={160}
+                    width={210}
+                    height={210}
                     className="rounded-full object-cover"
-                    style={{ width: 160, height: 160, border: "3px solid #C9A646" }}
+                    style={{ width: 210, height: 210, border: "3px solid #C9A646" }}
                   />
                 </div>
-                <h3 className="text-xl font-bold text-navy mb-1">{member.name}</h3>
-                <p className="text-sm font-semibold mb-5" style={{ color: "#C9A646" }}>{member.role}</p>
-                <ul className="space-y-2 text-right w-full">
+                <h3 className="text-2xl font-bold text-navy mb-1">{member.name}</h3>
+                <p className="text-base font-semibold mb-6" style={{ color: "#C9A646" }}>{member.role}</p>
+                <ul className="space-y-3 text-right w-full">
                   {member.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-2 text-right">
                       <span className="shrink-0 mt-1" style={{ color: "#C9A646" }}>◆</span>
-                      <span className="text-gray-600 text-[13px] leading-relaxed">{point}</span>
+                      <span className="text-gray-600 text-sm leading-relaxed">{point}</span>
                     </li>
                   ))}
                 </ul>
