@@ -150,23 +150,23 @@ export default function AboutPage() {
               <div className="h-full bg-white rounded-2xl p-8 border border-gold/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center">
                 <div
                   className="mb-6 shrink-0 rounded-full overflow-hidden"
-                  style={{ width: 260, height: 260, border: "3px solid #C9A646" }}
+                  style={{ width: 320, height: 320, border: "3px solid #C9A646" }}
                 >
                   <Image
                     src={member.image}
                     alt={member.name}
-                    width={260}
-                    height={260}
+                    width={320}
+                    height={320}
                     className="w-full h-full object-cover object-center"
                   />
                 </div>
-                <h3 className="text-3xl font-bold text-navy mb-1">{member.name}</h3>
-                <p className="text-lg font-semibold mb-6" style={{ color: "#C9A646" }}>{member.role}</p>
+                <h3 className="text-4xl font-bold text-navy mb-1">{member.name}</h3>
+                <p className="text-xl font-semibold mb-6" style={{ color: "#C9A646" }}>{member.role}</p>
                 <ul className="space-y-3 text-right w-full">
                   {member.points.map((point, i) => (
                     <li key={i} className="flex items-start gap-2 text-right">
                       <span className="shrink-0 mt-1" style={{ color: "#C9A646" }}>◆</span>
-                      <span className="text-gray-600 text-lg leading-relaxed">{point}</span>
+                      <span className="text-gray-600 text-xl leading-relaxed">{point}</span>
                     </li>
                   ))}
                 </ul>
