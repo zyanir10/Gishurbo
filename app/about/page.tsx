@@ -15,7 +15,7 @@ const teamMembers = [
   {
     name: "אסנת אדלר",
     role: "עורכת דין ומגשרת",
-    image: "/osnat.jpeg",
+    image: "/osnat.png",
     points: [
       "מגשרת מקצועית עם ניסיון של למעלה מ-10 שנים ביישוב סכסוכים מורכבים בדרך יצירתית ויעילה",
       "מרצה באוניברסיטת בן גוריון ומנחה קורסי גישור מטעם קבוצת \"גומא-גבים\"",
@@ -26,7 +26,7 @@ const teamMembers = [
   {
     name: "אייל שמריהו",
     role: "מגשר ועורך דין",
-    image: "/eyal.jpeg",
+    image: "/eyal.png",
     points: [
       "בעל ניסיון של 14 שנה במגזר הפרטי בתחום הגישור וייישוב סכסוכים",
       "ניסיון מצטבר של כ-18 שנה בתחום הגישור וייישוב סכסוכים",
@@ -157,7 +157,7 @@ export default function AboutPage() {
                     alt={member.name}
                     width={210}
                     height={210}
-                    className="w-full h-full object-cover object-top"
+                    className="w-full h-full object-cover object-center"
                   />
                 </div>
                 <h3 className="text-2xl font-bold text-navy mb-1">{member.name}</h3>
