@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import FadeIn from "@/components/FadeIn";
 import SectionWrapper from "@/components/SectionWrapper";
 import Button from "@/components/Button";
@@ -64,42 +65,68 @@ export default function KnowledgePage() {
     <>
       {/* Hero */}
       <section style={{ backgroundColor: "#1E2A38" }} className="pt-32 pb-20">
-        <div className="max-w-[1200px] mx-auto px-6 text-center">
-          <FadeIn>
-            <span
-              className="block text-gold font-semibold uppercase mb-4"
-              style={{ letterSpacing: "3px", fontSize: "12px" }}
-            >
-              {c["knowledge.hero.kicker"]}
-            </span>
-            <h1 className="text-gold font-bold mb-6" style={{ fontSize: "28px" }}>
-              {c["knowledge.hero.title"]}
-            </h1>
-            <p
-              className="text-white mx-auto leading-relaxed mb-8"
-              style={{ maxWidth: "500px" }}
-            >
-              {c["knowledge.hero.desc.prefix"]}
-              <strong className="text-gold font-bold">
-                {c["knowledge.hero.desc.bold1"]}
-              </strong>
-              {c["knowledge.hero.desc.mid"]}
-              <br />
-              {c["knowledge.hero.desc.prefix2"]}
-              <strong className="text-gold font-bold">
-                {c["knowledge.hero.desc.bold2"]}
-              </strong>
-              {c["knowledge.hero.desc.suffix"]}
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" variant="primary">
-                {c["knowledge.hero.cta1"]}
-              </Button>
-              <Button href="/contact" variant="outline">
-                {c["knowledge.hero.cta2"]}
-              </Button>
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid grid-cols-1 md:grid-cols-[60%_40%] gap-8 md:gap-12 items-center">
+            {/* Text column — right in RTL desktop, bottom on mobile */}
+            <div className="order-last md:order-first">
+              <FadeIn>
+                <span
+                  className="block text-gold font-semibold uppercase mb-4"
+                  style={{ letterSpacing: "3px", fontSize: "12px" }}
+                >
+                  {c["knowledge.hero.kicker"]}
+                </span>
+                <h1 className="text-gold font-bold mb-6" style={{ fontSize: "28px" }}>
+                  {c["knowledge.hero.title"]}
+                </h1>
+                <p className="text-white leading-relaxed mb-8">
+                  {c["knowledge.hero.desc.prefix"]}
+                  <strong className="text-gold font-bold">
+                    {c["knowledge.hero.desc.bold1"]}
+                  </strong>
+                  {c["knowledge.hero.desc.mid"]}
+                  <br />
+                  {c["knowledge.hero.desc.prefix2"]}
+                  <strong className="text-gold font-bold">
+                    {c["knowledge.hero.desc.bold2"]}
+                  </strong>
+                  {c["knowledge.hero.desc.suffix"]}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button href="/contact" variant="primary">
+                    {c["knowledge.hero.cta1"]}
+                  </Button>
+                  <Button href="/contact" variant="outline">
+                    {c["knowledge.hero.cta2"]}
+                  </Button>
+                </div>
+              </FadeIn>
             </div>
-          </FadeIn>
+
+            {/* Image column — left in RTL desktop, top on mobile */}
+            <div className="order-first md:order-last">
+              <FadeIn delay={150}>
+                <div
+                  className="relative overflow-hidden rounded-2xl h-[280px] md:h-[420px]"
+                  style={{ border: "2px solid #C9A646" }}
+                >
+                  <Image
+                    src="/Lecture.png"
+                    alt="הרצאות וסדנאות"
+                    fill
+                    className="object-cover"
+                  />
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      background:
+                        "linear-gradient(to left, #1E2A38 0%, transparent 40%)",
+                    }}
+                  />
+                </div>
+              </FadeIn>
+            </div>
+          </div>
         </div>
       </section>
 
