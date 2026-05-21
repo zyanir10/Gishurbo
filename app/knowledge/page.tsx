@@ -108,6 +108,8 @@ export default function KnowledgePage() {
                     alt="הרצאות וסדנאות"
                     fill
                     className="object-cover"
+                    quality={100}
+                    sizes="(max-width: 768px) 100vw, 40vw"
                   />
                 </div>
               </FadeIn>
