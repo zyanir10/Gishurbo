@@ -109,13 +109,6 @@ export default function KnowledgePage() {
                     fill
                     className="object-cover"
                   />
-                  <div
-                    className="absolute inset-0"
-                    style={{
-                      background:
-                        "linear-gradient(to left, #223558 0%, transparent 40%)",
-                    }}
-                  />
                 </div>
               </FadeIn>
             </div>
@@ -126,7 +119,7 @@ export default function KnowledgePage() {
       {/* Stats Row */}
       <section className="bg-gray-50 py-8">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-0">
             {(
               [
                 { Icon: MicIcon, i: 0 },
