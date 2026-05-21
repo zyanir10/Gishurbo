@@ -111,7 +111,7 @@ export default function KnowledgePage() {
                   style={{ border: "2px solid #C9A646" }}
                 >
                   <Image
-                    src="/Lecture.png"
+                    src="/lecture.png"
                     alt="הרצאות וסדנאות"
                     fill
                     className="object-cover"
