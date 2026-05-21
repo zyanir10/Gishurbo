@@ -10,7 +10,7 @@ import HomeContactForm from "@/components/HomeContactForm";
 const trustIcons = ["⚖️", "🔒", "⚡", "🏛️"];
 const painIcons = ["⏰", "💸", "💔", "❓"];
 const solutionIcons = ["🎯", "⚡", "💰", "🔒"];
-const serviceIcons = ["🤝", "⚖️", "💻", "👨‍👩‍👧", "🎓"];
+const serviceIcons = ["🤝", "⚖️", "💻", "👨‍👩‍👧"];
 const whyUsIcons = ["⚖️", "⚡", "💰", "🔒", "🎯"];
 const processNums = ["01", "02", "03", "04"];
 const audienceIcons = ["👨‍👩‍👧", "🏢", "⚖️", "🏛️", "🤝"];
@@ -115,11 +115,6 @@ export default function HomePage() {
                     <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={176} className="w-full h-full object-cover object-top" />
                   </div>
                 )}
-                {i === 4 && (
-                  <div className="h-44 overflow-hidden shrink-0">
-                    <Image src="/lecture.png" alt="מרכז הידע" width={600} height={176} className="w-full h-full object-cover" />
-                  </div>
-                )}
                 <div className="p-8 flex flex-col flex-1">
                   {i === 3 && (
                     <span className="self-start mb-3 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
@@ -134,7 +129,7 @@ export default function HomePage() {
                     {c[`home.services.${i}.description`]}
                   </p>
                   <Link
-                    href={i === 4 ? "/knowledge" : "/contact"}
+                    href="/contact"
                     className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
                   >
                     {c[`home.services.${i}.cta`]}
@@ -145,6 +140,31 @@ export default function HomePage() {
           ))}
         </div>
       </SectionWrapper>
+
+      {/* ─── Knowledge Center ─── */}
+      <section className="bg-white py-24">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <FadeIn>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <div className="w-12 h-px bg-gold mb-4" />
+                <h2 className="text-3xl font-bold text-navy mb-2">
+                  {c["home.services.4.title"]}
+                </h2>
+                <p className="text-gray-600 leading-relaxed mb-8">
+                  {c["home.services.4.description"]}
+                </p>
+                <Button href="/knowledge" variant="primary">
+                  {c["home.services.4.cta"]}
+                </Button>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md mt-6 md:mt-0">
+                <Image src="/lecture.png" alt="מרכז הידע" width={600} height={240} className="w-full h-[200px] md:h-[240px] object-cover" />
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
 
       {/* ─── Pain ─── */}
       <section className="bg-navy py-24">
