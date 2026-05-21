@@ -135,6 +135,34 @@ export default function ServicesPage() {
         </FadeIn>
       </SectionWrapper>
 
+      {/* Knowledge Center */}
+      <section className="bg-gray-50 py-24">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <FadeIn>
+            <div className="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <div className="w-12 h-px bg-gold mb-4" />
+                <h2 className="text-3xl font-bold text-navy mb-2">
+                  {c["services.knowledge.title"]}
+                </h2>
+                <p className="text-gray-500 text-lg mb-6">
+                  {c["services.knowledge.subtitle"]}
+                </p>
+                <p className="text-gray-600 leading-relaxed mb-8">
+                  {c["services.knowledge.body"]}
+                </p>
+                <Button href="/knowledge" variant="primary">
+                  {c["services.knowledge.cta"]}
+                </Button>
+              </div>
+              <div className="rounded-xl overflow-hidden shadow-md mt-6 md:mt-0">
+                <Image src="/lecture.png" alt="מרכז הידע" width={600} height={240} className="w-full h-[200px] md:h-[240px] object-cover" />
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="bg-navy py-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">

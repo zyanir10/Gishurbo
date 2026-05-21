@@ -10,7 +10,7 @@ import HomeContactForm from "@/components/HomeContactForm";
 const trustIcons = ["⚖️", "🔒", "⚡", "🏛️"];
 const painIcons = ["⏰", "💸", "💔", "❓"];
 const solutionIcons = ["🎯", "⚡", "💰", "🔒"];
-const serviceIcons = ["🤝", "⚖️", "💻", "👨‍👩‍👧"];
+const serviceIcons = ["🤝", "⚖️", "💻", "👨‍👩‍👧", "🎓"];
 const whyUsIcons = ["⚖️", "⚡", "💰", "🔒", "🎯"];
 const processNums = ["01", "02", "03", "04"];
 const audienceIcons = ["👨‍👩‍👧", "🏢", "⚖️", "🏛️", "🤝"];
@@ -115,6 +115,11 @@ export default function HomePage() {
                     <Image src="/Family-Holding.png" alt="תיאום הורי" width={600} height={176} className="w-full h-full object-cover object-top" />
                   </div>
                 )}
+                {i === 4 && (
+                  <div className="h-44 overflow-hidden shrink-0">
+                    <Image src="/lecture.png" alt="מרכז הידע" width={600} height={176} className="w-full h-full object-cover" />
+                  </div>
+                )}
                 <div className="p-8 flex flex-col flex-1">
                   {i === 3 && (
                     <span className="self-start mb-3 bg-gold/10 text-gold text-xs font-semibold px-3 py-1 rounded-full border border-gold/30">
@@ -129,7 +134,7 @@ export default function HomePage() {
                     {c[`home.services.${i}.description`]}
                   </p>
                   <Link
-                    href="/contact"
+                    href={i === 4 ? "/knowledge" : "/contact"}
                     className="mt-6 text-gold text-sm font-semibold hover:underline inline-flex items-center gap-1"
                   >
                     {c[`home.services.${i}.cta`]}
