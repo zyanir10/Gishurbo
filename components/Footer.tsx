@@ -5,6 +5,7 @@ import { c } from "@/lib/content";
 const quickLinks = [
   { href: "/about", label: "אודות" },
   { href: "/services", label: "שירותים" },
+  { href: "/knowledge", label: "מרכז הידע" },
   { href: "/process", label: "תהליך" },
   { href: "/for-lawyers", label: "להפניות" },
   { href: "/join", label: "הצטרפות" },
