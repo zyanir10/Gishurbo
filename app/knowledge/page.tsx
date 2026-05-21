@@ -77,7 +77,7 @@ export default function KnowledgePage() {
                 >
                   {c["knowledge.hero.kicker"]}
                 </span>
-                <h1 className="text-5xl font-bold text-white mb-6">
+                <h1 className="text-3xl font-bold text-white mb-6">
                   {c["knowledge.hero.title"]}
                 </h1>
                 <p className="text-white/80 text-xl leading-relaxed">
@@ -135,12 +135,12 @@ export default function KnowledgePage() {
               ] as const
             ).map(({ Icon, i }) => (
               <FadeIn key={i} delay={i * 80}>
-                <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-1.5 hover:shadow-md hover:border-gold transition-all duration-300">
+                <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-1.5 hover:shadow-md hover:border-gold transition-all duration-300" style={{ maxWidth: "160px", margin: "0 auto" }}>
                   <Icon size={4} />
-                  <h3 className="font-bold text-navy text-sm">
+                  <h3 className="font-bold text-navy text-base">
                     {c[`knowledge.stats.${i}.label`]}
                   </h3>
-                  <p className="text-gold font-semibold text-xs">
+                  <p className="text-gold font-semibold text-sm">
                     {c[`knowledge.stats.${i}.value`]}
                   </p>
                 </div>
