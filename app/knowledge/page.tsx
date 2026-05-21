@@ -64,19 +64,20 @@ export default function KnowledgePage() {
   return (
     <>
       {/* Hero */}
-      <section style={{ backgroundColor: "#1E2A38" }} className="pt-32 pb-20">
+      <section className="bg-navy pt-32 pb-20">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-[60%_40%] gap-8 md:gap-12 items-center">
             {/* Text column — right in RTL desktop, bottom on mobile */}
             <div className="order-last md:order-first">
               <FadeIn>
+                <div className="w-16 h-px bg-gold mb-5" />
                 <span
-                  className="block text-gold font-semibold uppercase mb-4"
-                  style={{ letterSpacing: "3px", fontSize: "12px" }}
+                  className="block text-gold font-bold uppercase mb-4"
+                  style={{ letterSpacing: "3px", fontSize: "22px" }}
                 >
                   {c["knowledge.hero.kicker"]}
                 </span>
-                <h1 className="text-gold font-bold mb-6" style={{ fontSize: "28px" }}>
+                <h1 className="text-white font-bold mb-6" style={{ fontSize: "28px" }}>
                   {c["knowledge.hero.title"]}
                 </h1>
                 <p className="text-white leading-relaxed mb-8">
@@ -120,7 +121,7 @@ export default function KnowledgePage() {
                     className="absolute inset-0"
                     style={{
                       background:
-                        "linear-gradient(to left, #1E2A38 0%, transparent 40%)",
+                        "linear-gradient(to left, #223558 0%, transparent 40%)",
                     }}
                   />
                 </div>
@@ -131,29 +132,31 @@ export default function KnowledgePage() {
       </section>
 
       {/* Stats Row */}
-      <SectionWrapper className="bg-gray-50">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {(
-            [
-              { Icon: MicIcon, i: 0 },
-              { Icon: SchoolIcon, i: 1 },
-              { Icon: UsersIcon, i: 2 },
-            ] as const
-          ).map(({ Icon, i }) => (
-            <FadeIn key={i} delay={i * 80}>
-              <div className="bg-white rounded-xl p-8 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-3 hover:shadow-md hover:border-gold transition-all duration-300">
-                <Icon />
-                <h3 className="font-bold text-navy text-lg">
-                  {c[`knowledge.stats.${i}.label`]}
-                </h3>
-                <p className="text-gold font-semibold text-sm">
-                  {c[`knowledge.stats.${i}.value`]}
-                </p>
-              </div>
-            </FadeIn>
-          ))}
+      <section className="bg-gray-50 py-8">
+        <div className="max-w-[1200px] mx-auto px-6">
+          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+            {(
+              [
+                { Icon: MicIcon, i: 0 },
+                { Icon: SchoolIcon, i: 1 },
+                { Icon: UsersIcon, i: 2 },
+              ] as const
+            ).map(({ Icon, i }) => (
+              <FadeIn key={i} delay={i * 80}>
+                <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-1 hover:shadow-md hover:border-gold transition-all duration-300">
+                  <Icon size={4} />
+                  <h3 className="font-semibold text-navy text-xs">
+                    {c[`knowledge.stats.${i}.label`]}
+                  </h3>
+                  <p className="text-gold font-medium text-xs">
+                    {c[`knowledge.stats.${i}.value`]}
+                  </p>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
-      </SectionWrapper>
+      </section>
 
       {/* Lectures */}
       <SectionWrapper className="bg-white">
@@ -252,7 +255,7 @@ export default function KnowledgePage() {
       </section>
 
       {/* CTA Banner */}
-      <section style={{ backgroundColor: "#1E2A38" }} className="py-20">
+      <section className="bg-navy py-20">
         <div className="max-w-[1200px] mx-auto px-6 text-center">
           <FadeIn>
             <h2 className="text-3xl font-bold text-white mb-3">
