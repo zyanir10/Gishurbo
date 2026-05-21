@@ -77,10 +77,10 @@ export default function KnowledgePage() {
                 >
                   {c["knowledge.hero.kicker"]}
                 </span>
-                <h1 className="text-white font-bold mb-6" style={{ fontSize: "28px" }}>
+                <h1 className="text-5xl font-bold text-white mb-6">
                   {c["knowledge.hero.title"]}
                 </h1>
-                <p className="text-white leading-relaxed mb-8">
+                <p className="text-white/80 text-xl leading-relaxed">
                   {c["knowledge.hero.desc.prefix"]}
                   <strong className="text-gold font-bold">
                     {c["knowledge.hero.desc.bold1"]}
@@ -93,14 +93,6 @@ export default function KnowledgePage() {
                   </strong>
                   {c["knowledge.hero.desc.suffix"]}
                 </p>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button href="/contact" variant="primary">
-                    {c["knowledge.hero.cta1"]}
-                  </Button>
-                  <Button href="/contact" variant="outline">
-                    {c["knowledge.hero.cta2"]}
-                  </Button>
-                </div>
               </FadeIn>
             </div>
 
@@ -134,7 +126,7 @@ export default function KnowledgePage() {
       {/* Stats Row */}
       <section className="bg-gray-50 py-8">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-3 gap-4 max-w-lg mx-auto">
+          <div className="grid grid-cols-3 gap-4">
             {(
               [
                 { Icon: MicIcon, i: 0 },
@@ -143,12 +135,12 @@ export default function KnowledgePage() {
               ] as const
             ).map(({ Icon, i }) => (
               <FadeIn key={i} delay={i * 80}>
-                <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-1 hover:shadow-md hover:border-gold transition-all duration-300">
+                <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-1.5 hover:shadow-md hover:border-gold transition-all duration-300">
                   <Icon size={4} />
-                  <h3 className="font-semibold text-navy text-xs">
+                  <h3 className="font-bold text-navy text-sm">
                     {c[`knowledge.stats.${i}.label`]}
                   </h3>
-                  <p className="text-gold font-medium text-xs">
+                  <p className="text-gold font-semibold text-xs">
                     {c[`knowledge.stats.${i}.value`]}
                   </p>
                 </div>
