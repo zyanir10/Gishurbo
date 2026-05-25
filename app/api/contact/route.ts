@@ -1,56 +1,83 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 
+const resend = new Resend(process.env.RESEND_API_KEY);
+
+function row(label: string, value?: string) {
+  if (!value) return "";
+  return `<tr>
+    <td style="padding:8px 12px;background:#f9fafb;font-weight:bold;color:#1E2A38;border:1px solid #e5e7eb;width:160px;">${label}</td>
+    <td style="padding:8px 12px;border:1px solid #e5e7eb;color:#374151;">${value}</td>
+  </tr>`;
+}
+
+function msgBlock(message?: string) {
+  if (!message) return "";
+  return `<h3 style="color:#1E2A38;font-family:Arial;margin-top:20px;">הודעה:</h3>
+  <div dir="rtl" style="background:#f9fafb;padding:16px;border-right:4px solid #C9A646;font-family:Arial;font-size:14px;color:#374151;line-height:1.6;">
+    ${message.replace(/\n/g, "<br/>")}
+  </div>`;
+}
+
 export async function POST(req: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY);
-  const TO_EMAIL = process.env.TO_EMAIL ?? "gishurbo@gmail.com";
+  const toEmail = process.env.TO_EMAIL ?? "gishurbo@gmail.com";
 
   try {
     const body = await req.json();
-    const { name, phone, email, subject, message, firm, profession, certification, years } =
-      body as Record<string, string>;
+    const {
+      name, phone, email, subject, message,
+      firm, profession, certification, years,
+    } = body as Record<string, string>;
 
-    // Build a clean Hebrew email body
-    const lines: string[] = [
-      `<h2 style="color:#223558;font-family:Arial,sans-serif;">פנייה חדשה — מרכז הבוררות והגישור באילת</h2>`,
-      `<table dir="rtl" style="border-collapse:collapse;width:100%;font-family:Arial,sans-serif;font-size:14px;">`,
-    ];
+    const isJoin   = !!profession;
+    const isLawyer = !!firm && !profession;
 
-    const addRow = (label: string, value?: string) => {
-      if (!value) return;
-      lines.push(
-        `<tr>
-          <td style="padding:8px 12px;background:#f9fafb;font-weight:bold;color:#223558;border:1px solid #e5e7eb;width:160px;">${label}</td>
-          <td style="padding:8px 12px;border:1px solid #e5e7eb;color:#374151;">${value}</td>
-        </tr>`
-      );
-    };
+    let emailSubject: string;
+    let html: string;
 
-    addRow("שם", name);
-    addRow("טלפון", phone);
-    addRow("אימייל", email);
-    addRow("נושא", subject);
-    addRow("שם המשרד", firm);
-    addRow("מקצוע", profession);
-    addRow("הסמכה", certification);
-    addRow("שנות ניסיון", years);
-
-    lines.push(`</table>`);
-
-    if (message) {
-      lines.push(
-        `<h3 style="color:#223558;font-family:Arial,sans-serif;margin-top:20px;">הודעה:</h3>`,
-        `<div dir="rtl" style="background:#f9fafb;padding:16px;border-right:4px solid #C9A646;font-family:Arial,sans-serif;font-size:14px;color:#374151;line-height:1.6;">${message.replace(/\n/g, "<br/>")}</div>`
-      );
+    if (isJoin) {
+      emailSubject = "בקשת הצטרפות חדשה — מגשר/בורר";
+      html = `<div dir="rtl" style="font-family:Arial;padding:20px;">
+        <h2 style="color:#1E2A38;">בקשת הצטרפות חדשה</h2>
+        <table style="border-collapse:collapse;width:100%;font-size:14px;">
+          ${row("שם", name)}
+          ${row("מקצוע", profession)}
+          ${row("הסמכה", certification)}
+          ${row("שנות ניסיון", years)}
+        </table>
+        ${msgBlock(message)}
+      </div>`;
+    } else if (isLawyer) {
+      emailSubject = "פנייה חדשה — עורך דין";
+      html = `<div dir="rtl" style="font-family:Arial;padding:20px;">
+        <h2 style="color:#1E2A38;">פנייה חדשה מעורך דין</h2>
+        <table style="border-collapse:collapse;width:100%;font-size:14px;">
+          ${row("שם", name)}
+          ${row("שם המשרד", firm)}
+          ${row("טלפון", phone)}
+          ${row("אימייל", email)}
+        </table>
+        ${msgBlock(message)}
+      </div>`;
+    } else {
+      emailSubject = `פנייה חדשה — צרו קשר${subject ? `: ${subject}` : ""}`;
+      html = `<div dir="rtl" style="font-family:Arial;padding:20px;">
+        <h2 style="color:#1E2A38;">פנייה חדשה מהאתר</h2>
+        <table style="border-collapse:collapse;width:100%;font-size:14px;">
+          ${row("שם", name)}
+          ${row("טלפון", phone)}
+          ${row("אימייל", email)}
+          ${row("נושא", subject)}
+        </table>
+        ${msgBlock(message)}
+      </div>`;
     }
 
-    const html = lines.join("\n");
-
     const { error } = await resend.emails.send({
-      from: "מרכז הבוררות והגישור <onboarding@resend.dev>",
-      to: [TO_EMAIL],
-      replyTo: email,
-      subject: `פנייה חדשה: ${subject ?? "ללא נושא"} — ${name ?? ""}`,
+      from: "onboarding@resend.dev",
+      to: toEmail,
+      ...(email ? { replyTo: email } : {}),
+      subject: emailSubject,
       html,
     });
 

@@ -50,8 +50,9 @@ export default function LawyerContactForm() {
     return (
       <div className="text-center py-14 bg-white rounded-2xl border border-gold/30 shadow-sm">
         <div className="text-5xl mb-5" aria-hidden="true">✅</div>
-        <h3 className="text-xl font-bold text-navy mb-2">הפנייה התקבלה!</h3>
-        <p className="text-gray-500">נחזור אליכם תוך 24 שעות.</p>
+        <p className="text-gray-600 text-lg font-medium">
+          הודעתך נשלחה בהצלחה! נחזור אליך בהקדם.
+        </p>
       </div>
     );
   }
@@ -121,7 +122,7 @@ export default function LawyerContactForm() {
         />
       </div>
       {status === "error" && (
-        <p className="text-red-500 text-sm">שגיאה בשליחה. אנא נסו שוב.</p>
+        <p className="text-red-500 text-sm">אירעה שגיאה בשליחה. אנא נסו שנית או צרו קשר ישירות.</p>
       )}
       <button
         type="submit"

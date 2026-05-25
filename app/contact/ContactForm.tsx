@@ -60,9 +60,8 @@ export default function ContactForm() {
     return (
       <div className="text-center py-16 bg-white rounded-2xl border border-gold/30 shadow-sm">
         <div className="text-5xl mb-5" aria-hidden="true">✅</div>
-        <h3 className="text-2xl font-bold text-navy mb-3">ההודעה נשלחה!</h3>
-        <p className="text-gray-500">
-          תודה על פנייתכם. נחזור אליכם תוך 24 שעות.
+        <p className="text-gray-600 text-lg font-medium">
+          הודעתך נשלחה בהצלחה! נחזור אליך בהקדם.
         </p>
       </div>
     );
@@ -142,7 +141,7 @@ export default function ContactForm() {
         />
       </div>
       {status === "error" && (
-        <p className="text-red-500 text-sm">שגיאה בשליחה. אנא נסו שוב.</p>
+        <p className="text-red-500 text-sm">אירעה שגיאה בשליחה. אנא נסו שנית או צרו קשר ישירות.</p>
       )}
       <button
         type="submit"
