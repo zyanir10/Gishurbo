@@ -234,6 +234,17 @@ export default async function ArticlePage({
                     {readingTime(article)}
                   </span>
                 </div>
+
+                {article.sourceUrl && (
+                  <a
+                    href={article.sourceUrl}
+                    className="inline-flex items-center gap-2 rounded px-5 py-2.5 text-sm font-semibold text-gold transition-colors duration-200 hover:bg-gold hover:text-navy sm:ms-auto"
+                    style={{ border: "1px solid #C9A646" }}
+                  >
+                    <span aria-hidden="true">↓</span>
+                    להורדת המסמך המקורי
+                  </a>
+                )}
               </div>
             </FadeIn>
           </div>
