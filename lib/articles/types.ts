@@ -8,7 +8,8 @@ export type Block =
   | { type: "h"; text: string }
   | { type: "p"; text: Rich }
   | { type: "quote"; text: Rich }
-  | { type: "list"; items: Rich[] };
+  | { type: "list"; items: Rich[]; ordered?: boolean }
+  | { type: "table"; head: string[]; rows: string[][] };
 
 /** The body of an article, as produced by the .docx converter. */
 export interface ArticleBody {
@@ -62,7 +63,9 @@ export function plain(rich: Rich): string {
 }
 
 export function blockText(b: Block): string {
-  return b.type === "list" ? b.items.map(plain).join(" ") : plain(b.text);
+  if (b.type === "list") return b.items.map(plain).join(" ");
+  if (b.type === "table") return [b.head, ...b.rows].flat().join(" ");
+  return plain(b.text);
 }
 
 /** Roughly 200 words per minute, floored at one minute. */

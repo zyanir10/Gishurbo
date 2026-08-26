@@ -98,6 +98,18 @@ export async function docxToArticleBody(
   );
 
   for (const [, tag, inner] of elements) {
+    if (tag === "table") {
+      const rows = [...inner.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)]
+        .map(([, tr]) =>
+          [...tr.matchAll(/<(td|th)[^>]*>([\s\S]*?)<\/>/g)].map(([, , cell]) =>
+            tidy(toText(cell))
+          )
+        )
+        .filter((row) => row.some(Boolean));
+      if (rows.length > 1) blocks.push({ type: "table", head: rows[0], rows: rows.slice(1) });
+      continue;
+    }
+
     if (tag === "ul" || tag === "ol") {
       const items = [...inner.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)]
         .map(([, li]) => toRich(li))
@@ -109,7 +121,7 @@ export async function docxToArticleBody(
         );
       else if (blocks.at(-1)?.type === "list")
         (blocks.at(-1) as { items: Rich[] }).items.push(...items);
-      else blocks.push({ type: "list", items });
+      else blocks.push({ type: "list", items, ordered: tag === "ol" });
       continue;
     }
 
