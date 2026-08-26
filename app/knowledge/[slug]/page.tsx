@@ -14,7 +14,26 @@ import {
   seedSlugs,
   tableOfContents,
   type Block,
+  type Rich,
 } from "@/lib/articles";
+
+/** Renders a paragraph, keeping the emphasis the author applied in Word. */
+function RichText({ value }: { value: Rich }) {
+  if (typeof value === "string") return <>{value}</>;
+  return (
+    <>
+      {value.map((run, i) =>
+        run.b ? (
+          <strong key={i} className="font-bold text-navy">
+            {run.t}
+          </strong>
+        ) : (
+          <span key={i}>{run.t}</span>
+        )
+      )}
+    </>
+  );
+}
 
 // Uploaded articles are not known at build time, so their pages render on
 // demand and are then cached alongside the prerendered ones.
@@ -70,7 +89,7 @@ function ArticleBlock({ block, id }: { block: Block; id?: string }) {
           style={{ borderRight: "3px solid #C9A646" }}
         >
           <p className="font-bold text-navy text-xl leading-relaxed">
-            {block.text}
+            <RichText value={block.text} />
           </p>
         </blockquote>
       );
@@ -82,14 +101,18 @@ function ArticleBlock({ block, id }: { block: Block; id?: string }) {
               <span className="text-gold shrink-0 mt-1" aria-hidden="true">
                 ◆
               </span>
-              <span className="text-gray-700 leading-relaxed">{item}</span>
+              <span className="text-gray-700 leading-relaxed">
+                <RichText value={item} />
+              </span>
             </li>
           ))}
         </ul>
       );
     default:
       return (
-        <p className="text-gray-700 leading-[1.85] mb-5">{block.text}</p>
+        <p className="text-gray-700 leading-[1.85] mb-5">
+          <RichText value={block.text} />
+        </p>
       );
   }
 }
@@ -208,7 +231,7 @@ export default async function ArticlePage({
 
           <article className="max-w-[720px]">
             <p className="text-navy text-xl font-semibold leading-relaxed mb-9">
-              {article.lead}
+              <RichText value={article.lead} />
             </p>
 
             {article.blocks.map((block, i) => {
