@@ -22,7 +22,8 @@ export default function Button({
   onClick,
   disabled,
 }: ButtonProps) {
-  const base = "inline-flex items-center justify-center font-semibold transition-all duration-200 rounded";
+  const base =
+    "inline-flex items-center justify-center font-semibold rounded transition-all duration-150 ease-out active:scale-[0.98] motion-reduce:active:scale-100";
 
   const sizes = {
     md: "px-6 py-3 text-sm",
@@ -51,7 +52,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`${classes} disabled:opacity-60 disabled:cursor-not-allowed`}
+      className={`${classes} disabled:opacity-60 disabled:cursor-not-allowed disabled:active:scale-100`}
     >
       {children}
     </button>
