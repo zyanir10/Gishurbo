@@ -108,6 +108,7 @@ export async function POST(request: Request) {
       ? dateISO
       : new Date().toISOString().slice(0, 10),
     featured: form.get("featured") === "true",
+    original: form.get("original") === "true",
     author:
       String(form.get("author") ?? "").trim() || "המרכז ליישוב סכסוכים באילת",
     authorImage: String(form.get("authorImage") ?? "").trim() || "/Logo.png",

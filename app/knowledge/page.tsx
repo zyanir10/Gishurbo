@@ -22,10 +22,12 @@ export const metadata: Metadata = {
     "הרצאות, קורסים וסדנאות בתחומי הגישור, הבוררות ויישוב הסכסוכים — לארגונים, מוסדות ואנשים פרטיים.",
 };
 
-function MicIcon({ size = 8 }: { size?: number }) {
+function MicIcon({ size = 28 }: { size?: number }) {
   return (
     <svg
-      className={`w-${size} h-${size} text-gold`}
+      width={size}
+      height={size}
+      className="text-gold shrink-0"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
@@ -39,10 +41,12 @@ function MicIcon({ size = 8 }: { size?: number }) {
   );
 }
 
-function SchoolIcon({ size = 8 }: { size?: number }) {
+function SchoolIcon({ size = 28 }: { size?: number }) {
   return (
     <svg
-      className={`w-${size} h-${size} text-gold`}
+      width={size}
+      height={size}
+      className="text-gold shrink-0"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
@@ -54,10 +58,12 @@ function SchoolIcon({ size = 8 }: { size?: number }) {
   );
 }
 
-function UsersIcon({ size = 8 }: { size?: number }) {
+function UsersIcon({ size = 28 }: { size?: number }) {
   return (
     <svg
-      className={`w-${size} h-${size} text-gold`}
+      width={size}
+      height={size}
+      className="text-gold shrink-0"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
@@ -71,10 +77,12 @@ function UsersIcon({ size = 8 }: { size?: number }) {
   );
 }
 
-function DocIcon({ size = 8 }: { size?: number }) {
+function DocIcon({ size = 28 }: { size?: number }) {
   return (
     <svg
-      className={`w-${size} h-${size} text-gold`}
+      width={size}
+      height={size}
+      className="text-gold shrink-0"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
@@ -172,27 +180,31 @@ export default async function KnowledgePage() {
         </div>
       </section>
 
-      {/* Stats Row */}
+      {/* Knowledge nav tiles */}
       <section className="bg-gray-50 py-8">
         <div className="max-w-[1200px] mx-auto px-6">
-          <div className="grid grid-cols-3 gap-0">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {(
               [
-                { Icon: MicIcon, i: 0 },
-                { Icon: SchoolIcon, i: 1 },
-                { Icon: UsersIcon, i: 2 },
+                { Icon: DocIcon, href: "#articles" },
+                { Icon: MicIcon, href: "#lectures" },
+                { Icon: SchoolIcon, href: "#courses" },
+                { Icon: UsersIcon, href: "#courses" },
               ] as const
-            ).map(({ Icon, i }) => (
+            ).map(({ Icon, href }, i) => (
               <FadeIn key={i} delay={i * 80}>
-                <div className="bg-white rounded-lg p-3 shadow-sm border border-gray-100 text-center flex flex-col items-center gap-1.5 hover:shadow-md hover:border-gold transition-all duration-300" style={{ maxWidth: "160px", margin: "0 auto" }}>
-                  <Icon size={4} />
-                  <h3 className="font-bold text-navy text-base">
-                    {c[`knowledge.stats.${i}.label`]}
+                <a
+                  href={href}
+                  className="group flex h-full flex-col items-center gap-2.5 rounded-xl border border-gray-100 bg-white px-5 py-7 text-center shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-gold hover:shadow-md"
+                >
+                  <Icon size={26} />
+                  <h3 className="text-xl font-bold text-navy">
+                    {c[`knowledge.tiles.${i}.label`]}
                   </h3>
-                  <p className="text-gold font-semibold text-sm">
-                    {c[`knowledge.stats.${i}.value`]}
+                  <p className="text-[15px] font-semibold text-gold">
+                    {c[`knowledge.tiles.${i}.value`]}
                   </p>
-                </div>
+                </a>
               </FadeIn>
             ))}
           </div>
@@ -200,10 +212,10 @@ export default async function KnowledgePage() {
       </section>
 
       {/* Articles */}
-      <SectionWrapper className="bg-white" id="articles">
+      <SectionWrapper className="bg-white scroll-mt-24" id="articles">
         <FadeIn>
           <div className="flex items-center gap-4 mb-3">
-            <DocIcon size={7} />
+            <DocIcon size={28} />
             <h2 className="text-3xl font-bold text-navy shrink-0">מאמרים</h2>
             <div className="flex-1 h-px bg-gold" />
           </div>
@@ -228,9 +240,19 @@ export default async function KnowledgePage() {
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     sizes="(max-width: 768px) 100vw, 50vw"
                   />
-                  <span className="absolute top-3 right-3 bg-navy/90 text-gold text-xs font-bold px-3 py-1 rounded-full">
-                    {article.category}
-                  </span>
+                  <div className="absolute top-3 right-3 flex flex-wrap items-center gap-2">
+                    <span className="bg-navy/90 text-gold text-xs font-bold px-3 py-1 rounded-full">
+                      {article.category}
+                    </span>
+                    {article.original && (
+                      <span
+                        className="bg-white/95 text-navy text-xs font-bold px-3 py-1 rounded-full"
+                        style={{ border: "1px solid #C9A646" }}
+                      >
+                        מאמר מקורי
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <div className="p-6 flex flex-col gap-2.5 flex-1">
                   <div className="flex items-center gap-2 text-gray-500 text-xs">
@@ -257,10 +279,10 @@ export default async function KnowledgePage() {
       </SectionWrapper>
 
       {/* Lectures */}
-      <SectionWrapper className="bg-gray-50">
+      <SectionWrapper className="bg-gray-50 scroll-mt-24" id="lectures">
         <FadeIn>
           <div className="flex items-center gap-4 mb-10">
-            <MicIcon size={7} />
+            <MicIcon size={28} />
             <h2 className="text-3xl font-bold text-navy shrink-0">
               {c["knowledge.lectures.title"]}
             </h2>
@@ -287,14 +309,14 @@ export default async function KnowledgePage() {
       </SectionWrapper>
 
       {/* Courses & Workshops */}
-      <section className="bg-white py-24">
+      <section id="courses" className="bg-white py-24 scroll-mt-24">
         <div className="max-w-[1200px] mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-10">
             {/* Courses */}
             <FadeIn>
               <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full">
                 <div className="flex items-center gap-3 mb-2">
-                  <SchoolIcon size={7} />
+                  <SchoolIcon size={28} />
                   <h2 className="text-2xl font-bold text-navy">
                     {c["knowledge.courses.title"]}
                   </h2>
@@ -328,7 +350,7 @@ export default async function KnowledgePage() {
             <FadeIn delay={120}>
               <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100 h-full">
                 <div className="flex items-center gap-3 mb-2">
-                  <UsersIcon size={7} />
+                  <UsersIcon size={28} />
                   <h2 className="text-2xl font-bold text-navy">
                     {c["knowledge.workshops.title"]}
                   </h2>

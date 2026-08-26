@@ -26,6 +26,7 @@ const SEED: Article[] = [
     ...(conflictAsOpportunity as ArticleBody),
     ...CENTER,
     slug: "conflict-as-opportunity",
+    original: true,
     title: "כשהקונפליקט הופך להזדמנות",
     category: "גישור ויישוב סכסוכים",
     image: "/bridge-mediation.jpeg",
@@ -37,6 +38,7 @@ const SEED: Article[] = [
     ...(organizationalConflict as ArticleBody),
     ...CENTER,
     slug: "organizational-conflict",
+    original: true,
     title: "יישוב קונפליקטים במרחב הארגוני",
     category: "ארגונים וניהול",
     image: "/table-painting.png",
@@ -46,6 +48,7 @@ const SEED: Article[] = [
   {
     ...(hrConflictResearch as ArticleBody),
     slug: "hr-conflict-research",
+    original: true,
     title:
       "תקציר מחקר: תפיסת תפקיד של מנהלי משאבי אנוש וסגנונם לניהול הקונפליקטים",
     category: "מחקר",
@@ -61,6 +64,7 @@ const SEED: Article[] = [
     ...(aiMediation as ArticleBody),
     ...CENTER,
     slug: "ai-mediation",
+    original: true,
     title: "גישור ובינה מלאכותית: טכנולוגיה בשירות הקשר האנושי",
     category: "חדשנות וטכנולוגיה",
     image: "/net-characters.jpeg",
