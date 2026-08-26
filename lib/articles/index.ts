@@ -47,8 +47,8 @@ const SEED: Article[] = [
   },
   {
     ...(hrConflictResearch as ArticleBody),
+    // A summary of a published academic paper, not original writing.
     slug: "hr-conflict-research",
-    original: true,
     title:
       "תקציר מחקר: תפיסת תפקיד של מנהלי משאבי אנוש וסגנונם לניהול הקונפליקטים",
     category: "מחקר",
