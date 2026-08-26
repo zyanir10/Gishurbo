@@ -2,6 +2,7 @@ import { list } from "@vercel/blob";
 
 import aiMediation from "./content/ai-mediation.json";
 import conflictAsOpportunity from "./content/conflict-as-opportunity.json";
+import hrConflictResearch from "./content/hr-conflict-research.json";
 import organizationalConflict from "./content/organizational-conflict.json";
 import type { Article, ArticleBody } from "./types";
 
@@ -41,6 +42,20 @@ const SEED: Article[] = [
     image: "/table-painting.png",
     imageAlt: "צדדים חותמים על הסכם סביב שולחן בליווי מגשרת",
     dateISO: "2026-08-04",
+  },
+  {
+    ...(hrConflictResearch as ArticleBody),
+    slug: "hr-conflict-research",
+    title:
+      "תקציר מחקר: תפיסת תפקיד של מנהלי משאבי אנוש וסגנונם לניהול הקונפליקטים",
+    category: "מחקר",
+    image: "/scales-arbitration.jpeg",
+    imageAlt: "מאזני צדק — איזון בין שני צדדים",
+    dateISO: "2026-07-07",
+    author: "ד\"ר רוני מש ואסנת אדלר",
+    authorImage: "/osnat.png",
+    byline: "פורסם בכתב העת Journal of Sociology and Social Work, 2018",
+    sourceUrl: "/research-hr-conflict-management.pdf",
   },
   {
     ...(aiMediation as ArticleBody),

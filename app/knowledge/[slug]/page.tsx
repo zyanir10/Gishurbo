@@ -93,20 +93,63 @@ function ArticleBlock({ block, id }: { block: Block; id?: string }) {
           </p>
         </blockquote>
       );
-    case "list":
+    case "list": {
+      const List = block.ordered ? "ol" : "ul";
       return (
-        <ul className="flex flex-col gap-3 my-2 mb-7">
+        <List className="flex flex-col gap-3 my-2 mb-7">
           {block.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3">
-              <span className="text-gold shrink-0 mt-1" aria-hidden="true">
-                ◆
+              <span
+                className="text-gold shrink-0 mt-1 font-bold tabular-nums"
+                aria-hidden="true"
+              >
+                {block.ordered ? `${i + 1}.` : "◆"}
               </span>
               <span className="text-gray-700 leading-relaxed">
                 <RichText value={item} />
               </span>
             </li>
           ))}
-        </ul>
+        </List>
+      );
+    }
+    case "table":
+      return (
+        <div className="my-8 -mx-6 px-6 overflow-x-auto">
+          <table className="w-full min-w-[420px] border-collapse text-sm">
+            <thead>
+              <tr>
+                {block.head.map((cell, i) => (
+                  <th
+                    key={i}
+                    scope="col"
+                    className="bg-navy text-white font-bold text-right p-3 first:rounded-r-lg last:rounded-l-lg"
+                  >
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, r) => (
+                <tr key={r} className="even:bg-gray-50">
+                  {row.map((cell, i) => (
+                    <td
+                      key={i}
+                      className={`p-3 border-b border-gray-100 ${
+                        i === row.length - 1
+                          ? "font-semibold text-navy"
+                          : "text-gray-700 tabular-nums"
+                      }`}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       );
     default:
       return (
