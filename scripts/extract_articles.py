@@ -55,12 +55,8 @@ KEYWORDS_MARKER = "מילות מפתח"
 HEADING_MAX = 80
 
 
-def para_text(xml):
-    """Concatenate the runs of one <w:p>, honouring tabs and breaks."""
-    out = []
-    for token in re.findall(r"<w:t[^>]*>(.*?)</w:t>|<w:tab/>|<w:br/>", xml, re.S):
-        out.append(token if token else " ")
-    text = "".join(out)
+def clean(text):
+    """Normalisation shared by every run of text."""
     text = (
         text.replace("&amp;", "&")
         .replace("&lt;", "<")
@@ -69,16 +65,84 @@ def para_text(xml):
         .replace("&apos;", "'")
     )
     # Word leaves NBSP and RTL marks scattered through Hebrew text.
-    text = text.replace(" ", " ").replace("‏", "").replace("‎", "")
-    text = re.sub(r"[ 	]+", " ", text).strip()
-
+    text = text.replace("\u00a0", " ").replace("\u200f", "").replace("\u200e", "")
+    text = re.sub(r"[ \t]+", " ", text)
     for wrong, right in GLUED.items():
         text = text.replace(wrong, right)
     # Restore the space after punctuation that the source omits mid-sentence.
-    text = re.sub(r"(?<=[֐-׿])([,:;])(?=[֐-׿])", r"\1 ", text)
+    text = re.sub(r"(?<=[\u0590-\u05FF])([,:;])(?=[\u0590-\u05FF])", r"\1 ", text)
     # Word left stray spaces inside parentheses around years, e.g. "( 2010 )".
     text = re.sub(r"\(\s+(\d{4})\s+\)", r"(\1)", text)
     return re.sub(r"\s+([,.:;])", r"\1", text)
+
+
+def para_runs(xml):
+    """
+    One paragraph as a list of {t, b} runs, preserving which spans the author
+    emphasised. Adjacent runs sharing a weight are merged.
+    """
+    runs = []
+    for match in re.finditer(r"<w:r(?: [^>]*)?>(.*?)</w:r>", xml, re.S):
+        body = match.group(1)
+        pieces = []
+        for tok in re.findall(r"<w:t[^>]*>(.*?)</w:t>|<w:tab/>|<w:br/>", body, re.S):
+            pieces.append(tok if tok else " ")
+        text = clean("".join(pieces))
+        if not text:
+            continue
+        bold = "<w:b/>" in body
+        if runs and runs[-1]["b"] == bold:
+            runs[-1]["t"] += text
+        else:
+            runs.append({"t": text, "b": bold})
+
+    # Glued words and doubled spaces only surface once runs are joined.
+    for r in runs:
+        for wrong, right in GLUED.items():
+            r["t"] = r["t"].replace(wrong, right)
+        r["t"] = re.sub(r" {2,}", " ", r["t"])
+
+    # A space lost between two runs shows up only across the boundary.
+    for i in range(len(runs) - 1):
+        joined = runs[i]["t"] + runs[i + 1]["t"]
+        for wrong in GLUED:
+            if wrong in joined and wrong not in runs[i]["t"] and wrong not in runs[i + 1]["t"]:
+                runs[i]["t"] += " "
+                break
+
+    # Emphasis should wrap words, not the spaces around them.
+    for i, r in enumerate(runs):
+        if not r["b"]:
+            continue
+        lead = len(r["t"]) - len(r["t"].lstrip(" "))
+        if lead and i > 0:
+            r["t"] = r["t"][lead:]
+            runs[i - 1]["t"] += " "
+        trail = len(r["t"]) - len(r["t"].rstrip(" "))
+        if trail and i + 1 < len(runs):
+            r["t"] = r["t"].rstrip(" ")
+            runs[i + 1]["t"] = " " + runs[i + 1]["t"].lstrip(" ")
+
+    for r in runs:
+        r["t"] = re.sub(r" {2,}", " ", r["t"])
+    if runs:
+        runs[0]["t"] = runs[0]["t"].lstrip()
+        runs[-1]["t"] = runs[-1]["t"].rstrip()
+    return [r for r in runs if r["t"]]
+
+
+def content(runs):
+    """Plain string when nothing is emphasised, otherwise the run list."""
+    if not runs:
+        return ""
+    if all(r["b"] for r in runs) or not any(r["b"] for r in runs):
+        return "".join(r["t"] for r in runs)
+    return [{"t": r["t"], "b": True} if r["b"] else {"t": r["t"]} for r in runs]
+
+
+def para_text(xml):
+    """Flattened text of one paragraph, used for classification."""
+    return "".join(r["t"] for r in para_runs(xml)).strip()
 
 
 def is_heading(xml, text):
@@ -102,9 +166,11 @@ def extract(doc):
     in_keywords = False
 
     for para in re.findall(r"<w:p[ >].*?</w:p>", xml, re.S):
-        text = para_text(para)
+        runs = para_runs(para)
+        text = "".join(r["t"] for r in runs).strip()
         if not text:
             continue
+        rich = content(runs)
 
         if KEYWORDS_MARKER in text and len(text) <= HEADING_MAX:
             in_keywords = True
@@ -118,13 +184,14 @@ def extract(doc):
 
         if "numPr" in para:
             if blocks and blocks[-1]["type"] == "list":
-                blocks[-1]["items"].append(text)
+                blocks[-1]["items"].append(rich)
             else:
-                blocks.append({"type": "list", "items": [text]})
+                blocks.append({"type": "list", "items": [rich]})
         elif any(p.search(text) for p in promote) or is_heading(para, text):
+            # Headings are bold throughout, so they carry no inner emphasis.
             blocks.append({"type": "h", "text": text})
         else:
-            blocks.append({"type": "p", "text": text})
+            blocks.append({"type": "p", "text": rich})
 
     # The opening paragraph becomes the article lead-in.
     lead = ""

@@ -1,6 +1,6 @@
 import mammoth from "mammoth";
 
-import type { ArticleBody, Block } from "./types";
+import type { ArticleBody, Block, Rich, Run } from "./types";
 
 /** Paragraphs longer than this are body copy even when fully bold. */
 const HEADING_MAX = 80;
@@ -33,6 +33,45 @@ function tidy(text: string): string {
     .replace(/\s+([,.:;])/g, "$1");
 }
 
+/**
+ * Splits a paragraph's inner HTML into runs, keeping the spans the author
+ * emphasised. Returns a plain string when nothing inside is emphasised.
+ */
+function toRich(inner: string): Rich {
+  const runs: Run[] = [];
+  const pattern = /<(strong|b|em|i)[^>]*>([\s\S]*?)<\/>|([\s\S]+?)(?=<(?:strong|b|em|i)|$)/g;
+
+  for (const m of inner.matchAll(pattern)) {
+    const bold = Boolean(m[1]);
+    const text = toText(bold ? m[2] : m[3] ?? "");
+    if (!text) continue;
+    const last = runs.at(-1);
+    if (last && Boolean(last.b) === bold) last.t += text;
+    else runs.push(bold ? { t: text, b: true } : { t: text });
+  }
+
+  // Emphasis should wrap words, not the spaces around them.
+  runs.forEach((run, i) => {
+    if (!run.b) return;
+    if (run.t.startsWith(" ") && i > 0) {
+      run.t = run.t.replace(/^ +/, "");
+      runs[i - 1].t += " ";
+    }
+    if (run.t.endsWith(" ") && i + 1 < runs.length) {
+      run.t = run.t.replace(/ +$/, "");
+      runs[i + 1].t = " " + runs[i + 1].t.replace(/^ +/, "");
+    }
+  });
+
+  const cleaned = runs
+    .map((r) => ({ ...r, t: tidy(r.t.replace(/ {2,}/g, " ")) }))
+    .filter((r) => r.t);
+  if (!cleaned.length) return "";
+  if (cleaned.every((r) => r.b) || cleaned.every((r) => !r.b))
+    return cleaned.map((r) => r.t).join("");
+  return cleaned;
+}
+
 /** A paragraph that is entirely bold and short is being used as a heading. */
 function isStyledHeading(inner: string, text: string): boolean {
   if (!text || text.length > HEADING_MAX) return false;
@@ -61,12 +100,15 @@ export async function docxToArticleBody(
   for (const [, tag, inner] of elements) {
     if (tag === "ul" || tag === "ol") {
       const items = [...inner.matchAll(/<li\b[^>]*>([\s\S]*?)<\/li>/g)]
-        .map(([, li]) => tidy(toText(li)))
-        .filter(Boolean);
+        .map(([, li]) => toRich(li))
+        .filter((item) => (typeof item === "string" ? item : item.length));
       if (!items.length) continue;
-      if (inKeywords) keywords.push(...items);
+      if (inKeywords)
+        keywords.push(
+          ...items.map((i) => (typeof i === "string" ? i : i.map((r) => r.t).join("")))
+        );
       else if (blocks.at(-1)?.type === "list")
-        (blocks.at(-1) as { items: string[] }).items.push(...items);
+        (blocks.at(-1) as { items: Rich[] }).items.push(...items);
       else blocks.push({ type: "list", items });
       continue;
     }
@@ -87,16 +129,17 @@ export async function docxToArticleBody(
       (/^h[1-6]$/.test(tag) && text.length <= HEADING_MAX) ||
       isStyledHeading(inner, text);
 
-    blocks.push(heading ? { type: "h", text } : { type: "p", text });
+    // Headings are emphasised throughout, so they carry no inner emphasis.
+    blocks.push(heading ? { type: "h", text } : { type: "p", text: toRich(inner) });
   }
 
   // The document usually opens with its own title; the page renders that.
   if (options.dropFirstHeading && blocks[0]?.type === "h") blocks.shift();
 
-  let lead = "";
+  let lead: Rich = "";
   const firstParagraph = blocks.findIndex((b) => b.type === "p");
   if (firstParagraph !== -1) {
-    lead = (blocks[firstParagraph] as { text: string }).text;
+    lead = (blocks[firstParagraph] as { text: Rich }).text;
     blocks.splice(firstParagraph, 1);
   }
 

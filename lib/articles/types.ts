@@ -1,12 +1,18 @@
+/** A span of text, optionally emphasised by the author. */
+export type Run = { t: string; b?: boolean };
+
+/** Plain text when nothing is emphasised, otherwise a list of runs. */
+export type Rich = string | Run[];
+
 export type Block =
   | { type: "h"; text: string }
-  | { type: "p"; text: string }
-  | { type: "quote"; text: string }
-  | { type: "list"; items: string[] };
+  | { type: "p"; text: Rich }
+  | { type: "quote"; text: Rich }
+  | { type: "list"; items: Rich[] };
 
 /** The body of an article, as produced by the .docx converter. */
 export interface ArticleBody {
-  lead: string;
+  lead: Rich;
   blocks: Block[];
   keywords: string[];
 }
@@ -50,13 +56,18 @@ export function formatDate(iso: string): string {
   return `${d.getUTCDate()} ${HEBREW_MONTHS[d.getUTCMonth()]} ${d.getUTCFullYear()}`;
 }
 
+/** Drops emphasis, for summaries, counts and metadata. */
+export function plain(rich: Rich): string {
+  return typeof rich === "string" ? rich : rich.map((r) => r.t).join("");
+}
+
 export function blockText(b: Block): string {
-  return b.type === "list" ? b.items.join(" ") : b.text;
+  return b.type === "list" ? b.items.map(plain).join(" ") : plain(b.text);
 }
 
 /** Roughly 200 words per minute, floored at one minute. */
 export function readingTime(article: ArticleBody): string {
-  const words = [article.lead, ...article.blocks.map(blockText)]
+  const words = [plain(article.lead), ...article.blocks.map(blockText)]
     .join(" ")
     .split(/\s+/)
     .filter(Boolean).length;
@@ -71,7 +82,7 @@ export function tableOfContents(article: ArticleBody): string[] {
 
 /** Card summary, taken from the article's own opening paragraph. */
 export function excerptOf(article: ArticleBody, max = 165): string {
-  const lead = article.lead.trim();
+  const lead = plain(article.lead).trim();
   if (lead.length <= max) return lead;
   const cut = lead.slice(0, max);
   const stop = Math.max(cut.lastIndexOf("."), cut.lastIndexOf(","));
