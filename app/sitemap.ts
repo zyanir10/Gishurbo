@@ -1,8 +1,12 @@
 import type { MetadataRoute } from "next";
 
+import { getArticles } from "@/lib/articles";
+
 const base = "https://gishurbo.co.il";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const articles = await getArticles();
+
   return [
     {
       url: base,
@@ -58,5 +62,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.6,
     },
+    ...articles.map((article) => ({
+      url: `${base}/knowledge/${article.slug}`,
+      lastModified: new Date(article.dateISO),
+      changeFrequency: "yearly" as const,
+      priority: 0.7,
+    })),
   ];
 }
