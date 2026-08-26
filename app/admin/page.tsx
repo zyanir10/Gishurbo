@@ -341,6 +341,15 @@ export default function AdminPage() {
               <label className="flex items-center gap-2.5 text-sm text-gray-700">
                 <input
                   type="checkbox"
+                  name="original"
+                  value="true"
+                  defaultChecked
+                />
+                לסמן בתגית &quot;מאמר מקורי&quot;
+              </label>
+              <label className="flex items-center gap-2.5 text-sm text-gray-700">
+                <input
+                  type="checkbox"
                   name="dropFirstHeading"
                   value="true"
                   defaultChecked

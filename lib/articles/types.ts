@@ -27,6 +27,8 @@ export interface Article extends ArticleBody {
   /** ISO date — drives sorting and <time datetime>. */
   dateISO: string;
   featured?: boolean;
+  /** Written by the centre rather than reproduced — badged on the card. */
+  original?: boolean;
   author: string;
   authorImage: string;
   byline: string;
