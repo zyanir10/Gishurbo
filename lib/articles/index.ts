@@ -6,6 +6,7 @@ import aiMediation from "./content/ai-mediation.json";
 import conflictAsOpportunity from "./content/conflict-as-opportunity.json";
 import hrConflictResearch from "./content/hr-conflict-research.json";
 import organizationalConflict from "./content/organizational-conflict.json";
+import whyMediation from "./content/why-mediation-personal-view.json";
 import type { Article, ArticleBody } from "./types";
 
 export * from "./types";
@@ -35,6 +36,19 @@ const SEED: Article[] = [
     imageAlt: "מגשר משלים גשר בין שני צדדים",
     dateISO: "2026-08-18",
     featured: true,
+  },
+  {
+    ...(whyMediation as ArticleBody),
+    slug: "why-mediation-personal-view",
+    original: true,
+    title: "מדוע גישור?",
+    category: "מבט אישי",
+    image: "/Family-Holding.png",
+    imageAlt: "שני הורים אוחזים בידי ילדם",
+    dateISO: "2026-08-25",
+    author: "עו\"ד מיכל זמרן",
+    authorImage: "/michal.png",
+    byline: "מייסדת המרכז ליישוב סכסוכים באילת",
   },
   {
     ...(organizationalConflict as ArticleBody),
