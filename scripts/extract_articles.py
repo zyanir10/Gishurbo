@@ -40,6 +40,21 @@ DOCS = [
         "drop": [r"^תקציר מחקר: תפיסת תפקיד", r"^מאת:", r"Sociology and Social Work"],
     },
     {
+        "slug": "why-mediation-personal-view",
+        "file": "מבט אישי - מיכל זמרן - מאמר לאתר.docx",
+        # Byline and title are rendered from the page metadata.
+        "drop": [r"^מאת:", r"^מדוע גישור\?$"],
+        # The standfirst is bold and short, but it reads as the article's lead.
+        "demote": [r"^מבט אישי\."],
+        # Section titles the author left unbolded.
+        "promote": [
+            r"^בטווח הקצר:",
+            r"^בטווח הארוך:",
+            r"^שותפות בקביעת הגורל:",
+            r"^המשפט כברירה אחרונה",
+        ],
+    },
+    {
         "slug": "ai-mediation",
         "file": "גישור ובינה מלכותית- מאמר לאתר.docx",
         "drop": [r"^קטגוריה", r"^זמן קריאה"],
@@ -71,7 +86,9 @@ def clean(text):
         .replace("&apos;", "'")
     )
     # Word leaves NBSP and RTL marks scattered through Hebrew text.
-    text = text.replace("\u00a0", " ").replace("\u200f", "").replace("\u200e", "")
+    text = text.replace("\u00a0", " ")
+    for mark in ("\u200b", "\u200f", "\u200e", "\ufeff"):
+        text = text.replace(mark, "")
     text = re.sub(r"[ \t]+", " ", text)
     for wrong, right in GLUED.items():
         text = text.replace(wrong, right)
@@ -196,6 +213,7 @@ def extract(doc):
 
     drop = [re.compile(pat) for pat in doc.get("drop", [])]
     promote = [re.compile(pat) for pat in doc.get("promote", [])]
+    demote = [re.compile(pat) for pat in doc.get("demote", [])]
     blocks, keywords = [], []
     in_keywords = False
 
@@ -216,7 +234,10 @@ def extract(doc):
         if any(pat.search(text) for pat in drop):
             return
 
-        if any(pat.search(text) for pat in promote) or is_heading(para, text):
+        demoted = any(pat.search(text) for pat in demote)
+        if not demoted and (
+            any(pat.search(text) for pat in promote) or is_heading(para, text)
+        ):
             blocks.append({"type": "h", "text": ORDERED_RE.sub("", text, count=1).strip()})
             return
 
