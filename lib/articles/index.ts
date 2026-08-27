@@ -1,5 +1,7 @@
 import { list } from "@vercel/blob";
 
+import { blobToken, hasBlobStorage } from "../blob";
+
 import aiMediation from "./content/ai-mediation.json";
 import conflictAsOpportunity from "./content/conflict-as-opportunity.json";
 import hrConflictResearch from "./content/hr-conflict-research.json";
@@ -88,10 +90,11 @@ function isArticle(value: unknown): value is Article {
  * has not been connected yet, so the site still renders its built-in articles.
  */
 async function uploadedArticles(): Promise<Article[]> {
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return [];
+  const token = blobToken();
+  if (!token) return [];
 
   try {
-    const { blobs } = await list({ prefix: BLOB_PREFIX });
+    const { blobs } = await list({ prefix: BLOB_PREFIX, token });
     const loaded = await Promise.all(
       blobs
         .filter((b) => b.pathname.endsWith(".json"))
@@ -130,6 +133,8 @@ export async function getFeatured(): Promise<Article> {
   const articles = await getArticles();
   return articles.find((a) => a.featured) ?? articles[0];
 }
+
+export { hasBlobStorage };
 
 export function seedSlugs(): string[] {
   return SEED.map((a) => a.slug);
