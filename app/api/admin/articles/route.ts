@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 
 import { isAuthenticated } from "@/lib/admin-auth";
+import { blobToken } from "@/lib/blob";
 import { BLOB_PREFIX, getArticles } from "@/lib/articles";
 import { docxToArticleBody } from "@/lib/articles/convert";
 import type { Article } from "@/lib/articles/types";
@@ -47,7 +48,8 @@ export async function GET() {
 
 export async function POST(request: Request) {
   if (!(await isAuthenticated())) return unauthorized();
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return storageMissing();
+  const token = blobToken();
+  if (!token) return storageMissing();
 
   const form = await request.formData();
   const file = form.get("file");
@@ -117,7 +119,7 @@ export async function POST(request: Request) {
 
   // Only one article can hold the hero slot.
   if (article.featured) {
-    const { blobs } = await list({ prefix: BLOB_PREFIX });
+    const { blobs } = await list({ prefix: BLOB_PREFIX, token });
     await Promise.all(
       blobs
         .filter((b) => b.pathname !== `${BLOB_PREFIX}${slug}.json`)
@@ -134,6 +136,7 @@ export async function POST(request: Request) {
               contentType: "application/json",
               allowOverwrite: true,
               addRandomSuffix: false,
+              token,
             }
           );
         })
@@ -145,6 +148,7 @@ export async function POST(request: Request) {
     contentType: "application/json",
     allowOverwrite: true,
     addRandomSuffix: false,
+    token,
   });
 
   refreshKnowledgePages(slug);
@@ -153,14 +157,15 @@ export async function POST(request: Request) {
 
 export async function DELETE(request: Request) {
   if (!(await isAuthenticated())) return unauthorized();
-  if (!process.env.BLOB_READ_WRITE_TOKEN) return storageMissing();
+  const token = blobToken();
+  if (!token) return storageMissing();
 
   const slug = new URL(request.url).searchParams.get("slug") ?? "";
   if (!SLUG_PATTERN.test(slug)) {
     return NextResponse.json({ error: "מזהה מאמר לא תקין" }, { status: 400 });
   }
 
-  const { blobs } = await list({ prefix: `${BLOB_PREFIX}${slug}.json` });
+  const { blobs } = await list({ prefix: `${BLOB_PREFIX}${slug}.json`, token });
   if (!blobs.length) {
     return NextResponse.json(
       { error: "המאמר לא נמצא, או שהוא מאמר מובנה שלא ניתן למחוק כאן" },
@@ -168,7 +173,7 @@ export async function DELETE(request: Request) {
     );
   }
 
-  await del(blobs.map((b) => b.url));
+  await del(blobs.map((b) => b.url), { token });
   refreshKnowledgePages(slug);
   return NextResponse.json({ ok: true });
 }

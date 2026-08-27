@@ -7,11 +7,16 @@ import {
   isAuthenticated,
   isConfigured,
 } from "@/lib/admin-auth";
+import { blobTokenSource } from "@/lib/blob";
 
 export async function GET() {
+  const tokenSource = blobTokenSource();
   return NextResponse.json({
     configured: isConfigured(),
     authenticated: await isAuthenticated(),
+    storage: Boolean(tokenSource),
+    // Variable name only — never the token itself.
+    storageVar: tokenSource,
   });
 }
 
