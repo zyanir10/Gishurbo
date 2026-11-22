@@ -32,6 +32,18 @@ const teamMembers = [
       'בעל ניסיון רב שנים בגישור ויישוב סכסוכים, הן במגזר הציבורי כעו"ד לשעבר של יחידות הסיוע שליד בתי המשפט לענייני משפחה, והן במגזר הפרטי.',
     ],
   },
+  {
+    name: "אמיר נוריאל",
+    role: "רואה חשבון, עורך דין ומגשר מטעם יחידת הגישור של בית המשפט",
+    image: "/amir.jpeg",
+    points: [
+      "רואה חשבון ועורך דין",
+      "מגשר מטעם יחידת הגישור של בית המשפט",
+      "מומחה בסכסוכים מסחריים ועסקיים",
+      "מומחה בדיני חברות, כספים ובנקאות",
+      "מומחה בדיני עבודה",
+    ],
+  },
 ];
 
 export default function AboutPage() {
@@ -143,13 +155,26 @@ export default function AboutPage() {
             </h2>
           </div>
         </FadeIn>
-        <div className="grid md:grid-cols-2 gap-8 items-stretch">
-          {teamMembers.map((member, idx) => (
-            <FadeIn key={idx} delay={idx * 120} className="h-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+          {teamMembers.map((member, idx) => {
+            // At two columns an odd final card would sit alone against the
+            // edge, so centre it across the row. Three columns fit it exactly.
+            const orphan =
+              teamMembers.length % 2 === 1 && idx === teamMembers.length - 1;
+            return (
+            <FadeIn
+              key={idx}
+              delay={idx * 120}
+              className={`h-full${
+                orphan
+                  ? " md:col-span-2 md:mx-auto md:w-[calc(50%-1rem)] lg:col-span-1 lg:mx-0 lg:w-auto"
+                  : ""
+              }`}
+            >
               <div className="h-full bg-white rounded-2xl p-8 border border-gold/20 hover:-translate-y-1 hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center">
                 <div
-                  className="mb-6 shrink-0 rounded-full overflow-hidden"
-                  style={{ width: 320, height: 320, border: "3px solid #C9A646" }}
+                  className="mb-6 shrink-0 rounded-full overflow-hidden w-full max-w-[320px] aspect-square"
+                  style={{ border: "3px solid #C9A646" }}
                 >
                   <Image
                     src={member.image}
@@ -171,7 +196,8 @@ export default function AboutPage() {
                 </ul>
               </div>
             </FadeIn>
-          ))}
+            );
+          })}
         </div>
       </SectionWrapper>
 
